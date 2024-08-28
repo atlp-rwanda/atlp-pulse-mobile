@@ -1,0 +1,1 @@
+// Holds reusable fragments used in multiple queries or mutations.

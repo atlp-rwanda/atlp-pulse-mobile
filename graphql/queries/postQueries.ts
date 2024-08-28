@@ -1,0 +1,1 @@
+// Stores all GraphQL queries, organized by feature or entity
