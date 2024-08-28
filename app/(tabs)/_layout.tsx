@@ -5,6 +5,8 @@ import { Pressable, Text } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import client from '@/graphql/client'
+import { ApolloProvider } from '@apollo/client';
 
 export function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -20,7 +22,8 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    <ApolloProvider client={client}>
+          <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: useClientOnlyValue(false, true),
@@ -54,5 +57,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </ApolloProvider>
+
   );
 }

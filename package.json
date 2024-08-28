@@ -31,7 +31,8 @@
             "!**/app/modal.tsx",
             "!**/app/(**)/_layout.tsx",
             "!**/components/**",
-            "!**/tailwind.config.js/**"
+            "!**/tailwind.config.js/**",
+            "!**/graphql/**"
         ]
     },
     "dependencies": {
