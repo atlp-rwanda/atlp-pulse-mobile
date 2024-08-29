@@ -5,8 +5,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
+import '@/global.css'
 import { useColorScheme } from '@/components/useColorScheme';
+import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
+import React from 'react';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -23,7 +25,10 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
     ...FontAwesome.font,
   });
 
@@ -51,8 +56,6 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
   );
