@@ -1,4 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/atlp-pulse-mobile/badge.svg)](https://coveralls.io/github/atlp-rwanda/atlp-pulse-mobile)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/atlp-rwanda/atlp-pulse-mobile/tree/ch-setup-ci-testing-coveralls.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/atlp-rwanda/atlp-pulse-mobile/tree/ch-setup-ci-testing-coveralls)
 
 # ATLP Pulse Mobile Application
 
