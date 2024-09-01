@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/atlp-pulse-mobile/badge.svg)](https://coveralls.io/github/atlp-rwanda/atlp-pulse-mobile)
+
 # ATLP Pulse Mobile Application
 
 Pulse is a platform designed to handle ratings for trainees for the companies with different programs. It is currently under development using modern web and mobile technologies that prioritize speed and security. This repo holds the codebase for the mobile part of the platform which uses React Native framework to build cross-platform mobile applications.
