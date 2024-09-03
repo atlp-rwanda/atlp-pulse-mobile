@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import React, {PropsWithChildren} from 'react';
+
+export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
 
 export default function TabTwoScreen() {
   return (

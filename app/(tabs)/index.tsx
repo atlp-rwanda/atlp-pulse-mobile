@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
-
+import { PropsWithChildren } from 'react';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import React from 'react';
+
+export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
 
 export default function TabOneScreen() {
   return (
