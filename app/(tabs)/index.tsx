@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { Button, StyleSheet } from 'react-native';
 import { PropsWithChildren } from 'react';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import React from 'react';
+import { router, Router } from 'expo-router';
 
 export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
 
@@ -12,6 +13,11 @@ export default function TabOneScreen() {
       <Text style={styles.title}>Tab One</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Button
+      title='Go to two'
+      onPress={()=>router.push('./two')}
+      >
+      </Button>
     </View>
   );
 }
