@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "atlp-pulse-mobile",
-    "slug": "atlp-pulse-mobile",
+    "slug": "devpulse",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.atlp.pulseapp"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f8b7c135-0e7e-45e6-92bc-0d4a7a1435a2"
+      }
+    },
+    "owner": "devpulse"
   }
 }
