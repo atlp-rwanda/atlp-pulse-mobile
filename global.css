@@ -1,0 +1,104 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-dark:rgba(2, 9, 23, 1);
+    --color-primary-light:rgba(255, 255, 255, 1);
+    ;
+/* secondarylight colors */
+    --color-secondary-light-900: rgb(94, 97, 107);
+    --color-secondary-light-800: rgb(123, 127, 140);
+    --color-secondary-light-700: rgb(159, 164, 181);
+    --color-secondary-light-600: rgb(204, 210, 232);
+    --color-secondary-light-500: rgb(224, 231, 255);
+    --color-secondary-light-400: rgb(230, 236, 255);
+    --color-secondary-light-300: rgb(234, 239, 255);
+    --color-secondary-light-200: rgb(241, 244, 255);
+    --color-secondary-light-100: rgb(245, 248, 255);
+    --color-secondary-light-50: rgb(252, 253, 255);
+
+    /* secondary dark colors */
+    --color-secondary-dark-900: rgb(32, 32, 32);
+    --color-secondary-dark-800: rgb(41, 41, 41);
+    --color-secondary-dark-700: rgb(53, 53, 53);
+    --color-secondary-dark-600: rgb(68, 68, 68);
+    --color-secondary-dark-500: rgb(75, 75, 75);
+    --color-secondary-dark-400: rgb(111, 111, 111);
+    --color-secondary-dark-300: rgb(134, 134, 134);
+    --color-secondary-dark-200: rgb(172, 172, 172);
+    --color-secondary-dark-100: rgb(199, 199, 199);
+    --color-secondary-dark-50: rgb(237, 237, 237);
+   
+    /* action colors */
+    --color-action-900: rgb(56, 43, 102);
+    --color-action-800: rgb(74, 57, 133);
+    --color-action-700: rgb(95, 73, 172);
+    --color-action-600: rgb(122, 94, 220);
+    --color-action-500: rgb(134, 103, 242);
+    --color-action-400: rgb(158, 133, 245);
+    --color-action-300: rgb(174, 153, 246);
+    --color-action-200: rgb(199, 185, 249);
+    --color-action-100: rgb(217, 208, 251);
+    --color-action-50: rgb(243, 240, 254);
+/* 
+    success colors */
+
+    --color-success-900: rgb(11, 39, 13);
+    --color-success-800: rgb(15, 52, 18);
+    --color-success-700: rgb(19, 67, 23);
+    --color-success-600: rgb(25, 86, 29);
+    --color-success-500: rgb(27, 94, 32);
+    --color-success-400: rgb(73, 126, 77);
+    --color-success-300: rgb(102, 147, 106);
+    --color-success-200: rgb(150, 181, 152);
+    --color-success-100: rgb(184, 205, 186);
+    --color-success-50: rgb(232, 239, 233);
+
+    /* warning colors */
+
+
+    --color-warning-900: rgb(107, 99, 25);
+    --color-warning-800: rgb(140, 129, 32);
+    --color-warning-700: rgb(181, 167, 42);
+    --color-warning-600: rgb(232, 214, 54);
+    --color-warning-500: rgb(255, 235, 59);
+    --color-warning-400: rgb(255, 239, 98);
+    --color-warning-300: rgb(255, 242, 124);
+    --color-warning-200: rgb(255, 246, 165);
+    --color-warning-100: rgb(255, 249, 194);
+    --color-warning-50: rgb(255, 253, 235);
+
+    /* danger colors */
+
+    --color-danger-900: rgb(77, 12, 12);
+    --color-danger-800: rgb(101, 15, 15);
+    --color-danger-700: rgb(130, 20, 20);
+    --color-danger-600: rgb(167, 25, 25);
+    --color-danger-500: rgb(183, 28, 28);
+    --color-danger-400: rgb(197, 73, 73);
+    --color-danger-300: rgb(207, 103, 103);
+    --color-danger-200: rgb(222, 151, 151);
+    --color-danger-100: rgb(233, 185, 185);
+    --color-danger-50: rgb(248, 232, 232);
+
+    /* neutral colors */
+
+    --color-neutral-900: rgb(66, 66, 66);
+    --color-neutral-800: rgb(87, 87, 87);
+    --color-neutral-700: rgb(112, 112, 112);
+    --color-neutral-600: rgb(144, 144, 144);
+    --color-neutral-500: rgb(158, 158, 158);
+    --color-neutral-400: rgb(177, 177, 177);
+    --color-neutral-300: rgb(190, 190, 190);
+    --color-neutral-200: rgb(210, 210, 210);
+    --color-neutral-100: rgb(225, 225, 225);
+    --color-neutral-50: rgb(245, 245, 245);
+
+
+
+    /* ... */
+  }
+}
