@@ -29,8 +29,8 @@ export default function AppOnboarding() {
   const pagerViewRef = useRef<PagerView>(null);
   const [page, setPage] = useState<number>(0);
 
-  const textColor = colorScheme === 'dark' ? 'bg-gray-100' : 'bg-gray-800';
-  const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-primary-light';
+  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
+  const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
   const getDotColor = (index: number) => (index === page ? 'bg-action-500' : 'bg-white');
 
@@ -63,13 +63,8 @@ export default function AppOnboarding() {
               style={{ width: '100%', flex: 1 }}
             />
             <Text
-              style={{
-                color: textColor,
-                fontSize: 24,
-                textAlign: 'center',
-              }}
-              className="font-Inter-SemiBold leading-9"
-            >
+             style={{ fontSize: 24 }}
+             className={`font-Inter-SemiBold text-center leading-9 ${textColor}`}>
               {page.content}
             </Text>
           </View>
