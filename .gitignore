@@ -27,3 +27,4 @@ yarn-error.log*
 expo-env.d.ts
 
 coverage/**/*
+__tests__/_snapshots__/**/*
