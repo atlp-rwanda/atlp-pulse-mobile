@@ -1,14 +1,12 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --color-primary-dark:rgba(2, 9, 23, 1);
-    --color-primary-light:rgba(255, 255, 255, 1);
-    ;
-/* secondarylight colors */
+    --color-primary-dark: rgba(2, 9, 23, 1);
+    --color-primary-light: rgba(255, 255, 255, 1);
+    /* secondarylight colors */
     --color-secondary-light-900: rgb(94, 97, 107);
     --color-secondary-light-800: rgb(123, 127, 140);
     --color-secondary-light-700: rgb(159, 164, 181);
@@ -31,7 +29,7 @@
     --color-secondary-dark-200: rgb(172, 172, 172);
     --color-secondary-dark-100: rgb(199, 199, 199);
     --color-secondary-dark-50: rgb(237, 237, 237);
-   
+
     /* action colors */
     --color-action-900: rgb(56, 43, 102);
     --color-action-800: rgb(74, 57, 133);
@@ -43,7 +41,7 @@
     --color-action-200: rgb(199, 185, 249);
     --color-action-100: rgb(217, 208, 251);
     --color-action-50: rgb(243, 240, 254);
-/* 
+    /* 
     success colors */
 
     --color-success-900: rgb(11, 39, 13);
@@ -58,7 +56,6 @@
     --color-success-50: rgb(232, 239, 233);
 
     /* warning colors */
-
 
     --color-warning-900: rgb(107, 99, 25);
     --color-warning-800: rgb(140, 129, 32);
@@ -96,8 +93,6 @@
     --color-neutral-200: rgb(210, 210, 210);
     --color-neutral-100: rgb(225, 225, 225);
     --color-neutral-50: rgb(245, 245, 245);
-
-
 
     /* ... */
   }
