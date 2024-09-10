@@ -63,8 +63,9 @@ export default function AppOnboarding() {
               style={{ width: '100%', flex: 1 }}
             />
             <Text
-             style={{ fontSize: 24 }}
-             className={`font-Inter-SemiBold text-center leading-9 ${textColor}`}>
+              style={{ fontSize: 24 }}
+              className={`font-Inter-SemiBold text-center leading-9 ${textColor}`}
+            >
               {page.content}
             </Text>
           </View>
