@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 
-import Dashboard, { CustomText } from '@/app/dashboard/index';
+import Dashboard from '@/app/dashboard/index';
 
 describe('<Dashboard />', () => {
   test('Text renders correctly on Dashboard', () => {

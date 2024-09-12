@@ -1,7 +1,6 @@
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '@/constants/Colors';
-import React from 'react';
 import { useColorScheme } from './useColorScheme';
 
 type ThemeProps = {
@@ -27,10 +26,10 @@ export function useThemeColor(
 }
 
 export function Text(props: TextProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { lightColor, darkColor, className, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-  return <DefaultText className="font-Inter-Bold" style={[{ color }, style]} {...otherProps} />;
+  return <DefaultText className={className + ' font-Inter-Medium'} {...otherProps} />;
 }
 
 export function View(props: ViewProps) {

@@ -1,8 +1,7 @@
-import { LightBottomIcon, DarkBottomIcon } from '@/assets/Icons/auth/Icons';
+import { DarkBottomIcon, LightBottomIcon } from '@/assets/Icons/auth/Icons';
 import { Text } from '@/components/Themed';
 import { OrgLoginSchema } from '@/validations/login.schema';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
@@ -79,15 +78,6 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                   <Text className="text-secondary-light-500 text-lg font-semibold">Continue</Text>
                 )}
               </TouchableOpacity>
-
-              <View className="mt-4 flex-row justify-center">
-                <Text className={`font-Inter-Regular ${textColor}`}>
-                  Looking to register an organization instead?{' '}
-                </Text>
-                <TouchableOpacity onPress={() => router.push('/auth/login')}>
-                  <Text className="text-action-500 underline">Sign up</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
         </View>
