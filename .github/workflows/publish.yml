@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - publish
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Build & Submit App
+        run: eas build --platform $PLATFORM --profile $PROFILE --auto-submit --non-interactive
+        env:
+          PLATFORM: ${{ vars.BUILD_PLATFORM }}
+          PROFILE: ${{ vars.BUILD_PROFILE }}
+
+      # This step will be deprecated and removed in the future once the google play account is created.
+      - name: 🚀 Build Android App
+        run: eas build --platform android --profile $PROFILE --non-interactive
+        env:
+          PROFILE: ${{ vars.BUILD_PROFILE }}
