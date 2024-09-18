@@ -51,7 +51,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
           <Text className="text-lg font-Inter-Bold mb-6 text-center text-gray-600">
             Welcome to <Text className="font-Inter-Regular">your_organization_name</Text>
           </Text>
-          <TouchableOpacity onPress={() => router.push('/auth/login')}>
+          <TouchableOpacity onPress={() => router.push('/auth/login/login')}>
             <Text className="text-sm font-Inter-Regular text-center text-action-600 mb-6">
               Switch your organization
             </Text>
@@ -108,7 +108,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
 
             <View className="flex flex-row justify-between">
               <Text className="mt-2 text-error-400">{formik.errors.password}</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/auth/forget/reset-password')}>
                 <Text className="text-action-500 p-2 text-right">Forgot Password?</Text>
               </TouchableOpacity>
             </View>

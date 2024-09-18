@@ -1,12 +1,12 @@
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
-import { UserContext } from '@/hooks/useAuth';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { UserContext } from '@/hook/useAuth';
+import { useMutation, useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Href, useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useContext, useState } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert } from 'react-native';
 
 class ErrorHandler {
   static handleNetworkError() {
@@ -83,13 +83,13 @@ export default function SignInOrganization() {
             Alert.alert('Welcome');
 
             if (params.redirect) {
-              router.push(params.redirect as Href<string | object>);
+              router.push(params.redirect);
               return;
             }
 
             const role = data.loginUser.user.role;
             if (role === 'admin' || role === 'coordinator') {
-              router.push('/dashboard/trainee');
+              router.push('/trainee');
             } else {
               Alert.alert('The app is for the trainee only');
             }

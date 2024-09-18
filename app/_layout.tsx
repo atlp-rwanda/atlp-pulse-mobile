@@ -16,6 +16,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { ToastProvider } from 'react-native-toast-notifications';
+
 export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
@@ -56,12 +58,14 @@ function RootLayoutNav() {
 
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-          <Stack.Screen name="auth" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
+      <ToastProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="auth" options={{ headerShown: false }} />
+            <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
+      </ToastProvider>
     </ApolloProvider>
   );
 }

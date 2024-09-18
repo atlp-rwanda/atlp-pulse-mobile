@@ -1,5 +1,6 @@
 import { logo } from '@/assets/Icons/auth/Icons';
-import { Slot } from 'expo-router';
+import { back_arrow_dark, back_arrow_light } from '@/components/icons/icons';
+import { router, Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,7 +9,7 @@ import { SvgXml } from 'react-native-svg';
 export default function AuthLayout() {
   const insets = useSafeAreaInsets();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const colorScheme = useColorScheme();
+  const [colorScheme, setColorScheme] = useState(useColorScheme());
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
   useEffect(() => {}, [isDarkMode]);
@@ -32,12 +33,23 @@ export default function AuthLayout() {
         }}
       >
         <View className={`flex-1 bg-secondary-light-500 dark:bg-primary-dark h-full  ${bgColor}`}>
-          <View className="w-full h-[87px] relative bg-primary-light dark:bg-primary-dark flex items-center justify-center px-12">
-            <View className="flex-row items-center">
-              <SvgXml xml={logo} />
+          <View className="w-full h-[87px] bg-primary-light dark:bg-primary-dark items-center  justify-between  px-5 flex-row">
+            <View className="flex-row items-center gap-20 justify-between ">
+              <TouchableOpacity onPress={() => router.back()}>
+                {colorScheme == 'dark' ? (
+                  <SvgXml xml={back_arrow_light} />
+                ) : (
+                  <SvgXml xml={back_arrow_dark} />
+                )}
+              </TouchableOpacity>
+              <View className="flex-row items-center flex-[70&] ">
+                <SvgXml xml={logo} />
+              </View>
             </View>
           </View>
-          <Slot />
+          <View className="flex justify-center items-center">
+            <Slot />
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

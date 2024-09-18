@@ -1,9 +1,9 @@
-import { Pressable, Text } from 'react-native';
-
+import React from 'react';
+import { ActivityIndicator, Pressable, Text, useColorScheme } from 'react-native';
 interface Props {
   title?: string;
   size?: 'sm' | 'lg';
-  state?: 'Default' | 'Pressed' | 'Outlined' | 'Hover' | 'Disabled';
+  state?: 'Default' | 'Pressed' | 'Outlined' | 'Hover' | 'Disabled' | 'Loading';
   onPress: () => void;
   className?: string;
 }
@@ -16,11 +16,12 @@ export default function Button({
   className,
 }: Props) {
   let baseClasses = 'flex flex-row justify-center items-center rounded';
-  let sizeClasses = size === 'sm' ? 'px-3 py-4' : 'px-4 py-4';
+  let sizeClasses = size === 'sm' ? 'px-3 py-4 ' : 'px-4 py-4 ';
   let textClasses = 'text-primary-light font-inter';
 
   let stateClasses = 'bg-action-500 text-primary-light';
-
+  if (state === 'Loading') {
+  }
   if (state === 'Hover') {
     stateClasses = 'bg-action-600 text-primary-light';
   }
@@ -40,7 +41,13 @@ export default function Button({
 
   return (
     <Pressable className={buttonClasses} onPress={onPress} disabled={state === 'Disabled'}>
-      <Text className={textClasses}>{title}</Text>
+      <Text className={textClasses}>
+        {state === 'Loading' ? (
+          <ActivityIndicator size="small" color="#fff" style={{ marginLeft: 10 }} />
+        ) : (
+          title
+        )}
+      </Text>
     </Pressable>
   );
 }
