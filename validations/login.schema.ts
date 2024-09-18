@@ -7,13 +7,13 @@ export const UserLoginSchema = Yup.object().shape({
     .required('Please provide a password'),
 });
 export const ResetPasswordSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
+  email: Yup.string().email('Invalid email').required(' Email is Required'),
 });
 export const OrgLoginSchema = Yup.object().shape({
   organization: Yup.string().required('Organization URL is required'),
 });
 export const SetNewPasswordSchema = Yup.object().shape({
-  password: Yup.string().min(8, 'Password must be at least 8 characters').required('Required'),
+  password: Yup.string().min(8, 'Password must be at least 8 characters').required(' Password is Required'),
   confirmpassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Required'),

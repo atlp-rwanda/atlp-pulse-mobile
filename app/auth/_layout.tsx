@@ -2,7 +2,7 @@ import { logo } from '@/assets/Icons/auth/Icons';
 import { back_arrow_dark, back_arrow_light } from '@/components/icons/icons';
 import { router, Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, View, useColorScheme } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
 

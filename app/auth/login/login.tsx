@@ -1,7 +1,7 @@
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
-import { UserContext } from '@/hook/useAuth';
+import { UserContext } from '@/hooks/useAuth';
 import { useMutation, useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -47,8 +47,7 @@ export default function SignInOrganization() {
         },
         onCompleted({ loginOrg }) {
           AsyncStorage.setItem('orgToken', loginOrg.token);
-          let value: string = String(name);
-          value = `${name}`;
+          let value: string = String(values.organization);
           AsyncStorage.setItem('orgName', value);
           Alert.alert('Welcome! Sign in to Continue');
           setOrgLoginSuccess(true);
@@ -89,7 +88,7 @@ export default function SignInOrganization() {
 
             const role = data.loginUser.user.role;
             if (role === 'admin' || role === 'coordinator') {
-              router.push('/trainee');
+              router.push('/dashboard/trainee');
             } else {
               Alert.alert('The app is for the trainee only');
             }

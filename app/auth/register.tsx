@@ -96,7 +96,7 @@ export default function RegisterForm() {
         if (data) {
           ToastAndroid.show('Successfully registered', ToastAndroid.LONG);
           await AsyncStorage.setItem('org_token', data.createUser.token);
-          router.push('/auth/login');
+          router.push('/auth/login/login');
         }
 
         if (errors) {
@@ -286,7 +286,7 @@ export default function RegisterForm() {
         </View>
         <View className="mt-6 flex-row">
           <Text className="ml-2">Already have an account?</Text>
-          <TouchableOpacity onPress={() => router.push('/auth/login')} className="ml-2 ">
+          <TouchableOpacity onPress={() => router.push('/auth/login/login')} className="ml-2 ">
             <Text className={`underline`}>Sign in</Text>
           </TouchableOpacity>
         </View>

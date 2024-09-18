@@ -78,8 +78,8 @@ export default function AppOnboarding() {
         <View className={`rounded-full w-4 h-4 ${getDotColor(2)}`}></View>
       </View>
       <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
-        <TouchableOpacity onPress={() => router.push('/auth/forget/reset-password')}>
-          <Text className="text-lg font-Inter-Medium">Get Started</Text>
+        <TouchableOpacity onPress={() => router.push('/auth/login/login')}>
+          <Text className={`text-lg font-Inter-Medium ${textColor}`}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </>

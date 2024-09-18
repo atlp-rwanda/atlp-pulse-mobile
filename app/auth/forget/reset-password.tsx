@@ -61,8 +61,8 @@ export default function ResetPassword() {
   return (
     <SafeAreaView>
       <StatusBar />
-      <View className={`flex-1 ${bgColor} p-6`}>
-        <View className="flex-1 justify-center">
+      <View className={`flex-1 ${bgColor} `}>
+        <View className="flex-1 p-10 justify-center mt-16">
           <Text className={`text-3xl font-Inter-Bold mb-6 text-center ${textColor}`}>
             Reset Password
           </Text>

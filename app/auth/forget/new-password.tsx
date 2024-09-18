@@ -24,8 +24,8 @@ const SetNewPassword = () => {
   const originalToken = Array.isArray(token) ? token.join('.') : token?.replace(/\*/g, '.');
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
-  const [colorScheme, setColorScheme] = useState(useColorScheme());
   const toast = useToast();
+  const colorScheme = useColorScheme()
 
   const [ResetPassword] = useMutation(FORGOT_PASSWORD, {
     onCompleted: () => {
@@ -89,25 +89,26 @@ const SetNewPassword = () => {
   };
 
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
-  const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-[#E0E7FF]';
+  const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
   const banner = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-primary-light';
   const inputbg = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-primary-light';
 
   return (
     <View>
       <StatusBar />
-      <View className={`flex-1 ${bgColor} `}>
-        <View className="flex-1 p-10 justify-center mt-36">
+      <View className={`flex-1 ${bgColor}`}>
+        <View className="flex-1 p-8 justify-center ">
           <View>
             <Text className={`text-2xl font-Inter-Bold mb-6 text-center ${textColor}`}>
               Reset Password
             </Text>
           </View>
 
-          <View className="flex flex-col gap-2">
+          <View className="flex flex-col gap-2 p-6">
             <View className="flex mb-4 gap-4">
+              <Text className={`${textColor}`}>New Password</Text>
               <View
-                className={`flex-row items-center ${inputbg} p-4 rounded-lg shadow border-2 border-[#D2D2D2]`}
+                className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-4 rounded-lg shadow border-2 border-[#D2D2D2]`}
               >
                 <SvgXml xml={lock} />
                 <TextInput
@@ -131,7 +132,7 @@ const SetNewPassword = () => {
               {formik.errors.password && (
                 <Text className="text-error-500 mg-2">{formik.errors.password}</Text>
               )}
-
+              <Text className={`${textColor}`}>Confirm new Password</Text>
               <View
                 className={`flex-row items-center ${inputbg} p-4 rounded-lg shadow border-2 border-[#D2D2D2]`}
               >
@@ -159,7 +160,6 @@ const SetNewPassword = () => {
               )}
             </View>
 
-            {/* Submit Button */}
             <View className="flex flex-col gap-4">
               <Button
                 state="Default"
