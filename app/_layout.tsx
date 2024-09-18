@@ -1,5 +1,8 @@
 import { useColorScheme } from '@/components/useColorScheme';
 import '@/global.css';
+import { client } from '@/graphql/client';
+import { ApolloProvider } from '@apollo/client';
+import { useApolloClientDevTools } from '@dev-plugins/apollo-client';
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -11,9 +14,8 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
@@ -50,12 +52,16 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  useApolloClientDevTools(client);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }

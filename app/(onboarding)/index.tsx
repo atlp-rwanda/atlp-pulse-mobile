@@ -1,6 +1,7 @@
 import { Text, View } from '@/components/Themed';
 import { Image } from 'expo-image';
-import React, { useEffect, useRef, useState } from 'react';
+import { router } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import PagerView from 'react-native-pager-view';
 
@@ -78,7 +79,9 @@ export default function AppOnboarding() {
       </View>
       <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
         <TouchableOpacity>
-          <Text className="text-lg font-Inter-Medium">Get Started</Text>
+          <Text className="text-lg font-Inter-Medium" onPress={() => router.push('/auth/login')}>
+            Get Started
+          </Text>
         </TouchableOpacity>
       </View>
     </>
