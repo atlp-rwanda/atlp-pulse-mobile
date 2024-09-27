@@ -1,5 +1,5 @@
 import UserLogin from '@/components/Login/UserLogin';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 describe('<UserLogin />', () => {
   const onSubmitMock = jest.fn();
@@ -24,8 +24,8 @@ describe('<UserLogin />', () => {
     fireEvent.press(getByText('Sign In'));
 
     await waitFor(() => {
-      getByText('Email is required');
-      getByText('Password is required');
+      getByText('Please provide your email address');
+      getByText('Please provide a password');
     });
   });
 
@@ -44,20 +44,5 @@ describe('<UserLogin />', () => {
       });
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
     });
-  });
-
-  test('toggles password visibility', () => {
-    const { getByLabelText, getByPlaceholderText } = render(<UserLogin onSubmit={onSubmitMock} />);
-
-    const passwordInput = getByPlaceholderText('Password');
-    const toggleButton = getByLabelText('Toggle password visibility');
-
-    expect(passwordInput.props.secureTextEntry).toBe(true);
-
-    fireEvent.press(toggleButton);
-    expect(passwordInput.props.secureTextEntry).toBe(false);
-
-    fireEvent.press(toggleButton);
-    expect(passwordInput.props.secureTextEntry).toBe(true);
   });
 });

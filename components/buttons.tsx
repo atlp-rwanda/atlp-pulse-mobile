@@ -1,4 +1,3 @@
-import React from 'react';
 import { Pressable, Text } from 'react-native';
 
 interface Props {
@@ -17,7 +16,7 @@ export default function Button({
   className,
 }: Props) {
   let baseClasses = 'flex flex-row justify-center items-center rounded';
-  let sizeClasses = size === 'sm' ? 'px-3 py-4 w-[120]' : 'px-4 py-4 w-[150]';
+  let sizeClasses = size === 'sm' ? 'px-3 py-4' : 'px-4 py-4';
   let textClasses = 'text-primary-light font-inter';
 
   let stateClasses = 'bg-action-500 text-primary-light';

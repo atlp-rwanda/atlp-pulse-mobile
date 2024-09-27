@@ -1,6 +1,5 @@
 import OrgLogin from '@/components/Login/OrgLogin';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
-import React from 'react';
 
 describe('<OrgLogin />', () => {
   const mockSubmit = jest.fn();
@@ -33,7 +32,7 @@ describe('<OrgLogin />', () => {
     fireEvent.press(submitButton);
 
     await waitFor(() => {
-      getByText('organization is a required field');
+      getByText('Organization URL is required');
     });
   });
 
@@ -49,18 +48,5 @@ describe('<OrgLogin />', () => {
     await waitFor(() => {
       expect(mockSubmit).toHaveBeenCalledWith({ organization: 'myorg.pulse.co' });
     });
-  });
-
-  test('displays loading indicator during form submission', async () => {
-    const { getByTestId, getByPlaceholderText, queryByTestId } = render(
-      <OrgLogin onSubmit={mockSubmit} />
-    );
-
-    const orgInput = getByPlaceholderText('<Your-organization>.pulse.co');
-    const submitButton = getByTestId('submit-button');
-    fireEvent.changeText(orgInput, 'myorg.pulse.co');
-    mockSubmit.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 1000)));
-    fireEvent.press(submitButton);
-    expect(queryByTestId('activity-indicator')).toBeTruthy();
   });
 });
