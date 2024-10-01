@@ -2,11 +2,11 @@ import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
 import { UserContext } from '@/hooks/useAuth';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Href, useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useContext, useState } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert } from 'react-native';
 
 class ErrorHandler {
   static handleNetworkError() {
@@ -47,8 +47,7 @@ export default function SignInOrganization() {
         },
         onCompleted({ loginOrg }) {
           AsyncStorage.setItem('orgToken', loginOrg.token);
-          let value: string = String(name);
-          value = `${name}`;
+          let value: string = String(values.organization);
           AsyncStorage.setItem('orgName', value);
           Alert.alert('Welcome! Sign in to Continue');
           setOrgLoginSuccess(true);
@@ -83,7 +82,7 @@ export default function SignInOrganization() {
             Alert.alert('Welcome');
 
             if (params.redirect) {
-              router.push(params.redirect as Href<string | object>);
+              router.push(params.redirect);
               return;
             }
 

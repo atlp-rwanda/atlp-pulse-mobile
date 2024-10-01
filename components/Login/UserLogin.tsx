@@ -7,14 +7,14 @@ import {
   DarkLock,
 } from '@/assets/Icons/auth/Icons';
 import { Ionicons } from '@expo/vector-icons';
-import Checkbox from 'expo-checkbox';
 import { router } from 'expo-router';
 import { View, TouchableOpacity, TextInput, ActivityIndicator, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Text } from '@/components/Themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { UserLoginSchema } from '@/validations/login.schema';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FormValues = {
   email: string;
@@ -26,10 +26,19 @@ type userLoginProps = {
 };
 
 export default function UserLogin({ onSubmit }: userLoginProps) {
-  const [isChecked, setChecked] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
+  const [orgName, setOrgName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchOrgName = async () => {
+      const name = await AsyncStorage.getItem('orgName');
+      setOrgName(name);
+    };
+    fetchOrgName();
+  }, []);
+
   const togglePasswordVisibility = () => {
     setSecureTextEntry((prev) => !prev);
   };
@@ -43,13 +52,13 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
     },
     validationSchema: UserLoginSchema,
   });
-
+  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   return (
     <View testID="user-login">
       <View className="flex-1 p-10 justify-center mt-16">
         <View>
-          <Text className="text-lg font-Inter-Bold mb-6 text-center text-gray-600">
-            Welcome to <Text className="font-Inter-Regular">your_organization_name</Text>
+          <Text className={`text-lg font-Inter-Bold mb-6 text-center ${textColor}`}>
+            Welcome to <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
           </Text>
           <TouchableOpacity onPress={() => router.push('/auth/login')}>
             <Text className="text-sm font-Inter-Regular text-center text-action-600 mb-6">
@@ -60,6 +69,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
 
         <View className="flex flex-col">
           <View className="flex mb-4">
+            <Text className={`p-2 ${textColor}`}>New Password</Text>
             <View
               className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
             >
@@ -80,6 +90,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               />
             </View>
             <Text className="mt-2 text-error-400 ">{formik.errors.email}</Text>
+            <Text className={`pl-2 pt-2 ${textColor}`}>New Password</Text>
             <View
               className={`mt-4 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3`}
             >
@@ -108,7 +119,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
 
             <View className="flex flex-row justify-between">
               <Text className="mt-2 text-error-400">{formik.errors.password}</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
                 <Text className="text-action-500 p-2 text-right">Forgot Password?</Text>
               </TouchableOpacity>
             </View>
@@ -125,16 +136,6 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
                 <Text className="text-secondary-light-500 text-lg font-semibold">Sign In</Text>
               )}
             </TouchableOpacity>
-
-            <View className="mt-4 flex-row justify-center">
-              <Checkbox
-                className="w-4 h-4 rounded border border-gray-300"
-                value={isChecked}
-                onValueChange={setChecked}
-                color={isChecked ? '#8667F2' : undefined}
-              />
-              <Text className="ml-2">Remember me.</Text>
-            </View>
           </View>
         </View>
 
@@ -145,3 +146,4 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
     </View>
   );
 }
+
