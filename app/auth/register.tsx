@@ -16,11 +16,11 @@ import {
   ActivityIndicator,
   Alert,
   TextInput,
-  ToastAndroid,
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import { useToast } from 'react-native-toast-notifications';
 
 type FormValues = {
   firstName: string;
@@ -44,6 +44,7 @@ type RegisterResponse = {
 
 export default function RegisterForm() {
   const router = useRouter();
+  const toast = useToast();
   const params = useLocalSearchParams();
   const colorScheme = useColorScheme();
 
@@ -69,7 +70,9 @@ export default function RegisterForm() {
           } else {
             router.push('/dashboard/trainee');
           }
-        } catch (err) {}
+        } catch (err) {
+          toast.show('Invalid token or expired token', { type: 'danger' });
+        }
       }
     };
 
@@ -94,19 +97,19 @@ export default function RegisterForm() {
         });
 
         if (data) {
-          ToastAndroid.show('Successfully registered', ToastAndroid.LONG);
+          toast.show('Successfully registered', { type: 'success' });
           await AsyncStorage.setItem('org_token', data.createUser.token);
           router.push('/auth/login');
         }
 
         if (errors) {
-          ToastAndroid.show(errors[0].message, ToastAndroid.LONG);
+          toast.show(errors[0].message, { type: 'danger' });
         }
       } catch (error) {
         if (error instanceof ApolloError) {
-          ToastAndroid.show(`Error: ${error.message}`, ToastAndroid.LONG);
+          toast.show(`Error: ${error.message}`, { type: 'danger' });
         } else {
-          ToastAndroid.show(`Error: Unknown error`, ToastAndroid.LONG);
+          toast.show(`Error: Unknown error`, { type: 'danger' });
         }
       }
       setLoading(false);
@@ -121,7 +124,9 @@ export default function RegisterForm() {
         setEmail(parsedToken.email);
         setOrgName(parsedToken.name);
       }
-    } catch (err) {}
+    } catch (err) {
+      toast.show('Invalid token or expired token', { type: 'danger' });
+    }
   }, []);
 
   return (

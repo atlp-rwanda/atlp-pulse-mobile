@@ -3,8 +3,27 @@ import { Text, View } from '@/components/Themed';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { usePathname, useRouter } from 'expo-router';
-import { lightAttendance, close, lightPerformance, lightCalender, lightDocument, lightLogoIcon, lightDashboard, lightHelp, lightLogout } from '@/assets/Icons/dashboard/Icons';
-import { darkLogoIcon, darkDashboard, darkAttendance, darkPerformance, darkCalender, darkDocument, darkHelp, darkLogout } from '@/assets/Icons/dashboard/Icons';
+import {
+  lightAttendance,
+  close,
+  lightPerformance,
+  lightCalender,
+  lightDocument,
+  lightLogoIcon,
+  lightDashboard,
+  lightHelp,
+  lightLogout,
+} from '@/assets/Icons/dashboard/Icons';
+import {
+  darkLogoIcon,
+  darkDashboard,
+  darkAttendance,
+  darkPerformance,
+  darkCalender,
+  darkDocument,
+  darkHelp,
+  darkLogout,
+} from '@/assets/Icons/dashboard/Icons';
 
 interface SidebarProps {
   onClose: () => void;
@@ -18,9 +37,24 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
 
   const UpperItems = [
     { name: 'Dashboard', iconLight: lightDashboard, iconDark: darkDashboard, path: '/dashboard' },
-    { name: 'Attendance', iconLight: lightAttendance, iconDark: darkAttendance, path: '/dashboard/trainee' },
-    { name: 'Performance', iconLight: lightPerformance, iconDark: darkPerformance, path: '/dashboard/trainee' },
-    { name: 'Calendar', iconLight: lightCalender, iconDark: darkCalender, path: '/dashboard/trainee' },
+    {
+      name: 'Attendance',
+      iconLight: lightAttendance,
+      iconDark: darkAttendance,
+      path: '/dashboard/trainee',
+    },
+    {
+      name: 'Performance',
+      iconLight: lightPerformance,
+      iconDark: darkPerformance,
+      path: '/dashboard/trainee',
+    },
+    {
+      name: 'Calendar',
+      iconLight: lightCalender,
+      iconDark: darkCalender,
+      path: '/dashboard/trainee',
+    },
   ];
 
   const LowerItems = [
@@ -30,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   ];
 
   useEffect(() => {
-    const activeRouteItem = UpperItems.concat(LowerItems).find(item => item.path === pathname);
+    const activeRouteItem = UpperItems.concat(LowerItems).find((item) => item.path === pathname);
     if (activeRouteItem) {
       setActiveItem(activeRouteItem.name);
     }
@@ -64,11 +98,21 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
             <TouchableOpacity
               key={index}
               onPress={() => handleItemPress(item)}
-              className={`flex-row items-center p-4 ${activeItem === item.name ? 'bg-indigo-300' : ''
-                }`}
+              className={`flex-row items-center p-4 ${
+                activeItem === item.name ? 'bg-indigo-300' : ''
+              }`}
             >
-              <SvgXml xml={colorScheme === 'light' ? item.iconLight : item.iconDark} width={26} height={26} />
-              <Text className={`ml-4 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`} style={{ fontSize: 18 }}>{item.name}</Text>
+              <SvgXml
+                xml={colorScheme === 'light' ? item.iconLight : item.iconDark}
+                width={26}
+                height={26}
+              />
+              <Text
+                className={`ml-4 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}
+                style={{ fontSize: 18 }}
+              >
+                {item.name}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -78,12 +122,21 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
             <TouchableOpacity
               key={index}
               onPress={() => handleItemPress(item)}
-              className={`flex-row items-center p-4 ${activeItem === item.name ? 'bg-indigo-300' : ''
-                }`}
+              className={`flex-row items-center p-4 ${
+                activeItem === item.name ? 'bg-indigo-300' : ''
+              }`}
             >
-              <SvgXml xml={colorScheme === 'light' ? item.iconLight : item.iconDark} width={26} height={26} />
-              <Text className={`ml-4 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`} style={{ fontSize: 18 }}>{item.name}</Text>
-
+              <SvgXml
+                xml={colorScheme === 'light' ? item.iconLight : item.iconDark}
+                width={26}
+                height={26}
+              />
+              <Text
+                className={`ml-4 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}
+                style={{ fontSize: 18 }}
+              >
+                {item.name}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

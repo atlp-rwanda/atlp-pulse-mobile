@@ -57,14 +57,14 @@ function RootLayoutNav() {
 
   return (
     <ApolloProvider client={client}>
-      <ToastProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-          <Stack.Screen name="auth" options={{ headerShown: false }} />
-          <Stack.Screen name="dashboard" options={{ headerShown: false }}/>
-        </Stack>
-      </ThemeProvider>
+      <ToastProvider placement="top" duration={5000}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+            <Stack.Screen name="auth" options={{ headerShown: false }} />
+            <Stack.Screen name="dashboard" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
       </ToastProvider>
     </ApolloProvider>
   );
