@@ -1,9 +1,16 @@
-import { Text, View } from 'react-native';
-
-export default function Dashboard() {
+import { StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { PropsWithChildren } from 'react';
+import React from 'react';
+export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
+const Dashboard = () => {
+  const colorScheme = useColorScheme();
   return (
     <View>
-      <Text>Dashboard.</Text>
+      <Text className={`ml-2 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>Dashboard Coming soon</Text>
     </View>
   );
-}
+};
+
+export default Dashboard;
+
+const styles = StyleSheet.create({});
