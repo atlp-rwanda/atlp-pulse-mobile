@@ -1,3 +1,4 @@
+import { ConstantId } from '@/AppManager';
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
@@ -80,7 +81,7 @@ export default function SignInOrganization() {
         },
         onCompleted: async (data) => {
           if (data.addMemberToCohort) {
-            ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
+        ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
           }
 
           if (login && data.loginUser) {
@@ -109,24 +110,20 @@ export default function SignInOrganization() {
               console.error('Error resetting client store:', error);
             }
 
-            // Handle redirection
-            if (params.redirect) {
-              router.push(params.redirect);
-              return;
-            }
+        // Handle redirection
+        if (params.redirect) {
+          router.push(params.redirect);
+          return;
+        }
 
-            // Navigate based on user role
-            const role = data.loginUser.user.role;
-            if (role === 'admin' || role === 'coordinator') {
-              router.push('/dashboard/trainee');
-            } else {
-              toast.show('This app is for trainees only.', {
-                type: 'success',
-                placement: 'top',
-                duration: 4000,
-                animationType: 'slide-in',
-              });
-            }
+        // Navigate based on user role
+        const role = data.loginUser.user.role;
+        if (role === 'admin' || role === 'coordinator') {
+          await AsyncStorage.setItem('authToken', data.loginUser.token);
+          router.push('/dashboard/trainee');
+        } else {
+          Alert.alert('The app is for the trainee only');
+        }
           } else {
             await AsyncStorage.setItem('authToken', data.loginUser.token);
             router.push('/dashboard');
@@ -134,12 +131,12 @@ export default function SignInOrganization() {
         },
         onError: (err) => {
           if (err.networkError) {
-            ErrorHandler.handleNetworkError();
+        ErrorHandler.handleNetworkError();
           } else if (err.message.toLowerCase() === 'invalid credential') {
-            ErrorHandler.handleInvalidCredentials();
+        ErrorHandler.handleInvalidCredentials();
           } else {
-            const translateError = 'Please wait to be added to a program or cohort';
-            ErrorHandler.handleCustomError(translateError);
+        const translateError = 'Please wait to be added to a program or cohort';
+        ErrorHandler.handleCustomError(translateError);
           }
         },
       });

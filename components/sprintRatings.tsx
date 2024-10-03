@@ -32,7 +32,6 @@ export default function TraineeRatings() {
     };
     fetchToken();
   }, []);
-
   // Fetch trainee ratings from the backend using the TRAINEE_RATING query
   const { data, loading, error } = useQuery(TRAINEE_RATING, {
     context: {
