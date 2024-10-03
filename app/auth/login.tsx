@@ -86,7 +86,7 @@ export default function SignInOrganization() {
               router.push(params.redirect as Href<string | object>);
               return;
             }
-
+            await AsyncStorage.setItem('authToken', data.loginUser.token);
             const role = data.loginUser.user.role;
             if (role === 'admin' || role === 'coordinator') {
               router.push('/dashboard/trainee');
