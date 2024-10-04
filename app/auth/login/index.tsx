@@ -75,16 +75,27 @@ export default function SignInOrganization() {
           if (data.addMemberToCohort) {
             ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
           }
+          console.log('Received data from login:', data);
 
           if (login && data.loginUser) {
-            // Save user token in AsyncStorage
-            await AsyncStorage.setItem('authToken', data.loginUser.token);
+            const token = data.loginUser.token;
 
-            // Login user via context (possibly updates app-wide state)
+            try {
+              await AsyncStorage.setItem('auth_token', token);
+              const storedToken = await AsyncStorage.getItem('auth_token');
+
+              if (storedToken !== token) {
+                console.error('Stored token does not match received token');
+              }
+            } catch (error) {
+              console.error('Error storing token:', error);
+            }
             login(data.loginUser);
-
-            // Reset Apollo client cache
-            await client.resetStore();
+            try {
+              await client.resetStore();
+            } catch (error) {
+              console.error('Error resetting client store:', error);
+            }
             Alert.alert('Welcome');
 
             // Handle redirection
