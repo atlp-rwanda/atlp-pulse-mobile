@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-
 export const GET_PROFILE = gql`
   query {
     getProfile {
@@ -47,8 +46,6 @@ export const GET_PROFILE = gql`
     }
   }
 `;
-
-
 export const GET_TRAINEE_PROFILE = gql`
   query GetProfile {
     getProfile {
