@@ -6,7 +6,9 @@ const Dashboard = () => {
   const colorScheme = useColorScheme();
   return (
     <View>
-      <Text className={`ml-2 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>Dashboard Coming soon</Text>
+      <Text className={`ml-2 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>
+        Dashboard Coming soon
+      </Text>
     </View>
   );
 };

@@ -41,7 +41,7 @@ describe('Sidebar', () => {
     const attendanceItem = getByText('Attendance').parent;
     expect(attendanceItem?.props.style).toEqual(
       expect.objectContaining({
-        backgroundColor: expect.stringContaining('indigo')
+        backgroundColor: expect.stringContaining('indigo'),
       })
     );
   });
@@ -56,11 +56,10 @@ describe('Sidebar', () => {
   it('navigates and closes sidebar when an item is pressed', async () => {
     const { getByText } = render(<Sidebar onClose={mockOnClose} />);
     fireEvent.press(getByText('Attendance'));
-    
+
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith('/dashboard/trainee');
       expect(mockOnClose).toHaveBeenCalled();
     });
   });
-
 });

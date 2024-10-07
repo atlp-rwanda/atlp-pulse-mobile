@@ -1,20 +1,20 @@
 import {
-  email,
-  lightEmail,
-  lock,
-  LightBottomIcon,
   DarkBottomIcon,
   DarkLock,
+  email,
+  LightBottomIcon,
+  lightEmail,
+  lock,
 } from '@/assets/Icons/auth/Icons';
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { View, TouchableOpacity, TextInput, ActivityIndicator, useColorScheme } from 'react-native';
-import { SvgXml } from 'react-native-svg';
 import { Text } from '@/components/Themed';
-import { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
 import { UserLoginSchema } from '@/validations/login.schema';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
 type FormValues = {
   email: string;
@@ -69,7 +69,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
 
         <View className="flex flex-col">
           <View className="flex mb-4">
-            <Text className={`p-2 ${textColor}`}>New Password</Text>
+            <Text className={`p-2 ${textColor}`}>Email</Text>
             <View
               className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
             >
@@ -90,7 +90,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               />
             </View>
             <Text className="mt-2 text-error-400 ">{formik.errors.email}</Text>
-            <Text className={`pl-2 pt-2 ${textColor}`}>New Password</Text>
+            <Text className={`pl-2 pt-2 ${textColor}`}>Password</Text>
             <View
               className={`mt-4 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3`}
             >
