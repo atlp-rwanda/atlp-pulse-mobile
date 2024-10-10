@@ -77,15 +77,23 @@ export default function SignInOrganization() {
           }
 
           if (login && data.loginUser) {
+            // Save user token in AsyncStorage
+            await AsyncStorage.setItem('authToken', data.loginUser.token);
+
+            // Login user via context (possibly updates app-wide state)
             login(data.loginUser);
+
+            // Reset Apollo client cache
             await client.resetStore();
             Alert.alert('Welcome');
 
+            // Handle redirection
             if (params.redirect) {
               router.push(params.redirect);
               return;
             }
 
+            // Navigate based on user role
             const role = data.loginUser.user.role;
             if (role === 'admin' || role === 'coordinator') {
               router.push('/dashboard/trainee');
@@ -93,6 +101,7 @@ export default function SignInOrganization() {
               Alert.alert('The app is for the trainee only');
             }
           } else {
+            await AsyncStorage.setItem('authToken', data.loginUser.token);
             router.push('/dashboard');
           }
         },
@@ -102,7 +111,6 @@ export default function SignInOrganization() {
           } else if (err.message.toLowerCase() === 'invalid credential') {
             ErrorHandler.handleInvalidCredentials();
           } else {
-            // Only show this message for unexpected errors
             const translateError = 'Please wait to be added to a program or cohort';
             ErrorHandler.handleCustomError(translateError);
           }

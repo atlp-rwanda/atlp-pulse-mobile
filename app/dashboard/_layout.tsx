@@ -45,8 +45,8 @@ export default function AuthLayout() {
           paddingRight: insets.right,
         }}
       >
-        <View className={`bg-primary-light dark:bg-primary-dark h-full px-5`}>
-          <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center ">
+        <View className={`bg-primary-light dark:bg-primary-dark h-full`}>
+          <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center px-3 ">
             <View className="flex-row justify-between">
               <View className="flex-row">
                 <TouchableOpacity onPress={toggleSidebar}>

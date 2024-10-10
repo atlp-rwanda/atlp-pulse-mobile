@@ -1,14 +1,11 @@
 import { StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { PropsWithChildren } from 'react';
-import React from 'react';
+import TraineeRatings from '../../components/sprintRatings';
 export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
 const Dashboard = () => {
-  const colorScheme = useColorScheme();
   return (
     <View>
-      <Text className={`ml-2 text-base ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>
-        Dashboard Coming soon
-      </Text>
+      <TraineeRatings />
     </View>
   );
 };
