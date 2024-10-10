@@ -55,7 +55,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   return (
     <View testID="user-login">
-      <View className="flex-1 p-10 justify-center mt-16">
+      <View className="flex p-10 justify-center mt-16">
         <View>
           <Text className={`text-lg font-Inter-Bold mb-6 text-center ${textColor}`}>
             Welcome to <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
@@ -90,9 +90,9 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               />
             </View>
             <Text className="mt-2 text-error-400 ">{formik.errors.email}</Text>
-            <Text className={`pl-2 pt-2 ${textColor}`}>Password</Text>
+            <Text className={`pl-2  ${textColor}`}>Password</Text>
             <View
-              className={`mt-4 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3`}
+              className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
             >
               <SvgXml xml={colorScheme === 'dark' ? DarkLock : lock} />
               <TextInput
@@ -146,4 +146,3 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
     </View>
   );
 }
-
