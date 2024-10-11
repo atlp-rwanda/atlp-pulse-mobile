@@ -23,18 +23,19 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const token = await AsyncStorage.getItem('authToken');
-      if (token) {
-        setUserToken(token);
-      } else {
-        toast.show('User token not found.', { type: 'danger', placement: 'top', duration: 3000 });
-      }
+      try {
+        const token = await AsyncStorage.getItem('authToken');
+        if (token) {
+          setUserToken(token);
+        } else {
+          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+        }
+      } catch (error) {
+        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
+      } 
     };
     fetchToken();
   }, []);
-  console.log('userToken:', userToken);
-  useEffect(() => {
-  }, [userToken]);
 
   const { data, loading, error } = useQuery(GET_PROFILE, {
     context: {
@@ -42,23 +43,22 @@ const ProfilePage = () => {
         Authorization: `Bearer ${userToken}`,
       },
     },
-    skip: !userToken, 
+    skip: !userToken,
   });
-
-  console.log('data:', data);
 
   useEffect(() => {
     if (error) {
-      console.error('Error fetching profile:', error);
+      toast.show('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
     }
   }, [error]);
 
-    useEffect(() => {
-        if (data) {
-        setProfile(data.getProfile);
-        }
-    }, [data]);
-    
+  useEffect(() => {
+    if (data) {
+      setProfile(data.getProfile);
+    }
+  }, [data]);
+
+  
   return (
     <View className="flex-1 bg-primary-light dark:bg-primary-dark px-4">
       <View className="relative w-full h-48">
@@ -89,14 +89,14 @@ const ProfilePage = () => {
           : 'border-transparent shadow-sm rounded-lg'}`}
           onPress={() => handleTabPress('about')}
         >
-          <Text>ABOUT</Text>
+          <Text className={`${textColor}`}>ABOUT</Text>
         </TouchableOpacity>
         <TouchableOpacity className={`${bgColor} px-4 py-2 border-b-4 ${activeTab === 'organizations' ?
             'border-indigo-400 shadow-sm rounded-lg'
             : 'border-transparent shadow-sm rounded-lg'}`}
           onPress={() => handleTabPress('organizations')}
         >
-          <Text>ORGANIZATIONS</Text>
+          <Text className={`${textColor}`}>ORGANIZATIONS</Text>
         </TouchableOpacity>
       </View>
 
@@ -123,7 +123,6 @@ const ProfilePage = () => {
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Organisation name:</Text>
               <Text className={`${textColor}`}>{profile.user.organizations[0]}</Text>
-              {/* <Text className={`${textColor}`}>Andela</Text> */}
             </View>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Admin email:</Text>
@@ -131,7 +130,7 @@ const ProfilePage = () => {
             </View>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Role:</Text>
-              <Text className={`${textColor}`}>{profile.user.role || 'Unavailable'}</Text>
+              <Text className={`${textColor}`}>{profile.user?.role || 'Unavailable'}</Text>
             </View>
           </View>
 
@@ -139,19 +138,19 @@ const ProfilePage = () => {
             <Text className={`${textColor} font-bold`} style={{ fontSize: 18 }}>MANAGEMENT</Text>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Program:</Text>
-              <Text className={`${textColor}`}>{profile.user.team?.cohort?.program?.name || 'Unavailable'}</Text>
+              <Text className={`${textColor}`}>{profile.user?.team?.cohort?.program?.name || 'Unavailable'}</Text>
             </View>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Cohort:</Text>
-              <Text className={`${textColor}`}>{profile.user.team?.cohort?.name || 'Unavailable'}</Text>
+              <Text className={`${textColor}`}>{profile.user?.team?.cohort?.name || 'Unavailable'}</Text>
             </View>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Team:</Text>
-              <Text className={`${textColor}`}>{profile.user.team?.name || 'Unavailable'}</Text>
+              <Text className={`${textColor}`}>{profile.user?.team?.name || 'Unavailable'}</Text>
             </View>
             <View className="gap-3 flex-row">
               <Text className={`${textColor} font-bold`}>Phase:</Text>
-              <Text className={`${textColor}`}> {profile.user.team?.cohort?.phase?.name || 'Unavailable'}</Text>
+              <Text className={`${textColor}`}> {profile.user?.team?.cohort?.phase?.name || 'Unavailable'}</Text>
             </View>
           </View>
         </View>

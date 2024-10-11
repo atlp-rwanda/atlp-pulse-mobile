@@ -82,15 +82,15 @@ export default function SignInOrganization() {
           if (data.addMemberToCohort) {
             ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
           }
-          console.log('Received data from login:', data);
 
-          if (data.loginUser) {
+          if (login && data.loginUser) {
+            const token = data.loginUser.token;
+
             if (data.loginUser.user.role === 'trainee') {
               params.redirect
                 ? router.push(`${params.redirect}` as Href<string | object>)
                 : router.push('/dashboard' as Href<string | object>);
-          if (login && data.loginUser) {
-            const token = data.loginUser.token;
+              }
 
             try {
               await AsyncStorage.setItem('auth_token', token);
@@ -108,7 +108,6 @@ export default function SignInOrganization() {
             } catch (error) {
               console.error('Error resetting client store:', error);
             }
-            Alert.alert('Welcome');
 
             // Handle redirection
             if (params.redirect) {
