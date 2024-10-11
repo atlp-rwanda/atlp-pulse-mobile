@@ -104,6 +104,13 @@ module.exports = {
         'Inter-SemiBold': ['Inter_600SemiBold'],
         'Inter-Bold': ['Inter_700Bold'],
       },
+      backdropBlur: {
+        sm: '4px',
+        DEFAULT: '8px',
+        md: '12px', 
+        lg: '16px',
+        xl: '20px', 
+      },
     },
   },
   plugins: [],

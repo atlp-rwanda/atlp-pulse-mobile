@@ -145,7 +145,7 @@ const PerformanceScores = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]} className='mb-5'>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]} >
       <Text style={[styles.header, { color: textColor }]}>Performance scores</Text>
       <View style={styles.scoresContainer}>
         <View style={styles.scoreItem}>
@@ -183,7 +183,7 @@ const PerformanceScores = () => {
         </View>
       </View>
       <Text style={[styles.chartHeader, { color: textColor }]}>Stats</Text>
-      <View style={{ height: 200, paddingVertical: 16 }}>
+      <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50}}>
         <LineChart
           data={lineGraph}
           width={Dimensions.get('window').width - 40}
@@ -192,7 +192,7 @@ const PerformanceScores = () => {
           bezier
           yAxisSuffix=""
           fromZero
-          yAxisInterval={0.5}
+          yAxisInterval={0.6}
           segments={4}
           style={{ height: '100%', width: '100%' }}
         />
