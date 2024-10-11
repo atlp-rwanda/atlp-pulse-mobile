@@ -83,11 +83,42 @@ export default function SignInOrganization() {
             ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
           }
 
-          if (data.loginUser) {
+          if (login && data.loginUser) {
+            const token = data.loginUser.token;
+
             if (data.loginUser.user.role === 'trainee') {
               params.redirect
                 ? router.push(`${params.redirect}` as Href<string | object>)
                 : router.push('/dashboard' as Href<string | object>);
+              }
+
+            try {
+              await AsyncStorage.setItem('auth_token', token);
+              const storedToken = await AsyncStorage.getItem('auth_token');
+
+              if (storedToken !== token) {
+                console.error('Stored token does not match received token');
+              }
+            } catch (error) {
+              console.error('Error storing token:', error);
+            }
+            login(data.loginUser);
+            try {
+              await client.resetStore();
+            } catch (error) {
+              console.error('Error resetting client store:', error);
+            }
+
+            // Handle redirection
+            if (params.redirect) {
+              router.push(params.redirect);
+              return;
+            }
+
+            // Navigate based on user role
+            const role = data.loginUser.user.role;
+            if (role === 'admin' || role === 'coordinator') {
+              router.push('/dashboard/trainee');
             } else {
               toast.show('This app is for trainees only.', {
                 type: 'success',

@@ -1,11 +1,5 @@
-import {
-  lightLogoIcon,
-  darkLogoIcon,
-  menu,
-  lightNotifyIcon,
-  darkNotifyIcon,
-} from '@/assets/Icons/dashboard/Icons';
-import { Slot } from 'expo-router';
+import { lightLogoIcon, darkLogoIcon, menu, lightNotifyIcon, darkNotifyIcon } from '@/assets/Icons/dashboard/Icons';
+import { router, Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -59,14 +53,14 @@ export default function AuthLayout() {
                 />
               </View>
               <View className="flex-row gap-5">
-                <TouchableOpacity>
-                  <SvgXml
-                    xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon}
-                    width={25}
+                <TouchableOpacity onPress={() => router.push('/')}>
+                <SvgXml 
+                    xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon} 
+                    width={25} 
                     height={40}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('/dashboard/profile/orgInfo')}>
                   <Image
                     source={require('@/assets/images/profilePic.png')}
                     style={{ width: 40, height: 40 }}
