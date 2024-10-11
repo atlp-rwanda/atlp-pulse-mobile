@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
+
 type FormValues = {
   organization: string;
 };
@@ -19,7 +20,6 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-secondary-light-900';
-
   const formik = useFormik<FormValues>({
     initialValues: {} as FormValues,
     onSubmit: async (values) => {

@@ -4,9 +4,10 @@ import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mu
 import { UserContext } from '@/hooks/useAuth';
 import { useMutation, useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { useContext, useState } from 'react';
 import { ToastAndroid, Alert } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 
 class ErrorHandler {
   static handleNetworkError() {
@@ -28,6 +29,7 @@ class ErrorHandler {
 
 export default function SignInOrganization() {
   const router = useRouter();
+  const toast = useToast();
   const [orgLoginSuccess, setOrgLoginSuccess] = useState(false);
   const [orgLoginMutation] = useMutation(ORG_LOGIN_MUTATION);
   const [loading, setLoading] = useState(false);
@@ -49,7 +51,12 @@ export default function SignInOrganization() {
           AsyncStorage.setItem('orgToken', loginOrg.token);
           let value: string = String(values.organization);
           AsyncStorage.setItem('orgName', value);
-          Alert.alert('Welcome! Sign in to Continue');
+          toast.show('Welcome! Sign in to Continue', {
+            type: 'success',
+            placement: 'top',
+            duration: 4000,
+            animationType: 'slide-in',
+          });
           setOrgLoginSuccess(true);
         },
         onError(err: any) {
@@ -77,15 +84,30 @@ export default function SignInOrganization() {
           }
 
           if (login && data.loginUser) {
-            // Save user token in AsyncStorage
-            await AsyncStorage.setItem('authToken', data.loginUser.token);
+            const token = data.loginUser.token;
 
-            // Login user via context (possibly updates app-wide state)
+            if (data.loginUser.user.role === 'trainee') {
+              params.redirect
+                ? router.push(`${params.redirect}` as Href<string | object>)
+                : router.push('/dashboard' as Href<string | object>);
+              }
+
+            try {
+              await AsyncStorage.setItem('auth_token', token);
+              const storedToken = await AsyncStorage.getItem('auth_token');
+
+              if (storedToken !== token) {
+                console.error('Stored token does not match received token');
+              }
+            } catch (error) {
+              console.error('Error storing token:', error);
+            }
             login(data.loginUser);
-
-            // Reset Apollo client cache
-            await client.resetStore();
-            Alert.alert('Welcome');
+            try {
+              await client.resetStore();
+            } catch (error) {
+              console.error('Error resetting client store:', error);
+            }
 
             // Handle redirection
             if (params.redirect) {
@@ -98,7 +120,12 @@ export default function SignInOrganization() {
             if (role === 'admin' || role === 'coordinator') {
               router.push('/dashboard/trainee');
             } else {
-              Alert.alert('The app is for the trainee only');
+              toast.show('This app is for trainees only.', {
+                type: 'success',
+                placement: 'top',
+                duration: 4000,
+                animationType: 'slide-in',
+              });
             }
           } else {
             await AsyncStorage.setItem('authToken', data.loginUser.token);

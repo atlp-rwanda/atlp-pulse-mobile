@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import PagerView from 'react-native-pager-view';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 type Page = {
   image: any;
   content: string;
@@ -34,8 +34,12 @@ export default function AppOnboarding() {
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
   const getDotColor = (index: number) => (index === page ? 'bg-action-500' : 'bg-white');
+  const [token, setToken] = useState<string | null>(null);
+  
 
   useEffect(() => {
+    // check if user have signed in before
+    
     const interval = setInterval(() => {
       setPage(page === 2 ? 0 : page + 1);
     }, 6000);
@@ -55,6 +59,7 @@ export default function AppOnboarding() {
         onPageSelected={(p) => setPage(p.nativeEvent.position)}
         ref={pagerViewRef}
       >
+        
         {pages.map((page, index) => (
           <View key={index} className={`flex-1 px-8 py-12 ${bgColor}`}>
             <Image

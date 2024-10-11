@@ -47,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: 'Performance',
       iconLight: lightPerformance,
       iconDark: darkPerformance,
-      path: '/dashboard/trainee',
+      path: '/dashboard/perfomance',
     },
     {
       name: 'Calendar',
