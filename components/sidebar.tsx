@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View } from '@/components/Themed';
-import { TouchableOpacity, useColorScheme } from 'react-native';
-import { SvgXml } from 'react-native-svg';
-import { usePathname, useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  lightAttendance,
   close,
-  lightPerformance,
-  lightCalender,
-  lightDocument,
-  lightLogoIcon,
-  lightDashboard,
-  lightHelp,
-  lightLogout,
-} from '@/assets/Icons/dashboard/Icons';
-import {
-  darkLogoIcon,
-  darkDashboard,
   darkAttendance,
-  darkPerformance,
   darkCalender,
+  darkDashboard,
   darkDocument,
   darkHelp,
+  darkLogoIcon,
   darkLogout,
+  darkPerformance,
+  lightAttendance,
+  lightCalender,
+  lightDashboard,
+  lightDocument,
+  lightHelp,
+  lightLogoIcon,
+  lightLogout,
+  lightPerformance,
 } from '@/assets/Icons/dashboard/Icons';
+import { Text, View } from '@/components/Themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePathname, useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, useColorScheme } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
 interface SidebarProps {
   onClose: () => void;

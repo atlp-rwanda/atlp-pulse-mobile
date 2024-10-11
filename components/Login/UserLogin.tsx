@@ -108,6 +108,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               <TouchableOpacity
                 className="absolute right-3 top-3"
                 onPress={togglePasswordVisibility}
+                testID='password-toggle'
               >
                 <Ionicons
                   name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'}

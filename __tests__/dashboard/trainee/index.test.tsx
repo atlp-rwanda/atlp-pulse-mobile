@@ -6,6 +6,6 @@ describe('<TraineeDashboard />', () => {
   test('Text renders correctly on Trainee', () => {
     const { getByText } = render(<TraineeDashboard />);
 
-    getByText('Trainee Dashboard.');
+    getByText('Trainee Dashboard Coming Soon');
   });
 });
