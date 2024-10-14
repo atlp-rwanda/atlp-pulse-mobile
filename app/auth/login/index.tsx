@@ -128,6 +128,7 @@ export default function SignInOrganization() {
               });
             }
           } else {
+            await AsyncStorage.setItem('authToken', data.loginUser.token);
             router.push('/dashboard');
           }
         },

@@ -3,6 +3,7 @@ import { Text, View } from '@/components/Themed';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { usePathname, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   lightAttendance,
   close,
@@ -60,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const LowerItems = [
     { name: 'Docs', iconLight: lightDocument, iconDark: darkDocument, path: '/dashboard/trainee' },
     { name: 'Help', iconLight: lightHelp, iconDark: darkHelp, path: '/dashboard/trainee' },
-    { name: 'LogOut', iconLight: lightLogout, iconDark: darkLogout, path: '/dashboard/trainee' },
+    { name: 'Sign out', iconLight: lightLogout, iconDark: darkLogout, path: '/auth/login' },
   ];
 
   useEffect(() => {
@@ -70,13 +71,27 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
     }
   }, [pathname]);
 
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('authToken');
+      router.push('/auth/login');
+    } catch (error) {
+      alert(`Error logging out:${error}`);
+    }
+  };
+
   const handleItemPress = async (item: { name: string; path: string }) => {
     setActiveItem(item.name);
     try {
-      router.push(item.path as any);
-      onClose();
+      if(item.name === 'Sign out'){
+         await handleLogout()
+      }
+      else{
+        router.push(item.path as any);
+        onClose();
+      }
     } catch (error) {
-      console.error('Failed to navigate:', error);
+      alert(`Failed to navigate:${error}`);
     }
   };
 
