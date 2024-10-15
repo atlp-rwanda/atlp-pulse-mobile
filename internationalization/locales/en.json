@@ -1,0 +1,30 @@
+{
+    "onboarding": {
+      "page1": "Optimize your organization's potential with Performance Management/Analytics.",
+      "page2": "Identify top performers, discover hidden talent, and optimize your workforce.",
+      "page3": "Unlock the potential of a Continuous & Tight Feedback Loop.",
+      "getStarted": "Get Started"
+    },
+    "notFound": {
+    "title": "Oops! We can't find the page you're looking for.",
+    "goHome": "Go to home screen!"
+  },
+  "orgLogin": {
+    "signIn": "Sign in to your Organization",
+    "enterOrgURL": "Enter your organization's Pulse URL",
+    "continue": "Continue",
+    "orgPlaceholder": "<Your-organization>.pulse.co",
+    "error": "Organization is required"
+  },
+  "userLogin": {
+    "welcome": "Welcome to",
+    "switchOrg": "Switch your organization",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required"
+  }
+  }
+  

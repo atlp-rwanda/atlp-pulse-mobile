@@ -1,0 +1,30 @@
+{
+    "onboarding": {
+      "page1": "Shyira ku rwego rwisumbuye ubushobozi bw'ikigo cyawe hamwe na Performance Management/Analytics.",
+      "page2": "Menya abakozi b'indashyikirwa, vumbura impano zihenze, kandi wimakaze imbaraga z'abakozi.",
+      "page3": "Fungura ubushobozi bwo kubona ibyavuyemo bihamye kandi bigufi.",
+      "getStarted": "Tangira"
+    },
+    "notFound": {
+    "title": "Yoo! Ntidushobora kubona ipaji urimo gushaka.",
+    "goHome": "Subira ku rupapuro rw'itangiriro!"
+  },
+  "orgLogin": {
+    "signIn": "Injira muri kampani yawe",
+    "enterOrgURL": "Injiza URL ya Pulse ya kampani yawe",
+    "continue": "Komeza",
+    "orgPlaceholder": "<Izina-rya kampani>.pulse.co",
+    "error": "Izina rya kampani rirakenewe"
+  },
+  "userLogin": {
+    "welcome": "Murakaza neza kuri",
+    "switchOrg": "Hindura kampani yawe",
+    "email": "Imeyili",
+    "password": "Ijambo ry'ibanga",
+    "forgotPassword": "Wibagiwe ijambo ry'ibanga?",
+    "signIn": "Injira",
+    "emailRequired": "Imeyili irakenewe",
+    "passwordRequired": "Ijambo ry'ibanga rirakenewe"
+  }
+  }
+  

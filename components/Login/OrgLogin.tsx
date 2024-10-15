@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 
 
 type FormValues = {
@@ -17,9 +18,11 @@ type OrgLoginProps = {
 };
 
 export default function OrgLogin({ onSubmit }: OrgLoginProps) {
+  
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-secondary-light-900';
+  const { t } = useTranslation();
   const formik = useFormik<FormValues>({
     initialValues: {} as FormValues,
     onSubmit: async (values) => {
@@ -32,14 +35,14 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
 
   return (
     <View testID="org-login">
-      <View className="flex pt-36 justify-center items-center  gap-20 ">
+      <View className="flex items-center justify-center gap-20 pt-36 ">
         <View>
           <View className="flex p-8">
             <Text className={`text-2xl font-Inter-SemiBold text-center ${textColor}`}>
-              Sign in to your Organization
+            {t('orgLogin.signIn')}
             </Text>
             <Text className={`text-xl text-center text-gray-600 ${textColor}`}>
-              Enter your organization's Pulse URL
+            {t('orgLogin.enterOrgURL')}
             </Text>
           </View>
 
@@ -63,26 +66,26 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                 />
               </View>
             </View>
-            <Text className="text-error-500 text-center mt-2">{formik.errors.organization}</Text>
+            <Text className="mt-2 text-center text-error-500"> {formik.errors.organization ? t('orgLogin.error') : null}</Text>
 
             <View className="flex flex-col gap-4">
               <TouchableOpacity
                 testID="submit-button"
                 onPress={() => formik.handleSubmit()}
-                className="bg-action-500 p-4 rounded-lg items-center"
+                className="items-center p-4 rounded-lg bg-action-500"
                 disabled={loading}
               >
                 {loading ? (
                   <ActivityIndicator color="white" />
                 ) : (
-                  <Text className="text-secondary-light-500 text-lg font-semibold">Continue</Text>
+                  <Text className="text-lg font-semibold text-secondary-light-500">{t('orgLogin.continue')}</Text>
                 )}
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        <View className=" items-center">
+        <View className="items-center ">
           <SvgXml xml={colorScheme === 'dark' ? DarkBottomIcon : LightBottomIcon} />
         </View>
       </View>

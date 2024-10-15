@@ -4,35 +4,27 @@ import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import PagerView from 'react-native-pager-view';
+import RNPickerSelect from 'react-native-picker-select';
+import { useTranslation } from 'react-i18next';
+
 
 type Page = {
   image: any;
   content: string;
 };
 
-const pages: Page[] = [
-  {
-    image: require('@/assets/images/onboarding/1.png'),
-    content: "Optimize your organization's potential with Performance Management/Analytics.",
-  },
-  {
-    image: require('@/assets/images/onboarding/2.png'),
-    content: 'Identify top performers, discover hidden talent, and optimize your workforce.',
-  },
-  {
-    image: require('@/assets/images/onboarding/3.png'),
-    content: 'Unlock the potential of a Continuous & Tight Feedback Loop.',
-  },
-];
-
 export default function AppOnboarding() {
+  const { t, i18n } = useTranslation(); 
   const colorScheme = useColorScheme();
   const pagerViewRef = useRef<PagerView>(null);
   const [page, setPage] = useState<number>(0);
+  const [language, setLanguage] = useState<string>(i18n.language); 
+
 
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
+  
   const getDotColor = (index: number) => (index === page ? 'bg-action-500' : 'bg-white');
 
   useEffect(() => {
@@ -47,8 +39,29 @@ export default function AppOnboarding() {
     pagerViewRef.current?.setPage(page);
   }, [page]);
 
+  const changeLanguage = (value: string) => {
+    i18n.changeLanguage(value); 
+    setLanguage(value); 
+  };
+
+  const pages: Page[] = [
+    {
+      image: require('@/assets/images/onboarding/1.png'),
+      content: t('onboarding.page1'), 
+    },
+    {
+      image: require('@/assets/images/onboarding/2.png'),
+      content: t('onboarding.page2'),
+    },
+    {
+      image: require('@/assets/images/onboarding/3.png'),
+      content: t('onboarding.page3'),
+    },
+  ];
+
   return (
     <>
+      {/* Pager View for Onboarding Screens */}
       <PagerView
         initialPage={page}
         style={{ minHeight: 580 }}
@@ -60,7 +73,7 @@ export default function AppOnboarding() {
             <Image
               source={page.image}
               contentFit="contain"
-              className="mb-6 justify-center items-end"
+              className="items-end justify-center mb-6"
               style={{ width: '100%', flex: 1 }}
             />
             <Text
@@ -72,18 +85,40 @@ export default function AppOnboarding() {
           </View>
         ))}
       </PagerView>
+
+      {/* Pagination Dots */}
       <View className={`flex-1 flex-row justify-center items-center gap-3 ${bgColor}`}>
-        <View className={`rounded-full bg-action-500 w-4 h-4 ${getDotColor(0)}`}></View>
+        <View className={`rounded-full w-4 h-4 ${getDotColor(0)}`}></View>
         <View className={`rounded-full w-4 h-4 ${getDotColor(1)}`}></View>
         <View className={`rounded-full w-4 h-4 ${getDotColor(2)}`}></View>
       </View>
+      
+      {/* Language Switcher */}
+      <View className="mb-4">
+        <RNPickerSelect
+          value={language}
+          onValueChange={changeLanguage} 
+          items={[
+            { label: 'English', value: 'en' },
+            { label: 'Français', value: 'fr' },
+            { label: 'Kinyarwanda', value: 'kin' },
+          ]}
+          style={{
+            inputAndroid: { color: 'black', padding: 10 },
+            inputIOS: { color: 'black', padding: 10 },
+          }}
+        />
+      </View>
+
+
+      {/* Get Started Button */}
       <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
         <TouchableOpacity>
           <Text
             className="text-lg font-Inter-Medium dark:text-white"
             onPress={() => router.push('/redirect?path=/auth/login&dest=app')}
           >
-            Get Started
+            {t('onboarding.getStarted')} 
           </Text>
         </TouchableOpacity>
       </View>
