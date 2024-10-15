@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   firstName: string;
@@ -43,6 +44,7 @@ type RegisterResponse = {
 };
 
 export default function RegisterForm() {
+  const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
   const params = useLocalSearchParams();
@@ -97,7 +99,7 @@ export default function RegisterForm() {
         });
 
         if (data) {
-          toast.show('Successfully registered', { type: 'success' });
+          toast.show(t('userRegister.successfullyRegistered'), { type: 'success' });
           await AsyncStorage.setItem('org_token', data.createUser.token);
           router.push('/auth/login');
         }
@@ -130,19 +132,19 @@ export default function RegisterForm() {
   }, []);
 
   return (
-    <View className="flex-1 p-8 justify-center">
+    <View className="justify-center flex-1 p-8">
       <View className="mb-8">
-        <Text className="text-xl font-Inter-SemiBold text-center text-gray-800 dark:text-gray-200 mb-3">
-          Register Your Account!
+        <Text className="mb-3 text-xl text-center text-gray-800 font-Inter-SemiBold dark:text-gray-200">
+        {t('userRegister.title')}
         </Text>
-        <Text className="font-Inter-Regular text-center text-gray-800 dark:text-gray-200">
-          Fill in your information to join {orgName}
+        <Text className="text-center text-gray-800 font-Inter-Regular dark:text-gray-200">
+        {t('userRegister.joinOrg')} {orgName}
         </Text>
       </View>
 
       <View className="flex flex-col">
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">First Name:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.firstName')}:</Text>
           <View
             className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
           >
@@ -158,10 +160,10 @@ export default function RegisterForm() {
               className={`ml-2`}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.firstName}</Text>
+          <Text className="my-1 text-error-500">{formik.errors.firstName}</Text>
         </View>
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Last Name:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.lastName')}:</Text>
           <View
             className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
           >
@@ -177,10 +179,10 @@ export default function RegisterForm() {
               className={`ml-2`}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.lastName}</Text>
+          <Text className="my-1 text-error-500">{formik.errors.lastName}</Text>
         </View>
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Email:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.email')}</Text>
           <View
             className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light mb-8`}
           >
@@ -188,7 +190,7 @@ export default function RegisterForm() {
 
             <TextInput
               testID="email"
-              placeholder="Email"
+              placeholder={t('userRegister.email')}
               value={email!}
               style={{ flex: 1 }}
               autoCapitalize="none"
@@ -199,7 +201,7 @@ export default function RegisterForm() {
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Gender:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.gender')}:</Text>
           <View className="flex flex-row items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light">
             <Ionicons name="female" size={20} color="gray" />
             <View className="flex-1">
@@ -211,27 +213,27 @@ export default function RegisterForm() {
                 }}
               >
                 <Picker.Item label="Select Gender" value="" enabled={false} />
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
+                <Picker.Item label={t('userRegister.male')} value="Male" />
+                <Picker.Item label={t('userRegister.female')} value="Female" />
               </Picker>
             </View>
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.gender}</Text>
+          <Text className="my-1 text-error-500">{formik.errors.gender}</Text>
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Date of Birth:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.dob')}</Text>
           <DatePicker
-            placeholder="Date of Birth"
+            placeholder={t('userRegister.dob')}
             onSubmit={(date: Date) => {
               formik.setFieldValue('dob', date);
             }}
           />
-          <Text className="text-error-500 my-1">{formik.errors.dob}</Text>
+          <Text className="my-1 text-error-500">{formik.errors.dob}</Text>
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Password:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.password')}:</Text>
           <View
             className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
           >
@@ -257,19 +259,19 @@ export default function RegisterForm() {
               }}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.password}</Text>
+          <Text className="my-1 text-error-500">{formik.errors.password}</Text>
         </View>
 
         <View className="flex flex-col gap-4 mt-2">
-          <View className="mt-2 flex-row ml-2">
+          <View className="flex-row mt-2 ml-2">
             <Checkbox
-              className="w-4 h-4 rounded border border-gray-300"
+              className="w-4 h-4 border border-gray-300 rounded"
               value={TCAccepted}
               onValueChange={setTCAccepted}
               color={TCAccepted ? '#8667F2' : undefined}
             />
             <Text className="ml-2 text-gray-800 dark:text-white">
-              I agree to <Text className="text-action-600">the Terms & Conditions</Text> of Pulse
+            {t('userRegister.termsAndConditions')}
             </Text>
           </View>
           <TouchableOpacity
@@ -280,19 +282,19 @@ export default function RegisterForm() {
               }
               formik.handleSubmit();
             }}
-            className="bg-action-500 p-4 rounded-lg items-center mt-4"
+            className="items-center p-4 mt-4 rounded-lg bg-action-500"
           >
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text className={`text-white text-lg`}>Register</Text>
+              <Text className={`text-white text-lg`}> {t('userRegister.register')}</Text>
             )}
           </TouchableOpacity>
         </View>
-        <View className="mt-6 flex-row">
-          <Text className="ml-2">Already have an account?</Text>
+        <View className="flex-row mt-6">
+          <Text className="ml-2"> {t('userRegister.alreadyHaveAccount')}</Text>
           <TouchableOpacity onPress={() => router.push('/auth/login')} className="ml-2 ">
-            <Text className={`underline`}>Sign in</Text>
+            <Text className={`underline`}>{t('userRegister.signIn')}</Text>
           </TouchableOpacity>
         </View>
       </View>
