@@ -1,0 +1,168 @@
+{
+    "onboarding": {
+      "page1": "Optimisez le potentiel de votre organisation avec la gestion/analyse des performances.",
+      "page2": "Identifiez les meilleurs talents, découvrez les talents cachés et optimisez votre main-d'œuvre.",
+      "page3": "Débloquez le potentiel d'une boucle de rétroaction continue et serrée.",
+      "getStarted": "Commencer"
+    },
+    "notFound": {
+    "title": "Oups! Nous ne pouvons pas trouver la page que vous recherchez.",
+    "goHome": "Aller à l'écran d'accueil!"
+  },
+  "orgLogin": {
+    "signIn": "Connectez-vous à votre organisation",
+    "enterOrgURL": "Entrez l'URL Pulse de votre organisation",
+    "continue": "Continuer",
+    "orgPlaceholder": "<Votre-organisation>.pulse.co",
+    "error": "Le nom de l'organisation est requis"
+  },
+  "userLogin": {
+    "welcome": "Bienvenue à",
+    "switchOrg": "Changer votre organisation",
+    "email": "Email",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "emailRequired": "L'email est requis",
+    "passwordRequired": "Le mot de passe est requis",
+    "email_invalid": "Email invalide",
+    "email_required": "Veuillez fournir votre adresse e-mail",
+    "password_min": "Le mot de passe doit comporter au moins 8 caractères",
+    "password_required": "Veuillez fournir un mot de passe",
+    "organization_required": "L'URL de l'organisation est requise",
+    "confirm_password_required": "Veuillez confirmer que le mot de passe est requis",
+    "passwords_must_match": "Les mots de passe doivent correspondre"
+  },
+  "userRegister": {
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "email": "Email",
+    "gender": "Sexe",
+    "male": "Homme",
+    "female": "Femme",
+    "dob": "Date de naissance",
+    "password": "Mot de passe",
+    "registerYourAccount": "Enregistrez votre compte !",
+    "joinOrg": "Remplissez vos informations pour rejoindre {{orgName}}",
+    "termsAndConditions": "J'accepte les conditions générales de Pulse",
+    "register": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signIn": "Se connecter",
+    "successfullyRegistered": "Inscription réussie",
+    "invalidToken": "Jeton invalide ou expiré",
+    "acceptTCAgree": "Veuillez accepter les conditions générales",
+    "warning": "Avertissement"
+  },
+  "forgotPassword": {
+    "title": "Réinitialiser le mot de passe",
+    "instructions": "Vous recevrez un e-mail pour procéder à la réinitialisation du mot de passe",
+    "placeholder": "Entrer l'email",
+    "submitButton": "Continuer",
+    "successMessage": "Demande de réinitialisation de mot de passe réussie! Veuillez vérifier votre email pour un lien pour réinitialiser votre mot de passe.",
+    "errorMessage": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "registerSchema": {
+    "firstName": {
+      "min": "Le prénom doit comporter au moins 2 caractères",
+      "matches": "Le prénom ne doit contenir que des lettres",
+      "required": "Veuillez fournir votre prénom"
+    },
+    "lastName": {
+      "min": "Le nom doit comporter au moins 2 caractères",
+      "matches": "Le nom ne doit contenir que des lettres",
+      "required": "Veuillez fournir votre nom"
+    },
+    "password": {
+      "min": "Le mot de passe doit comporter au moins 8 caractères",
+      "required": "Veuillez fournir un mot de passe"
+    },
+    "gender": {
+      "oneOf": "Veuillez sélectionner votre sexe"
+    },
+    "dob": {
+      "max": "Vous devez avoir au moins 16 ans",
+      "required": "Veuillez sélectionner une date de naissance"
+    }
+  },
+  "redirecting": "Redirection...",
+  "go_to_home_screen": "Aller à l'écran d'accueil !",
+  "error": {
+    "unable_to_open_link": "Impossible d'ouvrir le lien"
+  },
+  "navbar": {
+    "dashboard": "Tableau de bord",
+    "attendance": "Présence",
+    "performance": "Performance",
+    "calendar": "Calendrier",
+    "docs": "Documents",
+    "help": "Aide",
+    "signOut": "Déconnexion"
+  },
+  "performance":{
+    "performance_scores": "Scores de performance",
+    "quality": "Qualité",
+    "quantity": "Quantité",
+    "professionalism": "Professionnalisme",
+    "very_good": "Très bon",
+    "need_to_improve": "Besoin d'amélioration",
+    "stats": "Statistiques"
+  },
+  "sprintRating":{
+    "recent_feedback": "Commentaires récents",
+    "phase": "Phase",
+    "filter_by_sprint": "Filtrer par sprint",
+    "no_ratings_available": "Aucune évaluation disponible",
+    "sprint": "SPRINT",
+    "quantity": "QUANTITÉ",
+    "quality": "QUALITÉ",
+    "professionalism": "PROFESSIONNALISME",
+    "comment": "COMMENTAIRE",
+    "view": "Voir",
+    "error_loading_ratings": "Erreur lors du chargement des évaluations",
+    "user_token_not_found": "Jeton d'utilisateur introuvable."
+  },
+  "about": {
+    "about":"Détails",
+    "organization":"Organisation",
+    "basicInformation": "INFORMATIONS DE BASE",
+    "name": "Nom",
+    "email": "Email",
+    "phoneNumber": "Numéro de Téléphone",
+    "address": "Adresse",
+    "githubUsername": "Nom sur GitHub",
+    "resume": "CV",
+    "noResume": "Pas de CV téléchargé",
+    "biography": "BIOGRAPHIE",
+    "noBiography": "Pas de biographie téléchargée"
+  },
+  "organization": {
+    "organizationDetails": "DÉTAILS DE VOTRE ORGANISATION",
+    "organizationName": "Nom de l'organisation:",
+    "adminEmail": "Email de l'admin:",
+    "role": "Rôle:",
+    "management": "GESTION",
+    "program": "Programme:",
+    "cohort": "Cohorte:",
+    "team": "Équipe:",
+    "phase": "Phase:",
+    "unavailable": "Indisponible"
+  },
+  "selectLanguage": "Choisir la langue",
+  "close": "Fermer",
+  "languages": {
+    "kinyarwanda": "Kinyarwanda",
+    "english": "Anglais",
+    "french": "Français"
+  },
+  "loginmsg": {
+    "welcome": "Bienvenue! Connectez-vous pour continuer",
+    "invalid_credentials": "Identifiants invalides",
+    "error": "Erreur",
+    "network_error": "Il y a eu un problème de connexion avec le serveur",
+    "general_error": "Une erreur inattendue s'est produite.",
+    "auth_error": "Veuillez attendre d'être ajouté à un programme ou à une cohorte"
+  }
+
+
+  }
+  

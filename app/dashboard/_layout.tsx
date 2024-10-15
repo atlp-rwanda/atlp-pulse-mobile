@@ -5,6 +5,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View, use
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
 import Sidebar from '@/components/sidebar';
+import LanguagePicker from '@/components/LanguagePicker'; // Import LanguagePicker
 
 export default function AuthLayout() {
   const insets = useSafeAreaInsets();
@@ -12,7 +13,6 @@ export default function AuthLayout() {
   const colorScheme = useColorScheme();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
 
   return (
     <KeyboardAvoidingView
@@ -33,43 +33,60 @@ export default function AuthLayout() {
         }}
       >
         <View className={`bg-primary-light dark:bg-primary-dark h-full`}>
-          <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center px-3 ">
+          {/* Header Section */}
+          <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center px-3">
             <View className="flex-row justify-between">
               <View className="flex-row items-center">
                 <TouchableOpacity onPress={toggleSidebar}>
                   <SvgXml xml={menu} width={40} height={40} />
                 </TouchableOpacity>
-                <SvgXml 
-                    xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon} 
-                    width={110} 
-                    height={40}
-                  />
+                <SvgXml
+                  xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon}
+                  width={110}
+                  height={40}
+                />
               </View>
-              <View className="flex-row gap-5">
+
+              <View className="flex-row items-center gap-5">
+                {/* Add Language Picker */}
+                <LanguagePicker
+                //@ts-ignore
+                  style={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    backgroundColor: colorScheme === 'dark' ? '#333' : '#fff',
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    borderColor: colorScheme === 'dark' ? '#444' : '#ccc',
+                  }}
+                />
+
                 <TouchableOpacity onPress={() => router.push('/dashboard')}>
-                <SvgXml 
-                    xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon} 
-                    width={25} 
+                  <SvgXml
+                    xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon}
+                    width={25}
                     height={25}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>router.push('/dashboard/trainee/Profile')}>
+                <TouchableOpacity onPress={() => router.push('/dashboard/trainee/Profile')}>
                   <Image
                     source={require('@/assets/images/profile.png')}
-                    style={{ width: 33, height: 33 , borderRadius:50 }}
+                    style={{ width: 33, height: 33, borderRadius: 50 }}
                   />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+
+          {/* Slot for Content */}
           <Slot />
         </View>
       </ScrollView>
+
+      {/* Sidebar */}
       {isSidebarOpen && (
-        <View className="absolute top-0 left-0 bottom-0">
-          <Sidebar
-            onClose={toggleSidebar}
-          />
+        <View className="absolute top-0 bottom-0 left-0">
+          <Sidebar onClose={toggleSidebar} />
         </View>
       )}
     </KeyboardAvoidingView>

@@ -21,6 +21,7 @@ import { Text, View } from '@/components/Themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePathname, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
@@ -33,23 +34,24 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const router = useRouter();
   const pathname = usePathname();
   const colorScheme = useColorScheme();
+  const { t } = useTranslation();
 
   const UpperItems = [
-    { name: 'Dashboard', iconLight: lightDashboard, iconDark: darkDashboard, path: '/dashboard' },
+    { name: t('navbar.dashboard'), iconLight: lightDashboard, iconDark: darkDashboard, path: '/dashboard' },
     {
-      name: 'Attendance',
+      name:  t('navbar.attendance'),
       iconLight: lightAttendance,
       iconDark: darkAttendance,
       path: '/dashboard/trainee',
     },
     {
-      name: 'Performance',
+      name: t('navbar.performance'),
       iconLight: lightPerformance,
       iconDark: darkPerformance,
       path: '/dashboard/perfomance',
     },
     {
-      name: 'Calendar',
+      name: t('navbar.calendar'),
       iconLight: lightCalender,
       iconDark: darkCalender,
       path: '/dashboard/trainee',
@@ -57,9 +59,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   ];
 
   const LowerItems = [
-    { name: 'Docs', iconLight: lightDocument, iconDark: darkDocument, path: '/dashboard/trainee' },
-    { name: 'Help', iconLight: lightHelp, iconDark: darkHelp, path: '/dashboard/trainee' },
-    { name: 'Sign out', iconLight: lightLogout, iconDark: darkLogout, path: '/auth/login' },
+    { name:  t('navbar.docs'), iconLight: lightDocument, iconDark: darkDocument, path: '/dashboard/trainee' },
+    { name:  t('navbar.help'), iconLight: lightHelp, iconDark: darkHelp, path: '/dashboard/trainee' },
+    { name: t('navbar.signOut'), iconLight: lightLogout, iconDark: darkLogout, path: '/auth/login' },
   ];
 
   useEffect(() => {
@@ -94,8 +96,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   };
 
   return (
-    <View className="w-96 h-full bg-primary-light dark:bg-primary-dark shadow-lg flex-1 pt-10">
-      <View className="flex-row justify-between items-center p-4">
+    <View className="flex-1 h-full pt-10 shadow-lg w-96 bg-primary-light dark:bg-primary-dark">
+      <View className="flex-row items-center justify-between p-4">
         <SvgXml
           xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon}
           width={100}
@@ -129,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
             </TouchableOpacity>
           ))}
         </View>
-        <View className="border-b border-black-100 dark:border-white my-2" />
+        <View className="my-2 border-b border-black-100 dark:border-white" />
         <View>
           {LowerItems.map((item, index) => (
             <TouchableOpacity
