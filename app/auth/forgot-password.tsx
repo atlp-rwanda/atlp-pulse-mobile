@@ -3,18 +3,19 @@ import { View, Text, TextInput, useColorScheme, SafeAreaView, Dimensions, Toucha
 import { SvgXml } from 'react-native-svg';
 import { StatusBar } from 'expo-status-bar';
 import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
-import Button from '@/components/buttons';
 import { useMutation } from '@apollo/client';
 import { useToast } from 'react-native-toast-notifications';
 import { useFormik } from 'formik';
 import { ResetPasswordSchema } from '@/validations/login.schema';
 import { RESET_PASSWORD_EMAIL } from '@/graphql/mutations/resetPassword';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   email: string;
 };
 
 export default function ResetPassword() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const toast = useToast();
@@ -60,28 +61,25 @@ export default function ResetPassword() {
       <SafeAreaView>
         <StatusBar/>
       <View className={`flex ${bgColor} mt-36`}>
-        <View className="flex p-10 justify-center mt-16">
+        <View className="flex justify-center p-10 mt-16">
           <Text className={`text-3xl font-Inter-Bold mb-6 text-center ${textColor}`}>
-            Reset Password
+            {t("forgotPassword.title")}
           </Text>
 
           {replace ? (
             <View>
               <Text className={`text-m font-Inter-regular mb-2 text-center ${textColor}`}>
-                Password reset request successful!{' '}
-              </Text>
-              <Text className={`text-m font-Inter-regular mb-2 text-center ${textColor}`}>
-                Please check your email for a link to reset your password!
+              {t("forgotPassword.successMessage")}
               </Text>
             </View>
           ) : (
             <View>
               <Text className={`text-m font-Inter-regular mb-6 text-center ${textColor}`}>
-                You will receive an email to proceed with resetting password
+              {t("forgotPassword.instructions")}
               </Text>
               <View className={`${inputbg} p-3 rounded-lg shadow border-2 border-[#D2D2D2] mb-2`}>
                 <TextInput
-                  placeholder="Enter Email"
+                  placeholder={t("forgotPassword.placeholder")}
                   placeholderTextColor="gray"
                   value={formik.values.email}
                   onChangeText={formik.handleChange('email')}
@@ -91,18 +89,18 @@ export default function ResetPassword() {
                 />
               </View>
               {formik.errors.email && (
-                <Text className="text-error-500 mb-4">{formik.errors.email}</Text>
+                <Text className="mb-4 text-error-500">{t("")}</Text>
               )}
               <TouchableOpacity
                 testID="submit-button"
                 onPress={() => formik.handleSubmit()}
-                className="bg-action-500 p-4 rounded-lg items-center"
+                className="items-center p-4 rounded-lg bg-action-500"
                 disabled={loading}
               >
                 {loading ? (
                   <ActivityIndicator color="white" />
                 ) : (
-                  <Text className="text-secondary-light-500 text-lg font-semibold">Continue</Text>
+                  <Text className="text-lg font-semibold text-secondary-light-500">{t("forgotPassword.submitButton")}</Text>
                 )}
               </TouchableOpacity>
             </View>

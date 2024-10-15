@@ -1,4 +1,5 @@
 import { logo } from '@/assets/Icons/auth/Icons';
+import LanguagePicker from '@/components/LanguagePicker';
 import { Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View, useColorScheme } from 'react-native';
@@ -31,12 +32,31 @@ export default function AuthLayout() {
           paddingRight: insets.right,
         }}
       >
-        <View className={`flex-1 bg-secondary-light-500 dark:bg-primary-dark h-full  ${bgColor}`}>
-          <View className="w-full h-[87px] relative bg-primary-light dark:bg-primary-dark flex items-center justify-center px-12">
+        <View className={`flex-1 bg-secondary-light-500 dark:bg-primary-dark h-full ${bgColor}`}>
+          {/* Header Section */}
+          <View className="w-full h-[87px] bg-primary-light dark:bg-primary-dark flex flex-row items-center justify-between px-12">
+            {/* Logo */}
             <View className="flex-row items-center">
               <SvgXml xml={logo} />
             </View>
+
+            {/* Language Picker */}
+            <View className="flex-row items-center space-x-2">
+              <LanguagePicker 
+              // @ts-ignore
+                style={{
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  backgroundColor: colorScheme === 'dark' ? '#333' : '#fff',
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: colorScheme === 'dark' ? '#444' : '#ccc',
+                }}
+              />
+            </View>
           </View>
+
+          {/* Slot for Auth Content */}
           <Slot />
         </View>
       </ScrollView>
