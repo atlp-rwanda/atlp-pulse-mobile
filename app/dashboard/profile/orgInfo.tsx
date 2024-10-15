@@ -6,6 +6,7 @@ import { GET_PROFILE } from '@/graphql/queries/User';
 import { useQuery } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from 'react-native-toast-notifications';
+import { router } from 'expo-router';
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState<'about' | 'organizations'>('about');
@@ -66,7 +67,7 @@ const ProfilePage = () => {
           source={require('@/assets/images/background.png')}
           className="w-full h-full object-cover"
         />
-        <TouchableOpacity className="absolute bottom-1 right-4 rounded-full shadow-md">
+        <TouchableOpacity onPress={()=> router.push('/dashboard/EditProfile/EditProfile')} className="absolute bottom-1 right-4 rounded-full shadow-md">
           <SvgXml xml={editBG} />
         </TouchableOpacity>
 
