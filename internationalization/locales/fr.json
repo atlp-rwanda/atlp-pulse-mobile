@@ -1,0 +1,30 @@
+{
+    "onboarding": {
+      "page1": "Optimisez le potentiel de votre organisation avec la gestion/analyse des performances.",
+      "page2": "Identifiez les meilleurs talents, découvrez les talents cachés et optimisez votre main-d'œuvre.",
+      "page3": "Débloquez le potentiel d'une boucle de rétroaction continue et serrée.",
+      "getStarted": "Commencer"
+    },
+    "notFound": {
+    "title": "Oups! Nous ne pouvons pas trouver la page que vous recherchez.",
+    "goHome": "Aller à l'écran d'accueil!"
+  },
+  "orgLogin": {
+    "signIn": "Connectez-vous à votre organisation",
+    "enterOrgURL": "Entrez l'URL Pulse de votre organisation",
+    "continue": "Continuer",
+    "orgPlaceholder": "<Votre-organisation>.pulse.co",
+    "error": "Le nom de l'organisation est requis"
+  },
+  "userLogin": {
+    "welcome": "Bienvenue à",
+    "switchOrg": "Changer votre organisation",
+    "email": "Email",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "emailRequired": "L'email est requis",
+    "passwordRequired": "Le mot de passe est requis"
+  }
+  }
+  
