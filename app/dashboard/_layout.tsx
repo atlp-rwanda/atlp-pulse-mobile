@@ -53,7 +53,7 @@ export default function AuthLayout() {
                 />
               </View>
               <View className="flex-row gap-5">
-                <TouchableOpacity onPress={() => router.push('/')}>
+                <TouchableOpacity onPress={() => router.push('/dashboard')}>
                 <SvgXml 
                     xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon} 
                     width={25} 

@@ -18,6 +18,7 @@ type OrgLoginProps = {
 
 export default function OrgLogin({ onSubmit }: OrgLoginProps) {
   const [loading, setLoading] = useState(false);
+  const [inputWidth, setInputWidth] = useState<number>();
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-secondary-light-900';
   const formik = useFormik<FormValues>({
@@ -29,6 +30,13 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
     },
     validationSchema: OrgLoginSchema,
   });
+
+  const handleNameChange = (inputText: string) => {
+    formik.setFieldValue('organization', inputText);
+    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130
+    setInputWidth(newWidth);
+  };
+  
 
   return (
     <View testID="org-login">
@@ -48,19 +56,20 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
               <View
                 className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
               >
-                <Ionicons name="globe-outline" size={24} color="gray" className="mr-2" />
+                <Ionicons name="globe-outline" size={24} color="gray" className="mr-4" />
 
                 <TextInput
                   testID="org-input"
-                  placeholder="<Your-organization>.pulse.co"
-                  placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
-                  onChangeText={formik.handleChange('organization')}
+                  placeholder="<Your-organization>"
+                  placeholderTextColor={colorScheme === 'dark' ? '#9ca3af' : '#9e9e9e'}
+                  onChangeText={handleNameChange}
                   value={formik.values.organization}
-                  style={{ flex: 1, marginLeft: 8 }}
+                  style={{marginLeft:10,width:inputWidth}}
                   autoCapitalize="none"
                   keyboardType="url"
                   className={`${colorScheme === 'dark' ? 'text-primary-light' : '#9e9e9e'}`}
                 />
+                <Text testID='pulse.co' className='text-gray-400'>.pulse.co</Text>
               </View>
             </View>
             <Text className="text-error-500 text-center mt-2">{formik.errors.organization}</Text>

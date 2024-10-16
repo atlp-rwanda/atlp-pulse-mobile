@@ -107,7 +107,7 @@ const ProfilePage = () => {
       )}
 
       {activeTab === 'organizations' && (
-        <View className="pt-4">
+        <View className="pt-4 mb-14">
           <View style={{ backgroundColor: '#8667F2' }} className="p-4 rounded-t-2xl flex-row gap-7">
             <View className="bg-white rounded-full flex justify-center left-5">
               <SvgXml xml={logo} />

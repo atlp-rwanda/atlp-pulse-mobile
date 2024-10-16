@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { useRouter, usePathname } from 'expo-router';
 import Sidebar from '@/components/sidebar'; // Adjust the import path as needed
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Mock the expo-router hooks
 jest.mock('expo-router', () => ({
@@ -12,6 +13,11 @@ jest.mock('expo-router', () => ({
 // Mock the SvgXml component
 jest.mock('react-native-svg', () => ({
   SvgXml: 'SvgXml',
+}));
+
+// Mock AsyncStorage
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  removeItem: jest.fn(),
 }));
 
 describe('Sidebar', () => {
@@ -62,4 +68,15 @@ describe('Sidebar', () => {
       expect(mockOnClose).toHaveBeenCalled();
     });
   });
+
+  it('handles logout correctly', async () => {
+    const { getByText } = render(<Sidebar onClose={mockOnClose} />);
+    fireEvent.press(getByText('Sign out'));
+
+    await waitFor(() => {
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('authToken');
+      expect(mockPush).toHaveBeenCalledWith('/auth/login');
+    });
+  });
+
 });
