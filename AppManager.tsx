@@ -1,5 +1,3 @@
-export var ConstantId = 
-{
-accessToken: '',
- 
+export var ConstantId = {
+  accessToken: '',
 };

@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { View, Text, TextInput, useColorScheme, SafeAreaView, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  useColorScheme,
+  SafeAreaView,
+  Dimensions,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { StatusBar } from 'expo-status-bar';
 import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
@@ -57,8 +66,8 @@ export default function ResetPassword() {
   const screenHeight = Dimensions.get('window').height;
 
   return (
-      <SafeAreaView>
-        <StatusBar/>
+    <SafeAreaView>
+      <StatusBar />
       <View className={`flex ${bgColor} mt-36`}>
         <View className="flex p-10 justify-center mt-16">
           <Text className={`text-3xl font-Inter-Bold mb-6 text-center ${textColor}`}>

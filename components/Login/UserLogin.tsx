@@ -30,6 +30,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const [orgName, setOrgName] = useState<string | null>(null);
+  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
 
   useEffect(() => {
     const fetchOrgName = async () => {
@@ -52,7 +53,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
     },
     validationSchema: UserLoginSchema,
   });
-  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
+
   return (
     <View testID="user-login">
       <View className="flex p-10 justify-center mt-16">
@@ -69,63 +70,69 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
 
         <View className="flex flex-col">
           <View className="flex mb-4">
-            <Text className={`p-2 ${textColor}`}>Email</Text>
-            <View
-              className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
-            >
-              <SvgXml
-                xml={colorScheme === 'dark' ? lightEmail : email}
-                color="gray"
-                className="mr-2"
-              />
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
-                onChangeText={formik.handleChange('email')}
-                onBlur={formik.handleBlur('email')}
-                value={formik.values.email}
-                className={`flex-1 ml-2 rounded-[10px] font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
-                autoCapitalize="none"
-                keyboardType="url"
-              />
-            </View>
-            <Text className="mt-2 text-error-400 ">{formik.errors.email}</Text>
-            <Text className={`pl-2  ${textColor}`}>Password</Text>
-            <View
-              className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
-            >
-              <SvgXml xml={colorScheme === 'dark' ? DarkLock : lock} />
-              <TextInput
-                className={`font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
-                placeholder="Password"
-                placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
-                secureTextEntry={secureTextEntry}
-                onChangeText={formik.handleChange('password')}
-                onBlur={formik.handleBlur('password')}
-                value={formik.values.password}
-              />
-
-              <TouchableOpacity
-                className="absolute right-3 top-3"
-                onPress={togglePasswordVisibility}
-                testID='password-toggle'
+            <View className="mb-4">
+              <Text className={`p-2 ${textColor}`}>Email</Text>
+              <View
+                className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
               >
-                <Ionicons
-                  name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'}
-                  size={24}
-                  color={'#575757'}
+                <SvgXml
+                  xml={colorScheme === 'dark' ? lightEmail : email}
+                  color="gray"
+                  className="mr-2"
                 />
-              </TouchableOpacity>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
+                  onChangeText={formik.handleChange('email')}
+                  onBlur={formik.handleBlur('email')}
+                  value={formik.values.email}
+                  className={`flex-1 ml-2 rounded-[10px] font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
+                  autoCapitalize="none"
+                  keyboardType="url"
+                />
+              </View>
+              {formik.errors.email && (
+                <Text className="mt-1 text-error-500">{formik.errors.email}</Text>
+              )}
             </View>
+            <View>
+              <Text className={`pl-2  ${textColor}`}>Password</Text>
+              <View
+                className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
+              >
+                <SvgXml xml={colorScheme === 'dark' ? DarkLock : lock} />
+                <TextInput
+                  className={`font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
+                  placeholder="Password"
+                  placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
+                  secureTextEntry={secureTextEntry}
+                  onChangeText={formik.handleChange('password')}
+                  onBlur={formik.handleBlur('password')}
+                  value={formik.values.password}
+                />
 
-            <View className="flex flex-row justify-between">
-              <Text className="mt-2 text-error-400">{formik.errors.password}</Text>
-              <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
-                <Text className="text-action-500 p-2 text-right">Forgot Password?</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  className="absolute right-3 top-3"
+                  onPress={togglePasswordVisibility}
+                  testID="password-toggle"
+                >
+                  <Ionicons
+                    testID="password-toggle"
+                    name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'}
+                    size={24}
+                    color={'#575757'}
+                  />
+                </TouchableOpacity>
+              </View>
+              {formik.errors.password && (
+                <Text className="text-error-500 mt-1">{formik.errors.password}</Text>
+              )}
             </View>
           </View>
 
+          <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
+            <Text className="text-action-500 mt-1 mb-5 text-right">Forgot Password?</Text>
+          </TouchableOpacity>
           <View className="flex flex-col gap-4">
             <TouchableOpacity
               onPress={() => formik.handleSubmit()}

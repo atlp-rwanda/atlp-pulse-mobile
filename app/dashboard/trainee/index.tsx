@@ -1,9 +1,5 @@
-import { Text, View } from 'react-native';
+import { Redirect } from 'expo-router';
 
 export default function TraineeDashboard() {
-  return (
-    <View>
-      <Text>Trainee Dashboard Coming Soon</Text>
-    </View>
-  );
+  return <Redirect href="/dashboard/trainee/ratings" />;
 }

@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
-
 type FormValues = {
   organization: string;
 };
@@ -33,10 +32,9 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
 
   const handleNameChange = (inputText: string) => {
     formik.setFieldValue('organization', inputText);
-    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130
+    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130;
     setInputWidth(newWidth);
   };
-  
 
   return (
     <View testID="org-login">
@@ -64,12 +62,14 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                   placeholderTextColor={colorScheme === 'dark' ? '#9ca3af' : '#9e9e9e'}
                   onChangeText={handleNameChange}
                   value={formik.values.organization}
-                  style={{marginLeft:10,width:inputWidth}}
+                  style={{ marginLeft: 10, width: inputWidth }}
                   autoCapitalize="none"
                   keyboardType="url"
                   className={`${colorScheme === 'dark' ? 'text-primary-light' : '#9e9e9e'}`}
                 />
-                <Text testID='pulse.co' className='text-gray-400'>.pulse.co</Text>
+                <Text testID="pulse.co" className="text-gray-400">
+                  .pulse.co
+                </Text>
               </View>
             </View>
             <Text className="text-error-500 text-center mt-2">{formik.errors.organization}</Text>

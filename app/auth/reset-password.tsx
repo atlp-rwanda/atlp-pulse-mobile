@@ -25,7 +25,7 @@ const SetNewPassword = () => {
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
   const toast = useToast();
-  const colorScheme = useColorScheme()
+  const colorScheme = useColorScheme();
 
   const [ResetPassword] = useMutation(FORGOT_PASSWORD, {
     onCompleted: () => {

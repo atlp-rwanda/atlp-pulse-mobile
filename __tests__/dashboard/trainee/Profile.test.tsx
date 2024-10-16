@@ -1,10 +1,9 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Profile from '@/app/dashboard/trainee/Profile';
-import '@testing-library/jest-native/extend-expect';
+import Profile from '@/app/dashboard/trainee/profile';
 import { useQuery } from '@apollo/client';
-import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import '@testing-library/jest-native/extend-expect';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
+import { useColorScheme } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 
 jest.mock('@apollo/client', () => ({
@@ -74,7 +73,11 @@ describe('<Profile />', () => {
     render(<Profile />);
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Token Not found.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 
@@ -82,13 +85,13 @@ describe('<Profile />', () => {
     mockUseQuery.mockReturnValue({
       data: {
         getProfile: {
-        avatar: 'https://example.com/avatar.png',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phoneNumber: '1234567890',
-        address: '123 Main St',
-        resume: 'https://example.com/resume.pdf',
-        biography: 'This is a biography.',
+          avatar: 'https://example.com/avatar.png',
+          name: 'John Doe',
+          email: 'john.doe@example.com',
+          phoneNumber: '1234567890',
+          address: '123 Main St',
+          resume: 'https://example.com/resume.pdf',
+          biography: 'This is a biography.',
         },
       },
       loading: false,
@@ -136,7 +139,11 @@ describe('<Profile />', () => {
     render(<Profile />);
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Error fetching profile.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 
@@ -176,7 +183,11 @@ describe('<Profile />', () => {
     fireEvent.press(getByTestId('edit-button'));
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Edit button pressed', { type: 'info', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Edit button pressed', {
+        type: 'info',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 

@@ -1,7 +1,6 @@
-import React from 'react';
-import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useColorScheme } from 'react-native';
+import React from 'react';
+import { Text, useColorScheme, View } from 'react-native';
 
 interface Profile {
   name?: string;
@@ -56,7 +55,11 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
           </Text>
         </View>
         <View className="flex-row gap-5 m-2">
-          <Ionicons name="logo-github" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
+          <Ionicons
+            name="logo-github"
+            size={20}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
           <Text className={`${textColor} text-lg`}>
             {profile.githubUsername ? profile.githubUsername : 'Unavailable'}
           </Text>
