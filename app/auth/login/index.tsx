@@ -1,4 +1,3 @@
-import { ConstantId } from '@/AppManager';
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
@@ -49,16 +48,18 @@ export default function SignInOrganization() {
           },
         },
         onCompleted({ loginOrg }) {
-          AsyncStorage.setItem('orgToken', loginOrg.token);
-          let value: string = String(values.organization);
-          AsyncStorage.setItem('orgName', value);
-          toast.show('Welcome! Sign in to Continue', {
-            type: 'success',
-            placement: 'top',
-            duration: 4000,
-            animationType: 'slide-in',
-          });
-          setOrgLoginSuccess(true);
+          (async function () {
+            await AsyncStorage.setItem('orgToken', loginOrg.token);
+            let value: string = String(values.organization);
+            await AsyncStorage.setItem('orgName', value);
+            toast.show('Welcome! Sign in to Continue', {
+              type: 'success',
+              placement: 'top',
+              duration: 4000,
+              animationType: 'slide-in',
+            });
+            setOrgLoginSuccess(true);
+          })();
         },
         onError(err: any) {
           ErrorHandler.handleCustomError(`${err}`);
@@ -81,21 +82,21 @@ export default function SignInOrganization() {
         },
         onCompleted: async (data) => {
           if (data.addMemberToCohort) {
-        ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
+            ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
           }
 
-          if (login && data.loginUser) {
+          if (data.loginUser) {
             const token = data.loginUser.token;
 
             if (data.loginUser.user.role === 'trainee') {
               params.redirect
                 ? router.push(`${params.redirect}` as Href<string | object>)
                 : router.push('/dashboard' as Href<string | object>);
-              }
+            }
 
             try {
-              await AsyncStorage.setItem('auth_token', token);
-              const storedToken = await AsyncStorage.getItem('auth_token');
+              await AsyncStorage.setItem('authToken', token);
+              const storedToken = await AsyncStorage.getItem('authToken');
 
               if (storedToken !== token) {
                 console.error('Stored token does not match received token');
@@ -103,27 +104,31 @@ export default function SignInOrganization() {
             } catch (error) {
               console.error('Error storing token:', error);
             }
-            login(data.loginUser);
+
+            if (login !== undefined) {
+              login(data.loginUser);
+            }
+
             try {
               await client.resetStore();
             } catch (error) {
               console.error('Error resetting client store:', error);
             }
 
-        // Handle redirection
-        if (params.redirect) {
-          router.push(params.redirect);
-          return;
-        }
+            // Handle redirection
+            if (params.redirect) {
+              router.push(params.redirect as Href);
+              return;
+            }
 
-        // Navigate based on user role
-        const role = data.loginUser.user.role;
-        if (role === 'admin' || role === 'coordinator') {
-          await AsyncStorage.setItem('authToken', data.loginUser.token);
-          router.push('/dashboard/trainee');
-        } else {
-          Alert.alert('The app is for the trainee only');
-        }
+            // Navigate based on user role
+            const role = data.loginUser.user.role;
+            if (role === 'admin' || role === 'coordinator') {
+              await AsyncStorage.setItem('authToken', data.loginUser.token);
+              router.push('/dashboard/trainee');
+            } else {
+              Alert.alert('The app is for the trainee only');
+            }
           } else {
             await AsyncStorage.setItem('authToken', data.loginUser.token);
             router.push('/dashboard');
@@ -131,12 +136,12 @@ export default function SignInOrganization() {
         },
         onError: (err) => {
           if (err.networkError) {
-        ErrorHandler.handleNetworkError();
+            ErrorHandler.handleNetworkError();
           } else if (err.message.toLowerCase() === 'invalid credential') {
-        ErrorHandler.handleInvalidCredentials();
+            ErrorHandler.handleInvalidCredentials();
           } else {
-        const translateError = 'Please wait to be added to a program or cohort';
-        ErrorHandler.handleCustomError(translateError);
+            const translateError = 'Please wait to be added to a program or cohort';
+            ErrorHandler.handleCustomError(translateError);
           }
         },
       });

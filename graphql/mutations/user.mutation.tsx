@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PROFILE = gql`
-  query {
+  query GetProfile {
     getProfile {
       firstName
       lastName
@@ -31,20 +31,7 @@ export const GET_PROFILE = gql`
             startDate
           }
         }
-        cohort {
-          name
-          program {
-            name
-          }
-          phase {
-            name
-          }
-        }
-        program {
-          name
-        }
       }
     }
   }
 `;
-

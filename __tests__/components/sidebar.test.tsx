@@ -1,13 +1,16 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { useRouter, usePathname } from 'expo-router';
-import Sidebar from '@/components/sidebar'; // Adjust the import path as needed
+import Sidebar from '@/components/sidebar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
+import { usePathname, useRouter } from 'expo-router';
 
 // Mock the expo-router hooks
 jest.mock('expo-router', () => ({
   useRouter: jest.fn(),
   usePathname: jest.fn(),
+}));
+
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(() => Promise.resolve('Test Organization')),
 }));
 
 // Mock the SvgXml component
@@ -44,12 +47,8 @@ describe('Sidebar', () => {
   it('highlights the active item based on current pathname', () => {
     (usePathname as jest.Mock).mockReturnValue('/dashboard/trainee');
     const { getByText } = render(<Sidebar onClose={mockOnClose} />);
-    const attendanceItem = getByText('Attendance').parent;
-    expect(attendanceItem?.props.style).toEqual(
-      expect.objectContaining({
-        backgroundColor: expect.stringContaining('indigo'),
-      })
-    );
+    const attendanceItem = getByText('Attendance').parent?.parent;
+    expect(attendanceItem?.props.className).toEqual(expect.stringContaining('bg-indigo-300'));
   });
 
   it('calls onClose when close button is pressed', () => {
@@ -78,5 +77,4 @@ describe('Sidebar', () => {
       expect(mockPush).toHaveBeenCalledWith('/auth/login');
     });
   });
-
 });

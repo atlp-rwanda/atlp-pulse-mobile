@@ -81,10 +81,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const handleItemPress = async (item: { name: string; path: string }) => {
     setActiveItem(item.name);
     try {
-      if(item.name === 'Sign out'){
-         await handleLogout()
-      }
-      else{
+      if (item.name === 'Sign out') {
+        await handleLogout();
+      } else {
         router.push(item.path as any);
         onClose();
       }
@@ -101,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
           width={100}
           height={40}
         />
-        <TouchableOpacity onPress={onClose}>
+        <TouchableOpacity testID="close-button" onPress={onClose}>
           <SvgXml xml={close} width={24} height={24} />
         </TouchableOpacity>
       </View>

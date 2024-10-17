@@ -44,20 +44,20 @@ describe('TraineeRatings Component', () => {
   it('fetches user token from AsyncStorage', async () => {
     const mockToken = 'mock-token';
     AsyncStorage.getItem = jest.fn(() => Promise.resolve(mockToken));
-  
+
     render(<TraineeRatings />);
-  
+
     await waitFor(() => {
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('authToken');
     });
   });
-  
+
   it('alerts when token is not found', async () => {
     AsyncStorage.getItem = jest.fn(() => Promise.resolve(null));
     global.alert = jest.fn();
-  
+
     render(<TraineeRatings />);
-  
+
     await waitFor(() => {
       expect(global.alert).toHaveBeenCalledWith('Error', 'User token not found.');
     });
@@ -68,13 +68,13 @@ describe('TraineeRatings Component', () => {
       request: { query: TRAINEE_RATING },
       error: mockError,
     };
-  
+
     const { getByText } = render(
       <MockedProvider mocks={[mockErrorQuery]} addTypename={false}>
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     await waitFor(() => {
       expect(getByText('Error')).toBeTruthy();
     });
@@ -85,9 +85,9 @@ describe('TraineeRatings Component', () => {
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     fireEvent.changeText(getByPlaceholderText('Filter by Sprint'), '2');
-    
+
     await waitFor(() => {
       const sprintFiltered = getAllByText(/Sprint 2/i);
       expect(sprintFiltered.length).toBeGreaterThan(0);
@@ -99,9 +99,9 @@ describe('TraineeRatings Component', () => {
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     fireEvent.press(getByText('Phase II'));
-  
+
     await waitFor(() => {
       const phaseFiltered = getAllByText('Phase II');
       expect(phaseFiltered.length).toBeGreaterThan(0);
@@ -113,7 +113,7 @@ describe('TraineeRatings Component', () => {
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     await waitFor(() => {
       expect(getByText('SPRINT')).toBeTruthy();
       expect(getByText('QUANTITY')).toBeTruthy();
@@ -124,13 +124,13 @@ describe('TraineeRatings Component', () => {
       request: { query: TRAINEE_RATING },
       result: { data: { fetchRatingsTrainee: [] } },
     };
-  
+
     const { getByText } = render(
       <MockedProvider mocks={[emptyMockData]} addTypename={false}>
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     await waitFor(() => {
       expect(getByText('No Ratings Available')).toBeTruthy();
     });
@@ -141,16 +141,16 @@ describe('TraineeRatings Component', () => {
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     const viewButtons = getAllByText('View');
     fireEvent.press(viewButtons[0]);
-  
+
     await waitFor(() => {
       expect(getByText('From: Manager')).toBeTruthy();
       expect(getByText('Feedback: Great performance')).toBeTruthy();
     });
   });
-  
+
   it('renders without errors and displays fetched data', async () => {
     const { getByText, getByPlaceholderText } = render(
       <MockedProvider mocks={[mockRatingsData]} addTypename={false}>
@@ -194,14 +194,13 @@ describe('TraineeRatings Component', () => {
         <TraineeRatings />
       </MockedProvider>
     );
-  
+
     const viewButtons = await findAllByText('View'); // Async await find method
     fireEvent.press(viewButtons[0]);
-  
+
     await waitFor(() => {
       expect(getByText('From: Manager')).toBeTruthy();
       expect(getByText('Feedback: Great performance')).toBeTruthy();
     });
   });
-  
 });

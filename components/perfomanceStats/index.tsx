@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Dimensions, ScrollView, useColorScheme, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TRAINEE_RATING } from '@/graphql/queries/rating';
 import { useQuery } from '@apollo/client';
-import styles from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import { Alert, Dimensions, Text, useColorScheme, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import CircularIndicator from './circleIndicator';
+import styles from './styles';
 
 const PerformanceScores = () => {
   const colors = {
@@ -59,43 +59,45 @@ const PerformanceScores = () => {
   }, [userToken]);
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <Text className={`text-center`} style={{ color: textColor }}>
+        Loading...
+      </Text>
+    );
   }
 
   if (error) {
-    return <Text>Error: {error.message}</Text>;
+    return (
+      <Text className={`text-center`} style={{ color: textColor }}>
+        {error.message}
+      </Text>
+    );
   }
 
   let fetchedData = data?.fetchRatingsTrainee || [];
 
   if (fetchedData.length === 0) {
     return (
-      <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]}>
+      <>
         <Text style={[styles.header, { color: textColor }]}>Performance scores</Text>
         <View style={styles.scoresContainer}>
           <View style={styles.scoreItem}>
             <CircularIndicator value={0} color={colors.quality} label="Quality" />
             <Text style={[styles.scoreLabel, { color: textColor }]}>Quality</Text>
-           
           </View>
 
           <View style={styles.scoreItem}>
             <CircularIndicator value={0} color={colors.quantity} label="Quantity" />
             <Text style={[styles.scoreLabel, { color: textColor }]}>Quantity</Text>
-            
           </View>
 
           <View style={styles.scoreItem}>
-            <CircularIndicator
-              value={0}
-              color={colors.professionalism}
-              label="Profesionalism"
-            />
+            <CircularIndicator value={0} color={colors.professionalism} label="Profesionalism" />
 
             <Text style={[styles.scoreLabel, { color: textColor }]}>Professionalism</Text>
           </View>
         </View>
-      </ScrollView>
+      </>
     );
   }
 
@@ -145,7 +147,7 @@ const PerformanceScores = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]} className='mb-5'>
+    <>
       <Text style={[styles.header, { color: textColor }]}>Performance scores</Text>
       <View style={styles.scoresContainer}>
         <View style={styles.scoreItem}>
@@ -183,10 +185,10 @@ const PerformanceScores = () => {
         </View>
       </View>
       <Text style={[styles.chartHeader, { color: textColor }]}>Stats</Text>
-      <View style={{ height: 200, paddingVertical: 16 }}>
+      <View style={{ maxHeight: 250, paddingVertical: 16 }}>
         <LineChart
           data={lineGraph}
-          width={Dimensions.get('window').width - 40}
+          width={Dimensions.get('window').width - 32}
           height={220}
           chartConfig={chartConfig}
           bezier
@@ -197,7 +199,7 @@ const PerformanceScores = () => {
           style={{ height: '100%', width: '100%' }}
         />
       </View>
-    </ScrollView>
+    </>
   );
 };
 
