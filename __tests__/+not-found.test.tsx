@@ -1,12 +1,11 @@
 import NotFoundScreen from '@/app/+not-found';
 import { render } from '@testing-library/react-native';
-import React from 'react';
 
 describe('<NotFoundScreen />', () => {
   test('Screen renders correctly on NotFoundScreen', () => {
     const { getByText } = render(<NotFoundScreen />);
 
-    getByText("This screen doesn't exist.");
+    getByText("Oops! We can't find the page you're looking for.");
     getByText('Go to home screen!');
   });
 });

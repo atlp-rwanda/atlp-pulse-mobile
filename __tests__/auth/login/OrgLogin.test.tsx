@@ -9,8 +9,7 @@ describe('<OrgLogin />', () => {
 
     getByText('Sign in to your Organization');
     getByText("Enter your organization's Pulse URL");
-    getByText('Looking to register an organization instead?');
-    getByText('Sign up');
+    getByText('Continue');
   });
 
   test('renders the organization input field and accepts input', () => {

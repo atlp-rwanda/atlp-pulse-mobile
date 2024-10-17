@@ -86,7 +86,7 @@ export default function AppOnboarding() {
         <TouchableOpacity>
           <Text
             className="text-lg font-Inter-Medium dark:text-white"
-            onPress={() => router.push('/redirect?path=/auth/login&dest=app')}
+            onPress={() => router.push('/auth/login')}
           >
             Get Started
           </Text>

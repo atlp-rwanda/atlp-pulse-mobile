@@ -6,7 +6,6 @@ import { RegisterSchema } from '@/validations/register.schema';
 import { ApolloError, useMutation } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Picker } from '@react-native-picker/picker';
 import Checkbox from 'expo-checkbox';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFormik } from 'formik';
@@ -19,6 +18,7 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
 
@@ -58,6 +58,13 @@ export default function RegisterForm() {
   const [email, setEmail] = useState<string | null>(null);
   const [orgName, setOrgName] = useState<string | null>(null);
   const [SignupUser] = useMutation<RegisterResponse>(SIGN_UP_MUTATION);
+
+  const [gender, setGender] = useState<string | null>(null);
+  const [genderSelectOpen, setGenderSelectOpen] = useState(false);
+  const genderOptions = [
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+  ];
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -129,6 +136,12 @@ export default function RegisterForm() {
     }
   }, []);
 
+  useEffect(() => {
+    if (gender) {
+      formik.setFieldValue('gender', gender);
+    }
+  }, [gender]);
+
   return (
     <View className="flex-1 p-8 justify-center">
       <View className="mb-8">
@@ -141,12 +154,14 @@ export default function RegisterForm() {
       </View>
 
       <View className="flex flex-col">
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">First Name:</Text>
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
+            First Name:
+          </Text>
           <View
-            className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
+            className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
-            <Ionicons name="person" size={20} color="gray" className="mr-2" />
+            <Ionicons name="person" size={26} color="gray" className="mx-3" />
 
             <TextInput
               testID="first-name"
@@ -155,17 +170,21 @@ export default function RegisterForm() {
               value={formik.values.firstName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`ml-2`}
+              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.firstName}</Text>
+          {formik.errors.firstName && (
+            <Text className="text-error-500 mt-1">{formik.errors.firstName}</Text>
+          )}
         </View>
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Last Name:</Text>
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
+            Last Name:
+          </Text>
           <View
-            className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
+            className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
-            <Ionicons name="person" size={20} color="gray" className="mr-2" />
+            <Ionicons name="person" size={26} color="gray" className="mx-3" />
 
             <TextInput
               testID="last-name"
@@ -174,17 +193,19 @@ export default function RegisterForm() {
               value={formik.values.lastName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`ml-2`}
+              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.lastName}</Text>
+          {formik.errors.lastName && (
+            <Text className="text-error-500 mt-1">{formik.errors.lastName}</Text>
+          )}
         </View>
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Email:</Text>
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">Email:</Text>
           <View
-            className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light mb-8`}
+            className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
-            <Ionicons name="mail" size={20} color="gray" className="mr-2" />
+            <Ionicons name="mail" size={26} color="gray" className="mx-3" />
 
             <TextInput
               testID="email"
@@ -192,51 +213,54 @@ export default function RegisterForm() {
               value={email!}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`ml-2 text-gray-800 dark:text-gray-200`}
+              className={`text-gray-600 placeholder:text-gray-400 pr-3 pt-4 pb-6`}
               editable={false}
             />
           </View>
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Gender:</Text>
-          <View className="flex flex-row items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light">
+        <View className="z-10 mb-3">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">Gender:</Text>
+          <View className="flex flex-row items-center justify-center px-3 rounded-lg border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light">
             <Ionicons name="female" size={20} color="gray" />
             <View className="flex-1">
-              <Picker
-                style={{ height: 35 }}
-                selectedValue={formik.values.gender}
-                onValueChange={(value: string) => {
-                  formik.setFieldValue('gender', value);
-                }}
-              >
-                <Picker.Item label="Select Gender" value="" enabled={false} />
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-              </Picker>
+              <DropDownPicker
+                open={genderSelectOpen}
+                items={genderOptions}
+                value={gender}
+                setOpen={setGenderSelectOpen}
+                setValue={setGender}
+                theme="LIGHT"
+                placeholder="Select Gender"
+                multiple={false}
+                style={{ borderColor: 'transparent' }}
+              />
             </View>
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.gender}</Text>
+          {formik.errors.gender && (
+            <Text className="text-error-500 mt-1">{formik.errors.gender}</Text>
+          )}
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Date of Birth:</Text>
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
+            Date of Birth:
+          </Text>
           <DatePicker
             placeholder="Date of Birth"
             onSubmit={(date: Date) => {
               formik.setFieldValue('dob', date);
             }}
           />
-          <Text className="text-error-500 my-1">{formik.errors.dob}</Text>
+          {formik.errors.dob && <Text className="text-error-500 mt-1">{formik.errors.dob}</Text>}
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">Password:</Text>
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">Password:</Text>
           <View
-            className={`flex-row items-center px-3 py-2.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light`}
+            className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
-            <Ionicons name="person" size={20} color="gray" className="mr-2" />
-
+            <Ionicons name="person" size={26} color="gray" className="mx-3" />
             <TextInput
               testID="password"
               placeholder="Password"
@@ -244,7 +268,7 @@ export default function RegisterForm() {
               value={formik.values.password}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`ml-2`}
+              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
               secureTextEntry={!showPassword}
             />
             <Ionicons
@@ -257,7 +281,9 @@ export default function RegisterForm() {
               }}
             />
           </View>
-          <Text className="text-error-500 my-1">{formik.errors.password}</Text>
+          {formik.errors.password && (
+            <Text className="text-error-500 mt-1">{formik.errors.password}</Text>
+          )}
         </View>
 
         <View className="flex flex-col gap-4 mt-2">

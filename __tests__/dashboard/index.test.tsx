@@ -6,6 +6,6 @@ describe('<Dashboard />', () => {
   test('Text renders correctly on Dashboard', () => {
     const { getByText } = render(<Dashboard />);
 
-    getByText('Dashboard.');
+    getByText('Recent Feedback');
   });
 });
