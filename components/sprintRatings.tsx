@@ -5,8 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TRAINEE_RATING } from '../graphql/mutations/ratings';
 import { useColorScheme } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useTranslation } from 'react-i18next';
+
 
 export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModal: (feedback: any) => void }) {
+  const { t } = useTranslation();
   const [sprintFilter, setSprintFilter] = useState('');
   const [selectedPhase, setSelectedPhase] = useState('Phase I');
   const [userToken, setUserToken] = useState<string | null>(null);
@@ -23,7 +26,7 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
       if (token) {
         setUserToken(token);
       } else {
-        Alert.alert('Error', 'User token not found.');
+        Alert.alert(t('sprintRating.error'), t('sprintRating.user_token_not_found'));
       }
     };
     fetchToken();
@@ -49,7 +52,7 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
 
   useEffect(() => {
     if (error) {
-      Alert.alert('Error', `Error loading ratings`);
+      Alert.alert(t('sprintRating.error'), t('sprintRating.error_loading_ratings'));
     }
   }, [loading, error]);
 
@@ -63,48 +66,41 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
 
   fetchedData = fetchedData.sort((a: any, b: any) => a.sprint - b.sprint);
 
-  // Get the phase name from the first item (assuming phase is consistent across all data)
-  const phaseName = fetchedData.length > 0 ? fetchedData[0].phase : 'No Phase';
+  const phaseName = fetchedData.length > 0 ? fetchedData[0].phase : t('sprintRating.phase');
 
   return (
     <View>
       <ScrollView className={`relative ${bgColor} w-fit`}>
-        <View className="pt-5 h-auto">
-          <Text className={`font-bold p-3 text-2xl ${textColor}`}>Recent feedback</Text>
+        <View className="h-auto pt-5">
+          <Text className={`font-bold p-3 text-2xl ${textColor}`}>{t('sprintRating.recent_feedback')}</Text>
 
-          {/* Phase Name Display */}
           <View className="p-3">
             <Text className={`font-bold text-xl ${textColor} pb-2`}>{phaseName}</Text>
 
             <TextInput
               className={`border border-[#8667F2] rounded-md pl-1 bg-white ${inputbg}`}
-              placeholder="Filter by Sprint"
+              placeholder={t('sprintRating.filter_by_sprint')}
               value={sprintFilter}
               onChangeText={handleSprintFilterChange}
-              keyboardType="numeric" // Sprint is a number, so use numeric input
+              keyboardType="numeric"
               returnKeyType="done"
             />
           </View>
 
           <View className={`p-3 rounded h-auto mb-5  ${textColor}`}>
             <View className="">
-              {/* Horizontal Scroll for Table */}
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
                 <View className="w-screen">
-                  {/* Table heading */}
                   <View className="flex-row text-sm justify-between bg-[#c7d2fe] p-1 pt-4 pb-4 border-b border-[#b1b1b1] mt-5 rounded-tl-lg rounded-tr-lg">
-                    <Text className="text-xs w-16 font-bold text-center">SPRINT</Text>
-                    <Text className="text-xs w-16 font-bold text-center">QUANTITY</Text>
-                    <Text className="text-xs w-16 font-bold text-center">QUALITY</Text>
-                    <Text className="text-xs w-28 font-bold text-center">PROFESSIONALISM</Text>
-                    <Text className="text-xs w-20 font-bold text-center">COMMENT</Text>
+                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.sprint')}</Text>
+                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.quantity')}</Text>
+                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.quality')}</Text>
+                    <Text className="text-xs font-bold text-center w-28">{t('sprintRating.professionalism')}</Text>
+                    <Text className="w-20 text-xs font-bold text-center">{t('sprintRating.comment')}</Text>
                   </View>
 
-                  {/* Dynamic rows based on sorted data */}
                   {fetchedData.length === 0 ? (
-                    <Text className={`${textColor} text-center font-bold p-10`}>
-                      No Ratings Available
-                    </Text>
+                    <Text className={`${textColor} text-center font-bold p-10`}>{t('sprintRating.no_ratings_available')}</Text>
                   ) : (
                     fetchedData.map((item: any, index: Key | null | undefined) => (
                       <View
@@ -114,16 +110,14 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
                         <Text className={`w-16  ${textColor} text-center`}>{item.sprint}</Text>
                         <Text className={`w-16 ${textColor} text-center`}>{item.quantity}</Text>
                         <Text className={`w-16 ${textColor} text-center`}>{item.quality}</Text>
-                        <Text className={`w-28 ${textColor} text-center`}>
-                          {item.professional_Skills}
-                        </Text>
+                        <Text className={`w-28 ${textColor} text-center`}>{item.professional_Skills}</Text>
                         <View className="w-16 bg-[#8667F2] rounded-full justify-center align-middle p-1">
                           <TouchableOpacity
                             onPress={() => openFeedbackModal(item)}
-                            className="text-white flex-row items-center"
+                            className="flex-row items-center text-white"
                           >
                             <AntDesign name="eye" size={15} color="white" />
-                            <Text className="text-white">View</Text>
+                            <Text className="text-white">{t('sprintRating.view')}</Text>
                           </TouchableOpacity>
                         </View>
                       </View>
