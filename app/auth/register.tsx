@@ -11,6 +11,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFormik } from 'formik';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
+import {Picker} from '@react-native-picker/picker'
 import {
   ActivityIndicator,
   Alert,

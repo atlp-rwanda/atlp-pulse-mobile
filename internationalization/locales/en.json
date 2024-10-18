@@ -88,6 +88,79 @@
   "go_to_home_screen": "Go to home screen!",
   "error": {
     "unable_to_open_link": "Unable to open link"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "performance": "Performance",
+    "calendar": "Calendar",
+    "docs": "Docs",
+    "help": "Help",
+    "signOut": "Sign out"
+  },
+  "performance":{
+    "performance_scores": "Performance Scores",
+    "quality": "Quality",
+    "quantity": "Quantity",
+    "professionalism": "Professionalism",
+    "very_good": "Very Good",
+    "need_to_improve": "Need to Improve",
+    "stats": "Stats"
+  },
+  "sprintRating":{
+    "recent_feedback": "Recent feedback",
+    "phase": "Phase",
+    "filter_by_sprint": "Filter by Sprint",
+    "no_ratings_available": "No Ratings Available",
+    "sprint": "SPRINT",
+    "quantity": "QUANTITY",
+    "quality": "QUALITY",
+    "professionalism": "PROFESSIONALISM",
+    "comment": "COMMENT",
+    "view": "View",
+    "error_loading_ratings": "Error loading ratings",
+    "user_token_not_found": "User token not found."
+  },
+  "about": {
+    "about":"About",
+    "organization":"Organization",
+    "basicInformation": "BASIC INFORMATION",
+    "name": "Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "githubUsername": "GitHub Username",
+    "resume": "Resume",
+    "noResume": "No Resume uploaded yet",
+    "biography": "BIOGRAPHY",
+    "noBiography": "No Biography uploaded yet"
+  },
+  "organization": {
+    "organizationDetails": "YOUR ORGANIZATION DETAILS",
+    "organizationName": "Organization Name:",
+    "adminEmail": "Admin email:",
+    "role": "Role:",
+    "management": "MANAGEMENT",
+    "program": "Program:",
+    "cohort": "Cohort:",
+    "team": "Team:",
+    "phase": "Phase:",
+    "unavailable": "Unavailable"
+  },
+  "selectLanguage": "Select Language",
+  "close": "Close",
+  "languages": {
+    "kinyarwanda": "Kinyarwanda",
+    "english": "English",
+    "french": "Français"
+  },
+  "loginmsg": {
+    "welcome": "Welcome! Sign in to Continue",
+    "invalid_credentials": "Invalid credentials",
+    "error": "Error",
+    "network_error": "There was a problem contacting the server",
+    "general_error": "An unexpected error occurred.",
+    "auth_error": "Please wait to be added to a program or cohort"
   }
   }
   

@@ -14,12 +14,13 @@ const resources: Resource = {
 };
 
 const initI18n = async () => {
-  let savedLanguage = await AsyncStorage.getItem("language");
+  const deviceLocale = Localization.locale.split("-")[0];
+  let savedLanguage = await AsyncStorage.getItem("language") ?? deviceLocale;
 
-  if (!savedLanguage) {
-    const deviceLocale = Localization.locale.split("-")[0];
-    const supportedLanguages = ['en', 'fr', 'kin'];
-    savedLanguage = supportedLanguages.includes(deviceLocale) ? deviceLocale : 'en';
+  
+  const supportedLanguages = ['en', 'fr', 'kin'];
+  if (!supportedLanguages.includes(savedLanguage)) {
+    savedLanguage = 'en';
     await AsyncStorage.setItem("language", savedLanguage);
   }
 
@@ -34,6 +35,15 @@ const initI18n = async () => {
         escapeValue: false,
       },
     });
+};
+
+export const changeLanguage = async (newLanguage: string) => {
+  const supportedLanguages = ['en', 'fr', 'kin'];
+  
+  if (supportedLanguages.includes(newLanguage)) {
+    await AsyncStorage.setItem("language", newLanguage); 
+    i18n.changeLanguage(newLanguage);
+  }
 };
 
 initI18n();

@@ -89,6 +89,79 @@
   "go_to_home_screen": "Gusubira kuri ecran y'itangiriro!",
   "error": {
     "unable_to_open_link": "Ntibishoboka gufungura urubuga"
-  }
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "attendance": "Ubwitabire",
+    "performance": "Imikorere",
+    "calendar": "Kalendari",
+    "docs": "Inyandiko",
+    "help": "Ubufasha",
+    "signOut": "Gusohoka"
+  },
+  "performance":{
+    "performance_scores": "Amanota y'umusaruro",
+    "quality": "Ubwiza",
+    "quantity": "Ubwinshi",
+    "professionalism": "Ubunyamwuga",
+    "very_good": "Ni byiza cyane",
+    "need_to_improve": "Birasaba kunozwa",
+    "stats": "Imibare"
+  },
+  "sprintRating":{
+    "recent_feedback": "Ibitekerezo byaheruka",
+    "phase": "Icyiciro",
+    "filter_by_sprint": "Shyira mu buryo bwa sprint",
+    "no_ratings_available": "Nta manota aboneka",
+    "sprint": "SPRINT",
+    "quantity": "UBWINSHI",
+    "quality": "UBWIZA",
+    "professionalism": "UBUNYAMWUGA",
+    "comment": "IGITEKEREZO",
+    "view": "Reba",
+    "error_loading_ratings": "Ikosa mu kubika amanota",
+    "user_token_not_found": "Ikarita ya token ntibonewe."
+  },
+  "about": {
+    "about":"Umwirondoro",
+    "organization":"Ikigo",
+    "basicInformation": "AMAKURU Y’IBANZE",
+    "name": "Izina",
+    "email": "Imeri",
+    "phoneNumber": "Numero ya Telefoni",
+    "address": "Aderesi",
+    "githubUsername": "Izina kuri GitHub",
+    "resume": "CV",
+    "noResume": "Nta CV yashyizweho",
+    "biography": "INSHAMBAZI",
+    "noBiography": "Nta nshamazi yashyizweho"
+  },
+  "organization": {
+    "organizationDetails": "AMAKURU Y'IKIGO CYAWE",
+    "organizationName": "Izina ry'ikigo:",
+    "adminEmail": "Imeli y'ubuyobozi:",
+    "role": "Inshingano:",
+    "management": "AHO ABARIZWA",
+    "program": "Porogaramu:",
+    "cohort": "Icyiciro:",
+    "team": "Ikipe:",
+    "phase": "Icyiciro:",
+    "unavailable": "Ntiboneka"
+  },
+  "selectLanguage": "Hitamo Ururimi",
+  "close": "Funga",
+  "languages": {
+    "kinyarwanda": "Ikinyarwanda",
+    "english": "Icyongereza",
+    "french": "Igifaransa"
+  },
+  "loginmsg": {
+      "welcome": "Murakaza neza! Injira kugira ngo ukomeze",
+      "invalid_credentials": "Ibisobanuro byanyu sibyo",
+      "error": "Ikosa",
+      "network_error": "Habaye ikibazo mu kuvugana na seriveri",
+      "general_error": "Habaye ikibazo kitateganyijwe.",
+      "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
+    }
   }
   
