@@ -88,6 +88,62 @@
   "go_to_home_screen": "Aller à l'écran d'accueil !",
   "error": {
     "unable_to_open_link": "Impossible d'ouvrir le lien"
+  },
+  "navbar": {
+    "dashboard": "Tableau de bord",
+    "attendance": "Présence",
+    "performance": "Performance",
+    "calendar": "Calendrier",
+    "docs": "Documents",
+    "help": "Aide",
+    "signOut": "Déconnexion"
+  },
+  "performance":{
+    "performance_scores": "Scores de performance",
+    "quality": "Qualité",
+    "quantity": "Quantité",
+    "professionalism": "Professionnalisme",
+    "very_good": "Très bon",
+    "need_to_improve": "Besoin d'amélioration",
+    "stats": "Statistiques"
+  },
+  "sprintRating":{
+    "recent_feedback": "Commentaires récents",
+    "phase": "Phase",
+    "filter_by_sprint": "Filtrer par sprint",
+    "no_ratings_available": "Aucune évaluation disponible",
+    "sprint": "SPRINT",
+    "quantity": "QUANTITÉ",
+    "quality": "QUALITÉ",
+    "professionalism": "PROFESSIONNALISME",
+    "comment": "COMMENTAIRE",
+    "view": "Voir",
+    "error_loading_ratings": "Erreur lors du chargement des évaluations",
+    "user_token_not_found": "Jeton d'utilisateur introuvable."
+  },
+  "about": {
+    "basicInformation": "INFORMATIONS DE BASE",
+    "name": "Nom",
+    "email": "Email",
+    "phoneNumber": "Numéro de Téléphone",
+    "address": "Adresse",
+    "githubUsername": "Nom sur GitHub",
+    "resume": "CV",
+    "noResume": "Pas de CV téléchargé",
+    "biography": "BIOGRAPHIE",
+    "noBiography": "Pas de biographie téléchargée"
+  },
+  "organization": {
+    "organizationDetails": "DÉTAILS DE VOTRE ORGANISATION",
+    "organizationName": "Nom de l'organisation:",
+    "adminEmail": "Email de l'admin:",
+    "role": "Rôle:",
+    "management": "GESTION",
+    "program": "Programme:",
+    "cohort": "Cohorte:",
+    "team": "Équipe:",
+    "phase": "Phase:",
+    "unavailable": "Indisponible"
   }
   }
   
