@@ -7,7 +7,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "start:wsl": "REACT_NATIVE_PACKAGER_HOSTNAME=$(netsh.exe interface ip show address 'Ethernet' | grep 'IP Address' | sed -r 's/^.*IP Address:\\W*//') expo start",
+    "start:wsl": "REACT_NATIVE_PACKAGER_HOSTNAME=$(netsh.exe interface ip show address 'Wi-Fi' | grep 'IP Address' | sed -r 's/^.*IP Address:\\W*//') expo start",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
