@@ -25,7 +25,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { useLazyQuery, useQuery } from '@apollo/client';
 import AboutTrainee from '@/components/trainee/About';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
@@ -88,14 +88,14 @@ export default function Profile() {
 
   return (
     <>
-      <View className="flex-1 ">
+      <View className="flex">
         <>
         <View className="relative w-full h-48 mb-10">
         <Image
           source={profile.cover ? { uri: profile.cover } : require('@/assets/images/background.png')}
           className="w-full h-full object-cover"
         />
-        <TouchableOpacity className="absolute bottom-1 right-4 rounded-full shadow-md">
+        <TouchableOpacity onPress={() => router.push('/dashboard/EditProfile/EditProfile')} className="absolute bottom-1 right-4 rounded-full shadow-md">
           <SvgXml xml={editBG} />
         </TouchableOpacity>
 
