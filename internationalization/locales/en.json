@@ -1,0 +1,166 @@
+{
+    "onboarding": {
+      "page1": "Optimize your organization's potential with Performance Management/Analytics.",
+      "page2": "Identify top performers, discover hidden talent, and optimize your workforce.",
+      "page3": "Unlock the potential of a Continuous & Tight Feedback Loop.",
+      "getStarted": "Get Started"
+    },
+    "notFound": {
+    "title": "Oops! We can't find the page you're looking for.",
+    "goHome": "Go to home screen!"
+  },
+  "orgLogin": {
+    "signIn": "Sign in to your Organization",
+    "enterOrgURL": "Enter your organization's Pulse URL",
+    "continue": "Continue",
+    "orgPlaceholder": "<Your-organization>.pulse.co",
+    "error": "Organization is required"
+  },
+  "userLogin": {
+    "welcome": "Welcome to",
+    "switchOrg": "Switch your organization",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "email_invalid": "Invalid email",
+    "email_required": "Please provide your email address",
+    "password_min": "Password must be at least 8 characters",
+    "password_required": "Please provide a password",
+    "organization_required": "Organization URL is required",
+    "confirm_password_required": "Please confirm password is required",
+    "passwords_must_match": "Passwords must match"
+  },
+  "userRegister": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "dob": "Date of Birth",
+    "password": "Password",
+    "registerYourAccount": "Register Your Account!",
+    "joinOrg": "Fill in your information to join",
+    "termsAndConditions": "I agree to the Terms & Conditions of Pulse",
+    "register": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "successfullyRegistered": "Successfully registered",
+    "invalidToken": "Invalid token or expired token",
+    "acceptTCAgree": "Please accept terms and conditions",
+    "warning": "Warning"
+  },
+  "forgotPassword": {
+    "title": "Reset Password",
+    "instructions": "You will receive an email to proceed with resetting password",
+    "placeholder": "Enter Email",
+    "submitButton": "Continue",
+    "successMessage": "Password reset request successful! Please check your email for a link to reset your password!",
+    "errorMessage": "An error occurred. Please try again."
+  },
+  "registerSchema": {
+    "firstName": {
+      "min": "First name must be at least 2 characters",
+      "matches": "First name must be characters only",
+      "required": "Please provide your first name"
+    },
+    "lastName": {
+      "min": "Last name must be at least 2 characters",
+      "matches": "Last name must be characters only",
+      "required": "Please provide your last name"
+    },
+    "password": {
+      "min": "Password must be at least 8 characters",
+      "required": "Please provide a password"
+    },
+    "gender": {
+      "oneOf": "Please select your gender"
+    },
+    "dob": {
+      "max": "You must be 16 years old and above",
+      "required": "Please select date of birth"
+    }
+  },
+  "redirecting": "Redirecting...",
+  "go_to_home_screen": "Go to home screen!",
+  "error": {
+    "unable_to_open_link": "Unable to open link"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "attendance": "Attendance",
+    "performance": "Performance",
+    "calendar": "Calendar",
+    "docs": "Docs",
+    "help": "Help",
+    "signOut": "Sign out"
+  },
+  "performance":{
+    "performance_scores": "Performance Scores",
+    "quality": "Quality",
+    "quantity": "Quantity",
+    "professionalism": "Professionalism",
+    "very_good": "Very Good",
+    "need_to_improve": "Need to Improve",
+    "stats": "Stats"
+  },
+  "sprintRating":{
+    "recent_feedback": "Recent feedback",
+    "phase": "Phase",
+    "filter_by_sprint": "Filter by Sprint",
+    "no_ratings_available": "No Ratings Available",
+    "sprint": "SPRINT",
+    "quantity": "QUANTITY",
+    "quality": "QUALITY",
+    "professionalism": "PROFESSIONALISM",
+    "comment": "COMMENT",
+    "view": "View",
+    "error_loading_ratings": "Error loading ratings",
+    "user_token_not_found": "User token not found."
+  },
+  "about": {
+    "about":"About",
+    "organization":"Organization",
+    "basicInformation": "BASIC INFORMATION",
+    "name": "Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "githubUsername": "GitHub Username",
+    "resume": "Resume",
+    "noResume": "No Resume uploaded yet",
+    "biography": "BIOGRAPHY",
+    "noBiography": "No Biography uploaded yet"
+  },
+  "organization": {
+    "organizationDetails": "YOUR ORGANIZATION DETAILS",
+    "organizationName": "Organization Name:",
+    "adminEmail": "Admin email:",
+    "role": "Role:",
+    "management": "MANAGEMENT",
+    "program": "Program:",
+    "cohort": "Cohort:",
+    "team": "Team:",
+    "phase": "Phase:",
+    "unavailable": "Unavailable"
+  },
+  "selectLanguage": "Select Language",
+  "close": "Close",
+  "languages": {
+    "kinyarwanda": "Kinyarwanda",
+    "english": "English",
+    "french": "Français"
+  },
+  "loginmsg": {
+    "welcome": "Welcome! Sign in to Continue",
+    "invalid_credentials": "Invalid credentials",
+    "error": "Error",
+    "network_error": "There was a problem contacting the server",
+    "general_error": "An unexpected error occurred.",
+    "auth_error": "Please wait to be added to a program or cohort"
+  }
+  }
+  

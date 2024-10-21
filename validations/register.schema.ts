@@ -1,22 +1,22 @@
 import * as Yup from 'yup';
-
+import i18n from '@/internationalization';
 const today = new Date();
 const sixteenYearsAgo = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
 
 export const RegisterSchema = Yup.object().shape({
   firstName: Yup.string()
-    .min(2, 'First name must be at least 2 characters')
-    .matches(/^[A-Za-z]+$/, 'First name must be characters only')
-    .required('Please provide your first name'),
+    .min(2,i18n.t("registerSchema.firstName.min") )
+    .matches(/^[A-Za-z]+$/, i18n.t("registerSchema.firstName.matches"))
+    .required(i18n.t("registerSchema.firstName.required") ),
   lastName: Yup.string()
-    .min(2, 'Last name must be at least 2 characters')
-    .matches(/^[A-Za-z]+$/, 'Last name must be characters only')
-    .required('Please provide your last name'),
+    .min(2, i18n.t("registerSchema.lastName.min"))
+    .matches(/^[A-Za-z]+$/, i18n.t("registerSchema.lastName.matches"))
+    .required(i18n.t("registerSchema.lastName.required")),
   password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Please provide a password'),
-  gender: Yup.string().oneOf(['Male', 'Female']).required('Please select your gender'),
+    .min(8, i18n.t("registerSchema.password.min"))
+    .required(i18n.t("registerSchema.password.required")),
+  gender: Yup.string().oneOf(['Male', 'Female']).required(i18n.t("registerSchema.gender.oneOf")),
   dob: Yup.date()
-    .max(sixteenYearsAgo, 'You must be 16 years old and above')
-    .required('Please select date of birth'),
+    .max(sixteenYearsAgo, i18n.t("registerSchema.dob.max"))
+    .required(i18n.t("registerSchema.dob.required")),
 });
