@@ -42,8 +42,8 @@ export default function AuthLayout() {
 
             {/* Language Picker */}
             <View className="flex-row items-center space-x-2">
-              <LanguagePicker 
-              // @ts-ignore
+              <LanguagePicker
+                // @ts-ignore
                 style={{
                   paddingHorizontal: 10,
                   paddingVertical: 8,

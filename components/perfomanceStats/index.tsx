@@ -73,28 +73,30 @@ const PerformanceScores = () => {
   if (fetchedData.length === 0) {
     return (
       <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]}>
-        <Text style={[styles.header, { color: textColor }]}>{t("performance.performance_scores")}</Text>
+        <Text style={[styles.header, { color: textColor }]}>
+          {t('performance.performance_scores')}
+        </Text>
         <View style={styles.scoresContainer}>
           <View style={styles.scoreItem}>
             <CircularIndicator value={0} color={colors.quality} label="Quality" />
-            <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.quality")}</Text>
-           
+            <Text style={[styles.scoreLabel, { color: textColor }]}>
+              {t('performance.quality')}
+            </Text>
           </View>
 
           <View style={styles.scoreItem}>
             <CircularIndicator value={0} color={colors.quantity} label="Quantity" />
-            <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.quantity")}</Text>
-            
+            <Text style={[styles.scoreLabel, { color: textColor }]}>
+              {t('performance.quantity')}
+            </Text>
           </View>
 
           <View style={styles.scoreItem}>
-            <CircularIndicator
-              value={0}
-              color={colors.professionalism}
-              label="Profesionalism"
-            />
+            <CircularIndicator value={0} color={colors.professionalism} label="Profesionalism" />
 
-            <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.professionalism")}</Text>
+            <Text style={[styles.scoreLabel, { color: textColor }]}>
+              {t('performance.professionalism')}
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -143,26 +145,36 @@ const PerformanceScores = () => {
         strokeWidth: 2,
       },
     ],
-    legend: [t("performance.quality"), t("performance.quantity"), t("performance.professionalism")],
+    legend: [t('performance.quality'), t('performance.quantity'), t('performance.professionalism')],
   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]} >
-      <Text style={[styles.header, { color: textColor }]}>{t("performance.performance_scores")}</Text>
+    <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]}>
+      <Text style={[styles.header, { color: textColor }]}>
+        {t('performance.performance_scores')}
+      </Text>
       <View style={styles.scoresContainer}>
         <View style={styles.scoreItem}>
-          <CircularIndicator value={qualityAverage} color={colors.quality} label={t("performance.quality")} />
-          <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.quality")}</Text>
+          <CircularIndicator
+            value={qualityAverage}
+            color={colors.quality}
+            label={t('performance.quality')}
+          />
+          <Text style={[styles.scoreLabel, { color: textColor }]}>{t('performance.quality')}</Text>
           <Text style={[styles.statusText, { color: qualityAverage > 1 ? '#4CAF50' : '#f44336' }]}>
-            {qualityAverage > 1 ? t("performance.very_good") : t("performance.need_to_improve")}
+            {qualityAverage > 1 ? t('performance.very_good') : t('performance.need_to_improve')}
           </Text>
         </View>
 
         <View style={styles.scoreItem}>
-          <CircularIndicator value={quantityAverage} color={colors.quantity} label={t("performance.quantity")} />
-          <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.quantity")}</Text>
+          <CircularIndicator
+            value={quantityAverage}
+            color={colors.quantity}
+            label={t('performance.quantity')}
+          />
+          <Text style={[styles.scoreLabel, { color: textColor }]}>{t('performance.quantity')}</Text>
           <Text style={[styles.statusText, { color: quantityAverage > 1 ? '#4CAF50' : '#f44336' }]}>
-            {quantityAverage > 1 ? t("performance.very_good") : t("performance.need_to_improve")}
+            {quantityAverage > 1 ? t('performance.very_good') : t('performance.need_to_improve')}
           </Text>
         </View>
 
@@ -170,22 +182,26 @@ const PerformanceScores = () => {
           <CircularIndicator
             value={professionalismAverage}
             color={colors.professionalism}
-            label={t("performance.professionalism")}
+            label={t('performance.professionalism')}
           />
 
-          <Text style={[styles.scoreLabel, { color: textColor }]}>{t("performance.professionalism")}</Text>
+          <Text style={[styles.scoreLabel, { color: textColor }]}>
+            {t('performance.professionalism')}
+          </Text>
           <Text
             style={[
               styles.statusText,
               { color: professionalismAverage > 1 ? '#4CAF50' : '#f44336' },
             ]}
           >
-            {professionalismAverage > 1 ? t("performance.very_good") : t("performance.need_to_improve")}
+            {professionalismAverage > 1
+              ? t('performance.very_good')
+              : t('performance.need_to_improve')}
           </Text>
         </View>
       </View>
-      <Text style={[styles.chartHeader, { color: textColor }]}>{t("performance.stats")}</Text>
-      <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50}}>
+      <Text style={[styles.chartHeader, { color: textColor }]}>{t('performance.stats')}</Text>
+      <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50 }}>
         <LineChart
           data={lineGraph}
           width={Dimensions.get('window').width - 40}

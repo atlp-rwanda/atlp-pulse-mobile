@@ -1,7 +1,21 @@
-import { lightLogoIcon, darkLogoIcon, menu, lightNotifyIcon, darkNotifyIcon } from '@/assets/Icons/dashboard/Icons';
+import {
+  lightLogoIcon,
+  darkLogoIcon,
+  menu,
+  lightNotifyIcon,
+  darkNotifyIcon,
+} from '@/assets/Icons/dashboard/Icons';
 import { router, Slot } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View, useColorScheme, Image } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+  Image,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
 import Sidebar from '@/components/sidebar';
@@ -50,7 +64,7 @@ export default function AuthLayout() {
               <View className="flex-row items-center gap-5">
                 {/* Add Language Picker */}
                 <LanguagePicker
-                //@ts-ignore
+                  //@ts-ignore
                   style={{
                     paddingHorizontal: 10,
                     paddingVertical: 8,

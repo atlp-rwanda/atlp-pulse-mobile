@@ -78,5 +78,4 @@ describe('Sidebar', () => {
       expect(mockPush).toHaveBeenCalledWith('/auth/login');
     });
   });
-
 });

@@ -11,7 +11,13 @@ interface FeedbackModalProps {
   bgColor: string;
 }
 
-const FeedbackModal: React.FC<FeedbackModalProps> = ({ isVisible, onClose, feedbacks, textColor, bgColor }) => {
+const FeedbackModal: React.FC<FeedbackModalProps> = ({
+  isVisible,
+  onClose,
+  feedbacks,
+  textColor,
+  bgColor,
+}) => {
   if (!isVisible) return null;
 
   return (
@@ -40,7 +46,16 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isVisible, onClose, feedb
       </BlurView>
 
       {/* Modal content */}
-      <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center', zIndex: 20, margin:'auto', width:'100%' }} >
+      <View
+        style={{
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 20,
+          margin: 'auto',
+          width: '100%',
+        }}
+      >
         <View className="m-auto flex-col rounded-lg  p-4 shadow-lg w-5/6 top-96  h-60 bg-[#c7d2fe] relative">
           {/* Close Icon */}
           <TouchableOpacity

@@ -7,8 +7,11 @@ import { useColorScheme } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useTranslation } from 'react-i18next';
 
-
-export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModal: (feedback: any) => void }) {
+export default function TraineeRatings({
+  openFeedbackModal,
+}: {
+  openFeedbackModal: (feedback: any) => void;
+}) {
   const { t } = useTranslation();
   const [sprintFilter, setSprintFilter] = useState('');
   const [selectedPhase, setSelectedPhase] = useState('Phase I');
@@ -72,7 +75,9 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
     <View>
       <ScrollView className={`relative ${bgColor} w-fit`}>
         <View className="h-auto pt-5">
-          <Text className={`font-bold p-3 text-2xl ${textColor}`}>{t('sprintRating.recent_feedback')}</Text>
+          <Text className={`font-bold p-3 text-2xl ${textColor}`}>
+            {t('sprintRating.recent_feedback')}
+          </Text>
 
           <View className="p-3">
             <Text className={`font-bold text-xl ${textColor} pb-2`}>{phaseName}</Text>
@@ -92,15 +97,27 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
                 <View className="w-screen">
                   <View className="flex-row text-sm justify-between bg-[#c7d2fe] p-1 pt-4 pb-4 border-b border-[#b1b1b1] mt-5 rounded-tl-lg rounded-tr-lg">
-                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.sprint')}</Text>
-                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.quantity')}</Text>
-                    <Text className="w-16 text-xs font-bold text-center">{t('sprintRating.quality')}</Text>
-                    <Text className="text-xs font-bold text-center w-28">{t('sprintRating.professionalism')}</Text>
-                    <Text className="w-20 text-xs font-bold text-center">{t('sprintRating.comment')}</Text>
+                    <Text className="w-16 text-xs font-bold text-center">
+                      {t('sprintRating.sprint')}
+                    </Text>
+                    <Text className="w-16 text-xs font-bold text-center">
+                      {t('sprintRating.quantity')}
+                    </Text>
+                    <Text className="w-16 text-xs font-bold text-center">
+                      {t('sprintRating.quality')}
+                    </Text>
+                    <Text className="text-xs font-bold text-center w-28">
+                      {t('sprintRating.professionalism')}
+                    </Text>
+                    <Text className="w-20 text-xs font-bold text-center">
+                      {t('sprintRating.comment')}
+                    </Text>
                   </View>
 
                   {fetchedData.length === 0 ? (
-                    <Text className={`${textColor} text-center font-bold p-10`}>{t('sprintRating.no_ratings_available')}</Text>
+                    <Text className={`${textColor} text-center font-bold p-10`}>
+                      {t('sprintRating.no_ratings_available')}
+                    </Text>
                   ) : (
                     fetchedData.map((item: any, index: Key | null | undefined) => (
                       <View
@@ -110,7 +127,9 @@ export default function TraineeRatings({ openFeedbackModal }: { openFeedbackModa
                         <Text className={`w-16  ${textColor} text-center`}>{item.sprint}</Text>
                         <Text className={`w-16 ${textColor} text-center`}>{item.quantity}</Text>
                         <Text className={`w-16 ${textColor} text-center`}>{item.quality}</Text>
-                        <Text className={`w-28 ${textColor} text-center`}>{item.professional_Skills}</Text>
+                        <Text className={`w-28 ${textColor} text-center`}>
+                          {item.professional_Skills}
+                        </Text>
                         <View className="w-16 bg-[#8667F2] rounded-full justify-center align-middle p-1">
                           <TouchableOpacity
                             onPress={() => openFeedbackModal(item)}

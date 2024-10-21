@@ -1,11 +1,11 @@
 {
-    "onboarding": {
-      "page1": "Optimisez le potentiel de votre organisation avec la gestion/analyse des performances.",
-      "page2": "Identifiez les meilleurs talents, découvrez les talents cachés et optimisez votre main-d'œuvre.",
-      "page3": "Débloquez le potentiel d'une boucle de rétroaction continue et serrée.",
-      "getStarted": "Commencer"
-    },
-    "notFound": {
+  "onboarding": {
+    "page1": "Optimisez le potentiel de votre organisation avec la gestion/analyse des performances.",
+    "page2": "Identifiez les meilleurs talents, découvrez les talents cachés et optimisez votre main-d'œuvre.",
+    "page3": "Débloquez le potentiel d'une boucle de rétroaction continue et serrée.",
+    "getStarted": "Commencer"
+  },
+  "notFound": {
     "title": "Oups! Nous ne pouvons pas trouver la page que vous recherchez.",
     "goHome": "Aller à l'écran d'accueil!"
   },
@@ -98,7 +98,7 @@
     "help": "Aide",
     "signOut": "Déconnexion"
   },
-  "performance":{
+  "performance": {
     "performance_scores": "Scores de performance",
     "quality": "Qualité",
     "quantity": "Quantité",
@@ -107,7 +107,7 @@
     "need_to_improve": "Besoin d'amélioration",
     "stats": "Statistiques"
   },
-  "sprintRating":{
+  "sprintRating": {
     "recent_feedback": "Commentaires récents",
     "phase": "Phase",
     "filter_by_sprint": "Filtrer par sprint",
@@ -122,8 +122,8 @@
     "user_token_not_found": "Jeton d'utilisateur introuvable."
   },
   "about": {
-    "about":"Détails",
-    "organization":"Organisation",
+    "about": "Détails",
+    "organization": "Organisation",
     "basicInformation": "INFORMATIONS DE BASE",
     "name": "Nom",
     "email": "Email",
@@ -162,7 +162,4 @@
     "general_error": "Une erreur inattendue s'est produite.",
     "auth_error": "Veuillez attendre d'être ajouté à un programme ou à une cohorte"
   }
-
-
-  }
-  
+}

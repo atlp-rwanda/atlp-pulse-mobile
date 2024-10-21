@@ -1,11 +1,11 @@
 {
-    "onboarding": {
-      "page1": "Shyira ku rwego rwisumbuye ubushobozi bw'ikigo cyawe hamwe na Performance Management/Analytics.",
-      "page2": "Menya abakora neza, bavumbure impano ihishe, kandi utezimbere abakozi bawe.",
-      "page3": "Fungura ubushobozi bwo kubona ibyavuyemo bihamye kandi bigufi.",
-      "getStarted": "Tangira"
-    },
-    "notFound": {
+  "onboarding": {
+    "page1": "Shyira ku rwego rwisumbuye ubushobozi bw'ikigo cyawe hamwe na Performance Management/Analytics.",
+    "page2": "Menya abakora neza, bavumbure impano ihishe, kandi utezimbere abakozi bawe.",
+    "page3": "Fungura ubushobozi bwo kubona ibyavuyemo bihamye kandi bigufi.",
+    "getStarted": "Tangira"
+  },
+  "notFound": {
     "title": "Yoo! Ntidushobora kubona ipaji urimo gushaka.",
     "goHome": "Subira ku rupapuro rw'itangiriro!"
   },
@@ -60,8 +60,7 @@
     "submitButton": "Komeza",
     "successMessage": "Gusaba gusubiramo ijambo ry'ibanga byakozwe neza! Nyamuneka reba imeri yawe kugirango usubiremo ijambo ry'ibanga.",
     "errorMessage": "Habaye ikibazo. Ongera ugerageze."
-  }
-  ,
+  },
   "registerSchema": {
     "firstName": {
       "min": "Izina rigomba kuba rifite nibura inyuguti 2",
@@ -99,7 +98,7 @@
     "help": "Ubufasha",
     "signOut": "Gusohoka"
   },
-  "performance":{
+  "performance": {
     "performance_scores": "Amanota y'umusaruro",
     "quality": "Ubwiza",
     "quantity": "Ubwinshi",
@@ -108,7 +107,7 @@
     "need_to_improve": "Birasaba kunozwa",
     "stats": "Imibare"
   },
-  "sprintRating":{
+  "sprintRating": {
     "recent_feedback": "Ibitekerezo byaheruka",
     "phase": "Icyiciro",
     "filter_by_sprint": "Shyira mu buryo bwa sprint",
@@ -123,8 +122,8 @@
     "user_token_not_found": "Ikarita ya token ntibonewe."
   },
   "about": {
-    "about":"Umwirondoro",
-    "organization":"Ikigo",
+    "about": "Umwirondoro",
+    "organization": "Ikigo",
     "basicInformation": "AMAKURU Y’IBANZE",
     "name": "Izina",
     "email": "Imeri",
@@ -156,12 +155,11 @@
     "french": "Igifaransa"
   },
   "loginmsg": {
-      "welcome": "Murakaza neza! Injira kugira ngo ukomeze",
-      "invalid_credentials": "Ibisobanuro byanyu sibyo",
-      "error": "Ikosa",
-      "network_error": "Habaye ikibazo mu kuvugana na seriveri",
-      "general_error": "Habaye ikibazo kitateganyijwe.",
-      "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
-    }
+    "welcome": "Murakaza neza! Injira kugira ngo ukomeze",
+    "invalid_credentials": "Ibisobanuro byanyu sibyo",
+    "error": "Ikosa",
+    "network_error": "Habaye ikibazo mu kuvugana na seriveri",
+    "general_error": "Habaye ikibazo kitateganyijwe.",
+    "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
   }
-  
+}

@@ -11,7 +11,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFormik } from 'formik';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import {Picker} from '@react-native-picker/picker'
+import { Picker } from '@react-native-picker/picker';
 import {
   ActivityIndicator,
   Alert,
@@ -148,16 +148,18 @@ export default function RegisterForm() {
     <View className="justify-center flex-1 p-8">
       <View className="mb-8">
         <Text className="mb-3 text-xl text-center text-gray-800 font-Inter-SemiBold dark:text-gray-200">
-        {t('userRegister.title')}
+          {t('userRegister.title')}
         </Text>
         <Text className="text-center text-gray-800 font-Inter-Regular dark:text-gray-200">
-        {t('userRegister.joinOrg')} {orgName}
+          {t('userRegister.joinOrg')} {orgName}
         </Text>
       </View>
 
       <View className="flex flex-col">
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.firstName')}:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.firstName')}:
+          </Text>
           <View
             className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
@@ -176,7 +178,9 @@ export default function RegisterForm() {
           <Text className="my-1 text-error-500">{formik.errors.firstName}</Text>
         </View>
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.lastName')}:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.lastName')}:
+          </Text>
           <View
             className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
@@ -195,7 +199,9 @@ export default function RegisterForm() {
           <Text className="my-1 text-error-500">{formik.errors.lastName}</Text>
         </View>
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.email')}</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.email')}
+          </Text>
           <View
             className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
@@ -214,7 +220,9 @@ export default function RegisterForm() {
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.gender')}:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.gender')}:
+          </Text>
           <View className="flex flex-row items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light">
             <Ionicons name="female" size={20} color="gray" />
             <View className="flex-1">
@@ -235,7 +243,9 @@ export default function RegisterForm() {
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.dob')}</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.dob')}
+          </Text>
           <DatePicker
             placeholder={t('userRegister.dob')}
             onSubmit={(date: Date) => {
@@ -246,7 +256,9 @@ export default function RegisterForm() {
         </View>
 
         <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">{t('userRegister.password')}:</Text>
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+            {t('userRegister.password')}:
+          </Text>
           <View
             className={`flex-row items-center rounded-lg text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light`}
           >
@@ -283,7 +295,7 @@ export default function RegisterForm() {
               color={TCAccepted ? '#8667F2' : undefined}
             />
             <Text className="ml-2 text-gray-800 dark:text-white">
-            {t('userRegister.termsAndConditions')}
+              {t('userRegister.termsAndConditions')}
             </Text>
           </View>
           <TouchableOpacity

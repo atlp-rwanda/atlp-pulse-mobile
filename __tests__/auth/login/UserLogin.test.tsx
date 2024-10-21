@@ -34,10 +34,12 @@ describe('UserLogin Component', () => {
     fireEvent.changeText(getByPlaceholderText('Password'), 'ValidPassword');
     fireEvent.press(getByText('Sign In'));
 
-    await waitFor(() => expect(mockOnSubmit).toHaveBeenCalledWith({
-      email: 'test@example.com',
-      password: 'ValidPassword',
-    }));
+    await waitFor(() =>
+      expect(mockOnSubmit).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'ValidPassword',
+      })
+    );
 
     expect(mockOnSubmit).toHaveBeenCalledTimes(1);
   });

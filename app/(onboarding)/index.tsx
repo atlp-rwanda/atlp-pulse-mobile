@@ -7,14 +7,13 @@ import PagerView from 'react-native-pager-view';
 import { useTranslation } from 'react-i18next';
 import LanguagePicker from '@/components/LanguagePicker';
 
-
 type Page = {
   image: any;
   content: string;
 };
 
 export default function AppOnboarding() {
-  const { t, i18n } = useTranslation(); 
+  const { t, i18n } = useTranslation();
   const colorScheme = useColorScheme();
   const pagerViewRef = useRef<PagerView>(null);
   const [page, setPage] = useState<number>(0);
@@ -22,13 +21,10 @@ export default function AppOnboarding() {
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
-  
   const getDotColor = (index: number) => (index === page ? 'bg-action-500' : 'bg-white');
   const [token, setToken] = useState<string | null>(null);
-  
 
   useEffect(() => {
-    
     const interval = setInterval(() => {
       setPage(page === 2 ? 0 : page + 1);
     }, 6000);
@@ -43,7 +39,7 @@ export default function AppOnboarding() {
   const pages: Page[] = [
     {
       image: require('@/assets/images/onboarding/1.png'),
-      content: t('onboarding.page1'), 
+      content: t('onboarding.page1'),
     },
     {
       image: require('@/assets/images/onboarding/2.png'),
@@ -64,7 +60,6 @@ export default function AppOnboarding() {
         onPageSelected={(p) => setPage(p.nativeEvent.position)}
         ref={pagerViewRef}
       >
-        
         {pages.map((page, index) => (
           <View key={index} className={`flex-1 px-8 py-12 ${bgColor}`}>
             <Image
@@ -89,12 +84,11 @@ export default function AppOnboarding() {
         <View className={`rounded-full w-4 h-4 ${getDotColor(1)}`}></View>
         <View className={`rounded-full w-4 h-4 ${getDotColor(2)}`}></View>
       </View>
-      
+
       {/* Language Switcher */}
       <View className="mb-4">
         <LanguagePicker />
       </View>
-
 
       {/* Get Started Button */}
       <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
@@ -103,7 +97,7 @@ export default function AppOnboarding() {
             className="text-lg font-Inter-Medium dark:text-white"
             onPress={() => router.push('/auth/login')}
           >
-            {t('onboarding.getStarted')} 
+            {t('onboarding.getStarted')}
           </Text>
         </TouchableOpacity>
       </View>

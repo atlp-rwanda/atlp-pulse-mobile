@@ -31,7 +31,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const [orgName, setOrgName] = useState<string | null>(null);
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchOrgName = async () => {
@@ -60,11 +60,12 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
       <View className="flex justify-center p-10 mt-16">
         <View>
           <Text className={`text-lg font-Inter-Bold mb-6 text-center ${textColor}`}>
-          {t('userLogin.welcome')}  <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
+            {t('userLogin.welcome')}{' '}
+            <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
           </Text>
           <TouchableOpacity onPress={() => router.push('/auth/login')}>
             <Text className="mb-6 text-sm text-center font-Inter-Regular text-action-600">
-            {t('userLogin.switchOrg')}
+              {t('userLogin.switchOrg')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -91,7 +92,9 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
                 keyboardType="url"
               />
             </View>
-            <Text className="mt-2 text-error-400 ">{formik.errors.email &&  t('userLogin.emailRequired')}</Text>
+            <Text className="mt-2 text-error-400 ">
+              {formik.errors.email && t('userLogin.emailRequired')}
+            </Text>
             <Text className={`pl-2  ${textColor}`}>{t('userLogin.password')}</Text>
             <View
               className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
@@ -110,7 +113,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               <TouchableOpacity
                 className="absolute right-3 top-3"
                 onPress={togglePasswordVisibility}
-                testID='password-toggle'
+                testID="password-toggle"
               >
                 <Ionicons
                   name={secureTextEntry ? 'eye-outline' : 'eye-off-outline'}
@@ -121,9 +124,13 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
             </View>
 
             <View className="flex flex-row justify-between">
-              <Text className="mt-2 text-error-400">{formik.errors.password && t('userLogin.passwordRequired')}</Text>
+              <Text className="mt-2 text-error-400">
+                {formik.errors.password && t('userLogin.passwordRequired')}
+              </Text>
               <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
-                <Text className="p-2 text-right text-action-500">{t('userLogin.forgotPassword')}</Text>
+                <Text className="p-2 text-right text-action-500">
+                  {t('userLogin.forgotPassword')}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -136,7 +143,9 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text className="text-lg font-semibold text-secondary-light-500">{t('userLogin.signIn')}</Text>
+                <Text className="text-lg font-semibold text-secondary-light-500">
+                  {t('userLogin.signIn')}
+                </Text>
               )}
             </TouchableOpacity>
           </View>

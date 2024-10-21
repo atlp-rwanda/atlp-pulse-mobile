@@ -55,7 +55,11 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
           </Text>
         </View>
         <View className="flex-row gap-5 m-2">
-          <Ionicons name="logo-github" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
+          <Ionicons
+            name="logo-github"
+            size={20}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
           <Text className={`${textColor} text-lg`}>
             {profile.githubUsername ? profile.githubUsername : t('about.githubUsername')}
           </Text>
