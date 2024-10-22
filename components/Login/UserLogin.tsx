@@ -15,6 +15,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   email: string;
@@ -30,6 +31,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   const [loading, setLoading] = useState(false);
   const colorScheme = useColorScheme();
   const [orgName, setOrgName] = useState<string | null>(null);
+  const { t } = useTranslation(); 
 
   useEffect(() => {
     const fetchOrgName = async () => {
@@ -55,21 +57,21 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   return (
     <View testID="user-login">
-      <View className="flex p-10 justify-center mt-16">
+      <View className="flex justify-center p-10 mt-16">
         <View>
           <Text className={`text-lg font-Inter-Bold mb-6 text-center ${textColor}`}>
-            Welcome to <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
+          {t('userLogin.welcome')}  <Text className={`font-Inter-Regular ${textColor}`}>{orgName}</Text>
           </Text>
           <TouchableOpacity onPress={() => router.push('/auth/login')}>
-            <Text className="text-sm font-Inter-Regular text-center text-action-600 mb-6">
-              Switch your organization
+            <Text className="mb-6 text-sm text-center font-Inter-Regular text-action-600">
+            {t('userLogin.switchOrg')}
             </Text>
           </TouchableOpacity>
         </View>
 
         <View className="flex flex-col">
           <View className="flex mb-4">
-            <Text className={`p-2 ${textColor}`}>Email</Text>
+            <Text className={`p-2 ${textColor}`}>{t('userLogin.email')}</Text>
             <View
               className={`flex-row items-center ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'} p-3 rounded-lg shadow border-2 border-[#D2D2D2]`}
             >
@@ -79,7 +81,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
                 className="mr-2"
               />
               <TextInput
-                placeholder="Email"
+                placeholder={t('userLogin.email')}
                 placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
                 onChangeText={formik.handleChange('email')}
                 onBlur={formik.handleBlur('email')}
@@ -89,15 +91,15 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
                 keyboardType="url"
               />
             </View>
-            <Text className="mt-2 text-error-400 ">{formik.errors.email}</Text>
-            <Text className={`pl-2  ${textColor}`}>Password</Text>
+            <Text className="mt-2 text-error-400 ">{formik.errors.email &&  t('userLogin.emailRequired')}</Text>
+            <Text className={`pl-2  ${textColor}`}>{t('userLogin.password')}</Text>
             <View
               className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
             >
               <SvgXml xml={colorScheme === 'dark' ? DarkLock : lock} />
               <TextInput
                 className={`font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
-                placeholder="Password"
+                placeholder={t('userLogin.password')}
                 placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
                 secureTextEntry={secureTextEntry}
                 onChangeText={formik.handleChange('password')}
@@ -119,9 +121,9 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
             </View>
 
             <View className="flex flex-row justify-between">
-              <Text className="mt-2 text-error-400">{formik.errors.password}</Text>
+              <Text className="mt-2 text-error-400">{formik.errors.password && t('userLogin.passwordRequired')}</Text>
               <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
-                <Text className="text-action-500 p-2 text-right">Forgot Password?</Text>
+                <Text className="p-2 text-right text-action-500">{t('userLogin.forgotPassword')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -134,13 +136,13 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text className="text-secondary-light-500 text-lg font-semibold">Sign In</Text>
+                <Text className="text-lg font-semibold text-secondary-light-500">{t('userLogin.signIn')}</Text>
               )}
             </TouchableOpacity>
           </View>
         </View>
 
-        <View className="mt-12 items-center">
+        <View className="items-center mt-12">
           <SvgXml xml={colorScheme === 'dark' ? DarkBottomIcon : LightBottomIcon} />
         </View>
       </View>

@@ -1,0 +1,167 @@
+{
+    "onboarding": {
+      "page1": "Shyira ku rwego rwisumbuye ubushobozi bw'ikigo cyawe hamwe na Performance Management/Analytics.",
+      "page2": "Menya abakora neza, bavumbure impano ihishe, kandi utezimbere abakozi bawe.",
+      "page3": "Fungura ubushobozi bwo kubona ibyavuyemo bihamye kandi bigufi.",
+      "getStarted": "Tangira"
+    },
+    "notFound": {
+    "title": "Yoo! Ntidushobora kubona ipaji urimo gushaka.",
+    "goHome": "Subira ku rupapuro rw'itangiriro!"
+  },
+  "orgLogin": {
+    "signIn": "Injira muri kampani yawe",
+    "enterOrgURL": "Injiza URL ya Pulse ya kampani yawe",
+    "continue": "Komeza",
+    "orgPlaceholder": "<Izina-rya kampani>.pulse.co",
+    "error": "Izina rya kampani rirakenewe"
+  },
+  "userLogin": {
+    "welcome": "Murakaza neza kuri",
+    "switchOrg": "Hindura kampani yawe",
+    "email": "Imeyili",
+    "password": "Ijambo ry'ibanga",
+    "forgotPassword": "Wibagiwe ijambo ry'ibanga?",
+    "signIn": "Injira",
+    "emailRequired": "Imeyili irakenewe",
+    "passwordRequired": "Ijambo ry'ibanga rirakenewe",
+    "email_invalid": "Imeyili ntabwo ariyo",
+    "email_required": "Tanga aderesi yawe ya email",
+    "password_min": "Ijambo ry'ibanga rigomba kugira nibura inyuguti 8",
+    "password_required": "Tanga ijambo ry'ibanga",
+    "organization_required": "URL ya organization irakenewe",
+    "confirm_password_required": "Nyamuneka, wemeze ijambo ry'ibanga",
+    "passwords_must_match": "Ijambo ry'ibanga rigomba kuba rimwe"
+  },
+  "userRegister": {
+    "firstName": "Izina rya mbere",
+    "lastName": "Izina ry'umuryango",
+    "email": "Imeli",
+    "gender": "Igitsina",
+    "male": "Gabo",
+    "female": "Gore",
+    "dob": "Itariki y'amavuko",
+    "password": "Ijambo ry'ibanga",
+    "registerYourAccount": "Iyandikishe!",
+    "joinOrg": "Andika amakuru yawe kugira ngo winjire {{orgName}}",
+    "termsAndConditions": "Nemeranya n'amategeko n'amabwiriza ya Pulse",
+    "register": "Iyandikishe",
+    "alreadyHaveAccount": "Ufite konti?",
+    "signIn": "Injira",
+    "successfullyRegistered": "Byagenze neza kwiyandikisha",
+    "invalidToken": "Icyemezo cya tokeni kirangiye cyangwa kidasobanutse",
+    "acceptTCAgree": "Nyamuneka emera amategeko n'amabwiriza",
+    "warning": "Icyitonderwa"
+  },
+  "forgotPassword": {
+    "title": "Gusubiramo ijambo ry'ibanga",
+    "instructions": "Uzabona imeri yo gukomeza no gusubiramo ijambo ry'ibanga",
+    "placeholder": "Injiza imeri",
+    "submitButton": "Komeza",
+    "successMessage": "Gusaba gusubiramo ijambo ry'ibanga byakozwe neza! Nyamuneka reba imeri yawe kugirango usubiremo ijambo ry'ibanga.",
+    "errorMessage": "Habaye ikibazo. Ongera ugerageze."
+  }
+  ,
+  "registerSchema": {
+    "firstName": {
+      "min": "Izina rigomba kuba rifite nibura inyuguti 2",
+      "matches": "Izina rigomba kuba rigizwe n'inyuguti gusa",
+      "required": "Nyamuneka uhe izina ryawe"
+    },
+    "lastName": {
+      "min": "Izina rya nyuma rigomba kuba rifite nibura inyuguti 2",
+      "matches": "Izina rya nyuma rigomba kuba rigizwe n'inyuguti gusa",
+      "required": "Nyamuneka uhe izina rya nyuma"
+    },
+    "password": {
+      "min": "Ijambo ry'ibanga rigomba kuba rifite inyuguti nibura 8",
+      "required": "Nyamuneka uhe ijambo ry'ibanga"
+    },
+    "gender": {
+      "oneOf": "Nyamuneka hitamo igitsina cyawe"
+    },
+    "dob": {
+      "max": "Ugomba kuba ufite imyaka nibura 16",
+      "required": "Nyamuneka hitamo itariki y'amavuko"
+    }
+  },
+  "redirecting": "Koherezwa ahandi ...",
+  "go_to_home_screen": "Gusubira kuri ecran y'itangiriro!",
+  "error": {
+    "unable_to_open_link": "Ntibishoboka gufungura urubuga"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "attendance": "Ubwitabire",
+    "performance": "Imikorere",
+    "calendar": "Kalendari",
+    "docs": "Inyandiko",
+    "help": "Ubufasha",
+    "signOut": "Gusohoka"
+  },
+  "performance":{
+    "performance_scores": "Amanota y'umusaruro",
+    "quality": "Ubwiza",
+    "quantity": "Ubwinshi",
+    "professionalism": "Ubunyamwuga",
+    "very_good": "Ni byiza cyane",
+    "need_to_improve": "Birasaba kunozwa",
+    "stats": "Imibare"
+  },
+  "sprintRating":{
+    "recent_feedback": "Ibitekerezo byaheruka",
+    "phase": "Icyiciro",
+    "filter_by_sprint": "Shyira mu buryo bwa sprint",
+    "no_ratings_available": "Nta manota aboneka",
+    "sprint": "SPRINT",
+    "quantity": "UBWINSHI",
+    "quality": "UBWIZA",
+    "professionalism": "UBUNYAMWUGA",
+    "comment": "IGITEKEREZO",
+    "view": "Reba",
+    "error_loading_ratings": "Ikosa mu kubika amanota",
+    "user_token_not_found": "Ikarita ya token ntibonewe."
+  },
+  "about": {
+    "about":"Umwirondoro",
+    "organization":"Ikigo",
+    "basicInformation": "AMAKURU Y’IBANZE",
+    "name": "Izina",
+    "email": "Imeri",
+    "phoneNumber": "Numero ya Telefoni",
+    "address": "Aderesi",
+    "githubUsername": "Izina kuri GitHub",
+    "resume": "CV",
+    "noResume": "Nta CV yashyizweho",
+    "biography": "INSHAMBAZI",
+    "noBiography": "Nta nshamazi yashyizweho"
+  },
+  "organization": {
+    "organizationDetails": "AMAKURU Y'IKIGO CYAWE",
+    "organizationName": "Izina ry'ikigo:",
+    "adminEmail": "Imeli y'ubuyobozi:",
+    "role": "Inshingano:",
+    "management": "AHO ABARIZWA",
+    "program": "Porogaramu:",
+    "cohort": "Icyiciro:",
+    "team": "Ikipe:",
+    "phase": "Icyiciro:",
+    "unavailable": "Ntiboneka"
+  },
+  "selectLanguage": "Hitamo Ururimi",
+  "close": "Funga",
+  "languages": {
+    "kinyarwanda": "Ikinyarwanda",
+    "english": "Icyongereza",
+    "french": "Igifaransa"
+  },
+  "loginmsg": {
+      "welcome": "Murakaza neza! Injira kugira ngo ukomeze",
+      "invalid_credentials": "Ibisobanuro byanyu sibyo",
+      "error": "Ikosa",
+      "network_error": "Habaye ikibazo mu kuvugana na seriveri",
+      "general_error": "Habaye ikibazo kitateganyijwe.",
+      "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
+    }
+  }
+  

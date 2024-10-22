@@ -2,29 +2,29 @@ import { Link } from 'expo-router';
 
 import { Text, View } from '@/components/Themed';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next'; 
 
 export default function NotFoundScreen() {
+  const { t } = useTranslation();
   return (
-    <>
-      <View className="flex-1 justify-center items-center p-8">
-        <View className="h-60 w-full mb-10">
+      <View className="items-center justify-center flex-1 p-8">
+        <View className="w-full mb-10 h-60">
           <Image
             source={require('@/assets/images/page_not_found.svg')}
             contentFit="contain"
-            className="mb-6 justify-center items-end"
+            className="items-end justify-center mb-6"
             style={{ width: '100%', flex: 1 }}
           />
         </View>
-        <Text className="text-2xl font-Inter-Bold dark:text-white text-center max-w-64">
-          Oops! We can't find the page you're looking for.
+        <Text className="text-2xl text-center font-Inter-Bold dark:text-white max-w-64">
+        {t('notFound.title')}
         </Text>
 
         <Link href="/" className="mt-12">
-          <View className="py-4 px-6 bg-action-500 rounded-full">
-            <Text className="text-lg text-white">Go to home screen!</Text>
+          <View className="px-6 py-4 rounded-full bg-action-500">
+            <Text className="text-lg text-white">{t('notFound.goHome')}</Text>
           </View>
         </Link>
       </View>
-    </>
   );
 }
