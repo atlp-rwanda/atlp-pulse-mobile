@@ -26,12 +26,11 @@ describe('<OrgLogin />', () => {
     expect(pulse_co).toBeTruthy();
     expect(pulse_co.props.children).toBe('.pulse.co');
 
-    fireEvent.changeText(orgInput, 'MyOrganization'); 
+    fireEvent.changeText(orgInput, 'MyOrganization');
     expect(orgInput.props.value).toBe('MyOrganization');
 
-    const expectedWidth = Math.min('MyOrganization'.length * 11, 200); 
+    const expectedWidth = Math.min('MyOrganization'.length * 11, 200);
     expect(orgInput.props.style.width).toBe(expectedWidth);
-
   });
 
   test('shows validation error if input is empty and submitted', async () => {

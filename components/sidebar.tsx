@@ -37,9 +37,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const { t } = useTranslation();
 
   const UpperItems = [
-    { name: t('navbar.dashboard'), iconLight: lightDashboard, iconDark: darkDashboard, path: '/dashboard' },
     {
-      name:  t('navbar.attendance'),
+      name: t('navbar.dashboard'),
+      iconLight: lightDashboard,
+      iconDark: darkDashboard,
+      path: '/dashboard',
+    },
+    {
+      name: t('navbar.attendance'),
       iconLight: lightAttendance,
       iconDark: darkAttendance,
       path: '/dashboard/trainee',
@@ -59,9 +64,24 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   ];
 
   const LowerItems = [
-    { name:  t('navbar.docs'), iconLight: lightDocument, iconDark: darkDocument, path: '/dashboard/trainee' },
-    { name:  t('navbar.help'), iconLight: lightHelp, iconDark: darkHelp, path: '/dashboard/trainee' },
-    { name: t('navbar.signOut'), iconLight: lightLogout, iconDark: darkLogout, path: '/auth/login' },
+    {
+      name: t('navbar.docs'),
+      iconLight: lightDocument,
+      iconDark: darkDocument,
+      path: '/dashboard/trainee',
+    },
+    {
+      name: t('navbar.help'),
+      iconLight: lightHelp,
+      iconDark: darkHelp,
+      path: '/dashboard/trainee',
+    },
+    {
+      name: t('navbar.signOut'),
+      iconLight: lightLogout,
+      iconDark: darkLogout,
+      path: '/auth/login',
+    },
   ];
 
   useEffect(() => {
@@ -83,10 +103,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const handleItemPress = async (item: { name: string; path: string }) => {
     setActiveItem(item.name);
     try {
-      if(item.name === 'Sign out'){
-         await handleLogout()
-      }
-      else{
+      if (item.name === 'Sign out') {
+        await handleLogout();
+      } else {
         router.push(item.path as any);
         onClose();
       }

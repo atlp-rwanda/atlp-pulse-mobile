@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { I18nextProvider } from 'react-i18next';
-import i18n from '@/internationalization'; 
+import i18n from '@/internationalization';
 import LanguagePicker from '@/components/LanguagePicker';
 
 jest.mock('react-native/Libraries/Utilities/useColorScheme', () => ({
   __esModule: true,
-  default: jest.fn(() => 'light'), 
+  default: jest.fn(() => 'light'),
 }));
 
 describe('LanguagePicker', () => {

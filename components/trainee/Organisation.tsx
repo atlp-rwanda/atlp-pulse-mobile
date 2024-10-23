@@ -57,7 +57,9 @@ const TraineeOrg: React.FC<TraineeOrgProps> = ({ profile, bgColor, textColor }) 
         </View>
         <View className="flex-row gap-5 m-1">
           <Text className={`${textColor} text-lg`}>{t('organization.role')}</Text>
-          <Text className={`${textColor} text-lg`}>{profile.user?.role || t('organization.unavailable')}</Text>
+          <Text className={`${textColor} text-lg`}>
+            {profile.user?.role || t('organization.unavailable')}
+          </Text>
         </View>
       </View>
       <View className={`${bgColor} w-[100%] p-4 rounded-md mt-3 text-bold mb-14`}>

@@ -8,7 +8,6 @@ import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme, View } 
 import { SvgXml } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 
-
 type FormValues = {
   organization: string;
 };
@@ -18,7 +17,6 @@ type OrgLoginProps = {
 };
 
 export default function OrgLogin({ onSubmit }: OrgLoginProps) {
-  
   const [loading, setLoading] = useState(false);
   const [inputWidth, setInputWidth] = useState<number>();
   const colorScheme = useColorScheme();
@@ -36,10 +34,9 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
 
   const handleNameChange = (inputText: string) => {
     formik.setFieldValue('organization', inputText);
-    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130
+    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130;
     setInputWidth(newWidth);
   };
-  
 
   return (
     <View testID="org-login">
@@ -47,10 +44,10 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
         <View>
           <View className="flex p-8">
             <Text className={`text-2xl font-Inter-SemiBold text-center ${textColor}`}>
-            {t('orgLogin.signIn')}
+              {t('orgLogin.signIn')}
             </Text>
             <Text className={`text-xl text-center text-gray-600 ${textColor}`}>
-            {t('orgLogin.enterOrgURL')}
+              {t('orgLogin.enterOrgURL')}
             </Text>
           </View>
 
@@ -63,19 +60,24 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
 
                 <TextInput
                   testID="org-input"
-                  placeholder={t("orgLogin.orgPlaceholder")}
+                  placeholder={t('orgLogin.orgPlaceholder')}
                   placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
                   onChangeText={formik.handleChange('organization')}
                   value={formik.values.organization}
-                  style={{marginLeft:10,width:inputWidth}}
+                  style={{ marginLeft: 10, width: inputWidth }}
                   autoCapitalize="none"
                   keyboardType="url"
                   className={`${colorScheme === 'dark' ? 'text-primary-light' : '#9e9e9e'}`}
                 />
-                <Text testID='pulse.co' className='text-gray-400'>.pulse.co</Text>
+                <Text testID="pulse.co" className="text-gray-400">
+                  .pulse.co
+                </Text>
               </View>
             </View>
-            <Text className="mt-2 text-center text-error-500"> {formik.errors.organization ? t('orgLogin.error') : null}</Text>
+            <Text className="mt-2 text-center text-error-500">
+              {' '}
+              {formik.errors.organization ? t('orgLogin.error') : null}
+            </Text>
 
             <View className="flex flex-col gap-4">
               <TouchableOpacity
@@ -87,7 +89,9 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                 {loading ? (
                   <ActivityIndicator color="white" />
                 ) : (
-                  <Text className="text-lg font-semibold text-secondary-light-500">{t('orgLogin.continue')}</Text>
+                  <Text className="text-lg font-semibold text-secondary-light-500">
+                    {t('orgLogin.continue')}
+                  </Text>
                 )}
               </TouchableOpacity>
             </View>

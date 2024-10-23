@@ -107,9 +107,9 @@ module.exports = {
       backdropBlur: {
         sm: '4px',
         DEFAULT: '8px',
-        md: '12px', 
+        md: '12px',
         lg: '16px',
-        xl: '20px', 
+        xl: '20px',
       },
     },
   },

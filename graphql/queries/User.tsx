@@ -47,4 +47,3 @@ export const GET_PROFILE = gql`
     }
   }
 `;
-

@@ -5,18 +5,18 @@ const sixteenYearsAgo = new Date(today.getFullYear() - 16, today.getMonth(), tod
 
 export const RegisterSchema = Yup.object().shape({
   firstName: Yup.string()
-    .min(2,i18n.t("registerSchema.firstName.min") )
-    .matches(/^[A-Za-z]+$/, i18n.t("registerSchema.firstName.matches"))
-    .required(i18n.t("registerSchema.firstName.required") ),
+    .min(2, i18n.t('registerSchema.firstName.min'))
+    .matches(/^[A-Za-z]+$/, i18n.t('registerSchema.firstName.matches'))
+    .required(i18n.t('registerSchema.firstName.required')),
   lastName: Yup.string()
-    .min(2, i18n.t("registerSchema.lastName.min"))
-    .matches(/^[A-Za-z]+$/, i18n.t("registerSchema.lastName.matches"))
-    .required(i18n.t("registerSchema.lastName.required")),
+    .min(2, i18n.t('registerSchema.lastName.min'))
+    .matches(/^[A-Za-z]+$/, i18n.t('registerSchema.lastName.matches'))
+    .required(i18n.t('registerSchema.lastName.required')),
   password: Yup.string()
-    .min(8, i18n.t("registerSchema.password.min"))
-    .required(i18n.t("registerSchema.password.required")),
-  gender: Yup.string().oneOf(['Male', 'Female']).required(i18n.t("registerSchema.gender.oneOf")),
+    .min(8, i18n.t('registerSchema.password.min'))
+    .required(i18n.t('registerSchema.password.required')),
+  gender: Yup.string().oneOf(['Male', 'Female']).required(i18n.t('registerSchema.gender.oneOf')),
   dob: Yup.date()
-    .max(sixteenYearsAgo, i18n.t("registerSchema.dob.max"))
-    .required(i18n.t("registerSchema.dob.required")),
+    .max(sixteenYearsAgo, i18n.t('registerSchema.dob.max'))
+    .required(i18n.t('registerSchema.dob.required')),
 });

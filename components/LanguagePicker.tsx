@@ -18,7 +18,9 @@ export default function LanguagePicker() {
   const isDarkMode = colorScheme === 'dark';
 
   const getCurrentLanguageLabel = () => {
-    return t(LANGUAGES.find(lang => lang.code === i18n.language)?.labelKey || 'languages.english');
+    return t(
+      LANGUAGES.find((lang) => lang.code === i18n.language)?.labelKey || 'languages.english'
+    );
   };
 
   const handleLanguageChange = async (code: string) => {
@@ -28,15 +30,15 @@ export default function LanguagePicker() {
 
   return (
     <View>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => setModalVisible(true)}
         activeOpacity={0.6}
         className="p-2 bg-white rounded dark:bg-primary-dark"
       >
         <View className="flex-row items-center p-4">
-          <CountryFlag 
-            isoCode={LANGUAGES.find(lang => lang.code === i18n.language)?.flagCode || 'GB'} 
-            size={24} 
+          <CountryFlag
+            isoCode={LANGUAGES.find((lang) => lang.code === i18n.language)?.flagCode || 'GB'}
+            size={24}
           />
           <Text className="flex-1 ml-3 text-lg font-medium text-gray-900 dark:text-white">
             {getCurrentLanguageLabel()}
@@ -51,16 +53,16 @@ export default function LanguagePicker() {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <TouchableOpacity 
+        <TouchableOpacity
           className="items-center justify-center flex-1 bg-black bg-opacity-50"
           activeOpacity={1}
           onPress={() => setModalVisible(false)}
         >
           <View className="w-4/5 p-6 bg-white rounded-lg dark:bg-gray-800">
-            <TouchableOpacity 
+            <TouchableOpacity
               className="w-full"
               activeOpacity={1}
-              onPress={e => e.stopPropagation()}
+              onPress={(e) => e.stopPropagation()}
             >
               <Text className="mb-4 text-xl font-semibold text-center text-gray-900 dark:text-white">
                 {t('selectLanguage')}
@@ -76,9 +78,13 @@ export default function LanguagePicker() {
                     onPress={() => handleLanguageChange(lang.code)}
                   >
                     <CountryFlag isoCode={lang.flagCode} size={24} />
-                    <Text className={`text-lg ml-3 text-gray-900 dark:text-white ${
-                      i18n.language === lang.code ? 'font-semibold text-blue-600 dark:text-blue-400' : ''
-                    }`}>
+                    <Text
+                      className={`text-lg ml-3 text-gray-900 dark:text-white ${
+                        i18n.language === lang.code
+                          ? 'font-semibold text-blue-600 dark:text-blue-400'
+                          : ''
+                      }`}
+                    >
                       {t(lang.labelKey)}
                     </Text>
                   </TouchableOpacity>

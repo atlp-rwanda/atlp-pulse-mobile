@@ -74,7 +74,11 @@ describe('<Profile />', () => {
     render(<Profile />);
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Token Not found.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 
@@ -82,13 +86,13 @@ describe('<Profile />', () => {
     mockUseQuery.mockReturnValue({
       data: {
         getProfile: {
-        avatar: 'https://example.com/avatar.png',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phoneNumber: '1234567890',
-        address: '123 Main St',
-        resume: 'https://example.com/resume.pdf',
-        biography: 'This is a biography.',
+          avatar: 'https://example.com/avatar.png',
+          name: 'John Doe',
+          email: 'john.doe@example.com',
+          phoneNumber: '1234567890',
+          address: '123 Main St',
+          resume: 'https://example.com/resume.pdf',
+          biography: 'This is a biography.',
         },
       },
       loading: false,
@@ -136,7 +140,11 @@ describe('<Profile />', () => {
     render(<Profile />);
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Error fetching profile.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 
@@ -176,7 +184,11 @@ describe('<Profile />', () => {
     fireEvent.press(getByTestId('edit-button'));
 
     await waitFor(() => {
-      expect(showMock).toHaveBeenCalledWith('Edit button pressed', { type: 'info', placement: 'top', duration: 3000 });
+      expect(showMock).toHaveBeenCalledWith('Edit button pressed', {
+        type: 'info',
+        placement: 'top',
+        duration: 3000,
+      });
     });
   });
 

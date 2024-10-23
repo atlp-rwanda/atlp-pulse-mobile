@@ -1,11 +1,11 @@
 {
-    "onboarding": {
-      "page1": "Optimize your organization's potential with Performance Management/Analytics.",
-      "page2": "Identify top performers, discover hidden talent, and optimize your workforce.",
-      "page3": "Unlock the potential of a Continuous & Tight Feedback Loop.",
-      "getStarted": "Get Started"
-    },
-    "notFound": {
+  "onboarding": {
+    "page1": "Optimize your organization's potential with Performance Management/Analytics.",
+    "page2": "Identify top performers, discover hidden talent, and optimize your workforce.",
+    "page3": "Unlock the potential of a Continuous & Tight Feedback Loop.",
+    "getStarted": "Get Started"
+  },
+  "notFound": {
     "title": "Oops! We can't find the page you're looking for.",
     "goHome": "Go to home screen!"
   },
@@ -13,7 +13,7 @@
     "signIn": "Sign in to your Organization",
     "enterOrgURL": "Enter your organization's Pulse URL",
     "continue": "Continue",
-    "orgPlaceholder": "<Your-organization>.pulse.co",
+    "orgPlaceholder": "<Your-organization>",
     "error": "Organization is required"
   },
   "userLogin": {
@@ -98,7 +98,7 @@
     "help": "Help",
     "signOut": "Sign out"
   },
-  "performance":{
+  "performance": {
     "performance_scores": "Performance Scores",
     "quality": "Quality",
     "quantity": "Quantity",
@@ -107,7 +107,7 @@
     "need_to_improve": "Need to Improve",
     "stats": "Stats"
   },
-  "sprintRating":{
+  "sprintRating": {
     "recent_feedback": "Recent feedback",
     "phase": "Phase",
     "filter_by_sprint": "Filter by Sprint",
@@ -122,8 +122,8 @@
     "user_token_not_found": "User token not found."
   },
   "about": {
-    "about":"About",
-    "organization":"Organization",
+    "about": "About",
+    "organization": "Organization",
     "basicInformation": "BASIC INFORMATION",
     "name": "Name",
     "email": "Email",
@@ -162,5 +162,4 @@
     "general_error": "An unexpected error occurred.",
     "auth_error": "Please wait to be added to a program or cohort"
   }
-  }
-  
+}
