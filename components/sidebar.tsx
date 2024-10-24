@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('authToken');
-      router.push('/auth/login');
+      router.push('/auth/login?logout=1');
     } catch (error) {
       alert(`Error logging out:${error}`);
     }

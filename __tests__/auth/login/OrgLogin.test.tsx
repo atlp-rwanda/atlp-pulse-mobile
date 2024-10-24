@@ -22,9 +22,9 @@ describe('<OrgLogin />', () => {
 
     expect(getByTestId('org-input').props.value).toBe('myorg');
 
-    const pulse_co = getByTestId('pulse.co');
+    const pulse_co = getByTestId('pulse.org');
     expect(pulse_co).toBeTruthy();
-    expect(pulse_co.props.children).toBe('.pulse.co');
+    expect(pulse_co.props.children).toBe('.pulse.org');
 
     fireEvent.changeText(orgInput, 'MyOrganization');
     expect(orgInput.props.value).toBe('MyOrganization');
@@ -51,11 +51,11 @@ describe('<OrgLogin />', () => {
     const orgInput = getByPlaceholderText('<Your-organization>');
     const submitButton = getByTestId('submit-button');
 
-    fireEvent.changeText(orgInput, 'myorg.pulse.co');
+    fireEvent.changeText(orgInput, 'myorg.pulse.org');
     fireEvent.press(submitButton);
 
     await waitFor(() => {
-      expect(mockSubmit).toHaveBeenCalledWith({ organization: 'myorg.pulse.co' });
+      expect(mockSubmit).toHaveBeenCalledWith({ organization: 'myorg.pulse.org' });
     });
   });
 });

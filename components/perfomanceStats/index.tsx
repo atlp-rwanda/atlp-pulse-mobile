@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Dimensions, ScrollView, useColorScheme, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TRAINEE_RATING } from '@/graphql/queries/rating';
 import { useQuery } from '@apollo/client';
-import styles from './styles';
-import { LineChart } from 'react-native-chart-kit';
-import CircularIndicator from './circleIndicator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Dimensions, ScrollView, Text, useColorScheme, View } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
+import { useToast } from 'react-native-toast-notifications';
+import CircularIndicator from './circleIndicator';
+import styles from './styles';
 
 const PerformanceScores = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const PerformanceScores = () => {
   };
 
   const theme = useColorScheme();
+  const toast = useToast();
 
   const backgroundColor = theme === 'dark' ? '#020917' : '#fff';
   const textColor = theme === 'dark' ? '#fff' : '#000';
@@ -38,10 +40,10 @@ const PerformanceScores = () => {
         if (token) {
           setUserToken(token);
         } else {
-          Alert.alert('Error', 'User token not found.');
+          toast.show('User token not found.', { type: 'danger' });
         }
       } catch (error) {
-        Alert.alert('Error', 'Failed to fetch token.');
+        toast.show('Failed to fetch token.', { type: 'danger' });
       }
     };
     fetchToken();

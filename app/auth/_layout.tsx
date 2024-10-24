@@ -1,18 +1,14 @@
 import { logo } from '@/assets/Icons/auth/Icons';
 import LanguagePicker from '@/components/LanguagePicker';
 import { Slot } from 'expo-router';
-import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
 
 export default function AuthLayout() {
   const insets = useSafeAreaInsets();
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const colorScheme = useColorScheme();
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
-
-  useEffect(() => {}, [isDarkMode]);
 
   return (
     <KeyboardAvoidingView

@@ -6,12 +6,13 @@ import { RegisterSchema } from '@/validations/register.schema';
 import { ApolloError, useMutation } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 import Checkbox from 'expo-checkbox';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFormik } from 'formik';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   Alert,
@@ -21,7 +22,6 @@ import {
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
-import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   firstName: string;
@@ -70,12 +70,12 @@ export default function RegisterForm() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const authToken = await AsyncStorage.getItem('org_token');
+      const authToken = await AsyncStorage.getItem('orgToken');
       if (authToken) {
         try {
           const parsedToken = jwtDecode<TokenPayload>(authToken);
           if (parsedToken.exp < Date.now()) {
-            await AsyncStorage.removeItem('org_token');
+            await AsyncStorage.removeItem('orgToken');
           } else {
             router.push('/dashboard/trainee');
           }
@@ -107,7 +107,7 @@ export default function RegisterForm() {
 
         if (data) {
           toast.show(t('userRegister.successfullyRegistered'), { type: 'success' });
-          await AsyncStorage.setItem('org_token', data.createUser.token);
+          await AsyncStorage.setItem('orgToken', data.createUser.token);
           router.push('/auth/login');
         }
 
@@ -172,7 +172,7 @@ export default function RegisterForm() {
               value={formik.values.firstName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              className={`placeholder:text-gray-500 pr-3 py-5`}
             />
           </View>
           <Text className="my-1 text-error-500">{formik.errors.firstName}</Text>
@@ -193,7 +193,7 @@ export default function RegisterForm() {
               value={formik.values.lastName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              className={`placeholder:text-gray-500 pr-3 py-5`}
             />
           </View>
           <Text className="my-1 text-error-500">{formik.errors.lastName}</Text>
@@ -213,7 +213,7 @@ export default function RegisterForm() {
               value={email!}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 pt-4 pb-6`}
+              className={`placeholder:text-gray-500 pr-3 pt-4 pb-6`}
               editable={false}
             />
           </View>
@@ -270,7 +270,7 @@ export default function RegisterForm() {
               value={formik.values.password}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              className={`placeholder:text-gray-500 pr-3 py-5`}
               secureTextEntry={!showPassword}
             />
             <Ionicons
