@@ -1,5 +1,5 @@
-import React, { createContext, ReactNode, useMemo, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
 
 const getInitialState = async () => {
   try {
@@ -68,7 +68,7 @@ const UserProvider: React.FC<Props> = ({ children }) => {
 
     try {
       await AsyncStorage.setItem('auth', JSON.stringify(userData));
-      await AsyncStorage.setItem('auth_token', data.token);
+      await AsyncStorage.setItem('authToken', data.token);
       setUser(userData);
     } catch (error) {
       console.error('Failed to save user data:', error);
@@ -78,7 +78,7 @@ const UserProvider: React.FC<Props> = ({ children }) => {
   const logout = async (reason: string = '') => {
     try {
       await AsyncStorage.removeItem('auth');
-      await AsyncStorage.removeItem('auth_token');
+      await AsyncStorage.removeItem('authToken');
       if (reason !== 'expired') await AsyncStorage.setItem('loggedout', '1');
       setUser({ name: '', role: 'user', auth: false, notifications: [] });
     } catch (error) {

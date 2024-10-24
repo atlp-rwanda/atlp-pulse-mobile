@@ -13,7 +13,7 @@
     "signIn": "Connectez-vous à votre organisation",
     "enterOrgURL": "Entrez l'URL Pulse de votre organisation",
     "continue": "Continuer",
-    "orgPlaceholder": "<Votre-organisation>.pulse.co",
+    "orgPlaceholder": "<Votre-organisation>",
     "error": "Le nom de l'organisation est requis"
   },
   "userLogin": {

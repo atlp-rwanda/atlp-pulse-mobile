@@ -1,11 +1,11 @@
+import LanguagePicker from '@/components/LanguagePicker';
 import { Text, View } from '@/components/Themed';
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import PagerView from 'react-native-pager-view';
-import { useTranslation } from 'react-i18next';
-import LanguagePicker from '@/components/LanguagePicker';
 
 type Page = {
   image: any;
@@ -13,7 +13,8 @@ type Page = {
 };
 
 export default function AppOnboarding() {
-  const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const { t } = useTranslation();
   const colorScheme = useColorScheme();
   const pagerViewRef = useRef<PagerView>(null);
   const [page, setPage] = useState<number>(0);
@@ -22,7 +23,6 @@ export default function AppOnboarding() {
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
   const getDotColor = (index: number) => (index === page ? 'bg-action-500' : 'bg-white');
-  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {

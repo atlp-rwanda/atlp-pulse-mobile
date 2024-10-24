@@ -1,46 +1,30 @@
-import { ConstantId } from '@/AppManager';
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
-import { UserContext } from '@/hooks/useAuth';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
-import { useContext, useState } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useToast } from 'react-native-toast-notifications';
 
-class ErrorHandler {
-  static handleNetworkError() {
-    ToastAndroid.show('There was a problem contacting the server', ToastAndroid.LONG);
-  }
-
-  static handleInvalidCredentials() {
-    Alert.alert('Error', 'Invalid credentials');
-  }
-
-  static handleCustomError(message: string | undefined) {
-    Alert.alert('Error', message);
-  }
-
-  static handleGeneralError() {
-    Alert.alert('Error', 'An unexpected error occurred.');
-  }
-}
-
 export default function SignInOrganization() {
-  const router = useRouter();
   const toast = useToast();
+  const router = useRouter();
   const [orgLoginSuccess, setOrgLoginSuccess] = useState(false);
   const [orgLoginMutation] = useMutation(ORG_LOGIN_MUTATION);
-  const [loading, setLoading] = useState(false);
-  const { login } = useContext(UserContext) || {};
   const [LoginUser] = useMutation(LOGIN_MUTATION);
-  const client = useApolloClient();
-  const [name, setName] = useState('');
-  const params = useLocalSearchParams<{ redirect?: string }>();
+  const params = useLocalSearchParams<{ redirect?: string; logout: string }>();
+
+  useEffect(() => {
+    if (params.logout == '1') {
+      while (router.canGoBack()) {
+        router.back();
+      }
+      router.replace('/auth/login');
+    }
+  }, []);
+
   const onOrgSubmit = async (values: any) => {
-    setName(values);
     try {
       await orgLoginMutation({
         variables: {
@@ -61,11 +45,15 @@ export default function SignInOrganization() {
           setOrgLoginSuccess(true);
         },
         onError(err: any) {
-          ErrorHandler.handleCustomError(`${err}`);
+          if (err instanceof ApolloError) {
+            toast.show(err.message, { type: 'danger' });
+          } else {
+            toast.show(err.message, { type: 'danger' });
+          }
         },
       });
     } catch (err: any) {
-      ErrorHandler.handleGeneralError();
+      toast.show(`An unexpected error occurred: ${err.message}`, { type: 'danger' });
     }
   };
 
@@ -73,7 +61,6 @@ export default function SignInOrganization() {
     try {
       const orgToken = await AsyncStorage.getItem('orgToken');
       userInput.orgToken = orgToken;
-      setLoading(true);
 
       await LoginUser({
         variables: {
@@ -81,69 +68,40 @@ export default function SignInOrganization() {
         },
         onCompleted: async (data) => {
           if (data.addMemberToCohort) {
-            ToastAndroid.show(`${data.addMemberToCohort}`, ToastAndroid.LONG);
+            toast.show(`${data.addMemberToCohort}`, { type: 'danger' });
+            return;
           }
 
-          if (login && data.loginUser) {
+          if (data.loginUser) {
             const token = data.loginUser.token;
 
             if (data.loginUser.user.role === 'trainee') {
+              await AsyncStorage.setItem('authToken', token);
+
               params.redirect
                 ? router.push(`${params.redirect}` as Href<string | object>)
-                : router.push('/dashboard' as Href<string | object>);
-            }
-
-            try {
-              await AsyncStorage.setItem('auth_token', token);
-              const storedToken = await AsyncStorage.getItem('auth_token');
-
-              if (storedToken !== token) {
-                console.error('Stored token does not match received token');
-              }
-            } catch (error) {
-              console.error('Error storing token:', error);
-            }
-            login(data.loginUser);
-            try {
-              await client.resetStore();
-            } catch (error) {
-              console.error('Error resetting client store:', error);
-            }
-
-            // Handle redirection
-            if (params.redirect) {
-              router.push(params.redirect);
+                : router.push('/dashboard');
+              return;
+            } else {
+              toast.show('This app is for trainees only! Login through the web', {
+                type: 'danger',
+              });
               return;
             }
-
-            // Navigate based on user role
-            const role = data.loginUser.user.role;
-            if (role === 'admin' || role === 'coordinator') {
-              await AsyncStorage.setItem('authToken', data.loginUser.token);
-              router.push('/dashboard/trainee');
-            } else {
-              Alert.alert('The app is for the trainee only');
-            }
-          } else {
-            await AsyncStorage.setItem('authToken', data.loginUser.token);
-            router.push('/dashboard');
           }
         },
         onError: (err) => {
           if (err.networkError) {
-            ErrorHandler.handleNetworkError();
+            toast.show('There was a problem contacting the server', { type: 'danger' });
           } else if (err.message.toLowerCase() === 'invalid credential') {
-            ErrorHandler.handleInvalidCredentials();
-          } else {
-            const translateError = 'Please wait to be added to a program or cohort';
-            ErrorHandler.handleCustomError(translateError);
+            toast.show('Invalid credentials', { type: 'danger' });
+          } else if (err instanceof ApolloError) {
+            toast.show(err.message, { type: 'danger' });
           }
         },
       });
     } catch (error: any) {
-      ErrorHandler.handleGeneralError();
-    } finally {
-      setLoading(false);
+      toast.show(`An unexpected error occurred: ${error.message}`, { type: 'danger' });
     }
   };
 

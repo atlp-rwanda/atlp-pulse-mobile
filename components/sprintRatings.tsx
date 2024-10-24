@@ -1,11 +1,11 @@
-import { useState, useEffect, Key } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useQuery } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TRAINEE_RATING } from '../graphql/mutations/ratings';
-import { useColorScheme } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Key, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ScrollView, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
+import { TRAINEE_RATING } from '../graphql/mutations/ratings';
 
 export default function TraineeRatings({
   openFeedbackModal,
@@ -13,6 +13,7 @@ export default function TraineeRatings({
   openFeedbackModal: (feedback: any) => void;
 }) {
   const { t } = useTranslation();
+  const toast = useToast();
   const [sprintFilter, setSprintFilter] = useState('');
   const [selectedPhase, setSelectedPhase] = useState('Phase I');
   const [userToken, setUserToken] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export default function TraineeRatings({
       if (token) {
         setUserToken(token);
       } else {
-        Alert.alert(t('sprintRating.error'), t('sprintRating.user_token_not_found'));
+        toast.show(t('sprintRating.user_token_not_found'), { type: 'danger' });
       }
     };
     fetchToken();
@@ -55,7 +56,7 @@ export default function TraineeRatings({
 
   useEffect(() => {
     if (error) {
-      Alert.alert(t('sprintRating.error'), t('sprintRating.error_loading_ratings'));
+      toast.show(t('sprintRating.error_loading_ratings'), { type: 'danger' });
     }
   }, [loading, error]);
 

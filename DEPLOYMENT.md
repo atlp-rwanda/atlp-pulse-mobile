@@ -41,6 +41,7 @@ echo '\npackage-lock.json' >> .easignore
 ```bash
 eas build --platform ios --profile preview --auto-submit --non-interactive
 ```
+
 This will send the app to the Expo servers for building and submission to the Apple App Store.
 
 3. Once the build is complete, you can remove the `.easignore` file by running the following command:

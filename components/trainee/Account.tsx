@@ -85,7 +85,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showCurrentPassword}
-            className={`text-gray-600 placeholder:text-gray-400 text-base px-3 py-4`}
+            className={`placeholder:text-gray-500 text-base px-3 py-4`}
           />
           <Ionicons
             name={showCurrentPassword ? 'eye-off' : 'eye'}
@@ -117,7 +117,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showNewPassword}
-            className={`text-gray-600 placeholder:text-gray-400 text-base px-3 py-4`}
+            className={`placeholder:text-gray-500 text-base px-3 py-4`}
           />
           <Ionicons
             name={showNewPassword ? 'eye-off' : 'eye'}
@@ -149,7 +149,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showConfirmPassword}
-            className={`text-gray-600 text-base placeholder:text-gray-400 px-3 py-4`}
+            className={`text-base placeholder:text-gray-500 px-3 py-4`}
           />
           <Ionicons
             name={showConfirmPassword ? 'eye-off' : 'eye'}

@@ -1,28 +1,28 @@
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  useColorScheme,
-  ActivityIndicator,
-} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { useToast } from 'react-native-toast-notifications';
-import { UPDATE_PROFILE } from '@/graphql/mutations/UpdateProfile.mutation';
-import { GET_PROFILE } from '@/graphql/queries/GetProfile';
-import { SvgXml } from 'react-native-svg';
+import Resume from '@/app/dashboard/Resume/Resume';
 import { editPic } from '@/assets/Icons/dashboard/Icons';
-import { useState, useEffect, useCallback } from 'react';
+import { COUNTRIES } from '@/constants/countries';
+import { UPDATE_PROFILE } from '@/graphql/mutations/UpdateProfile.mutation';
+import { GET_PROFILE } from '@/graphql/queries/user';
+import { EditProfileSchema } from '@/validations/editProfile.schema';
+import { useMutation, useQuery } from '@apollo/client';
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
 import { useFormik } from 'formik';
-import { COUNTRIES } from '@/constants/countries';
-import { useMutation, useQuery } from '@apollo/client';
-import Resume from '@/app/dashboard/Resume/Resume';
-import { EditProfileSchema } from '@/validations/editProfile.schema';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { SvgXml } from 'react-native-svg';
+import { useToast } from 'react-native-toast-notifications';
 
 type FormValues = {
   firstName: string;
@@ -138,7 +138,7 @@ const EditProfile = () => {
             placement: 'top',
             duration: 4000,
           });
-          router.push('/dashboard/trainee/Profile');
+          router.push('/dashboard/trainee/profile');
         }
       } catch (error) {
         toast.show('Failed to update profile', {
@@ -224,7 +224,7 @@ const EditProfile = () => {
       {tab === 0 && (
         <View className={`bg-[#272728] px-4 pt-10 pb-6 rounded-lg ${bgColor} shadow-lg`}>
           <TouchableOpacity
-            onPress={() => router.push('/dashboard/trainee/Profile')}
+            onPress={() => router.push('/dashboard/trainee/profile')}
             className="flex-row items-center mb-4 bg-action-500 w-40 p-2 rounded-lg"
           >
             <Ionicons name="arrow-back" size={20} color={'white'} />
