@@ -13,7 +13,7 @@
     "signIn": "Connectez-vous à votre organisation",
     "enterOrgURL": "Entrez l'URL Pulse de votre organisation",
     "continue": "Continuer",
-    "orgPlaceholder": "<Votre-organisation>.pulse.co",
+    "orgPlaceholder": "<Votre-organisation>",
     "error": "Le nom de l'organisation est requis"
   },
   "userLogin": {
@@ -161,5 +161,12 @@
     "network_error": "Il y a eu un problème de connexion avec le serveur",
     "general_error": "Une erreur inattendue s'est produite.",
     "auth_error": "Veuillez attendre d'être ajouté à un programme ou à une cohorte"
+  },
+  "account": {
+    "changePassword": "Changer le mot de passe",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe"
   }
 }

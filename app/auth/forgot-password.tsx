@@ -1,23 +1,23 @@
+import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
+import { RESET_PASSWORD_EMAIL } from '@/graphql/mutations/resetPassword';
+import { ResetPasswordSchema } from '@/validations/login.schema';
+import { useMutation } from '@apollo/client';
+import { StatusBar } from 'expo-status-bar';
+import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  View,
+  ActivityIndicator,
+  Dimensions,
+  SafeAreaView,
   Text,
   TextInput,
-  useColorScheme,
-  SafeAreaView,
-  Dimensions,
   TouchableOpacity,
-  ActivityIndicator,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import { StatusBar } from 'expo-status-bar';
-import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
-import { useMutation } from '@apollo/client';
 import { useToast } from 'react-native-toast-notifications';
-import { useFormik } from 'formik';
-import { ResetPasswordSchema } from '@/validations/login.schema';
-import { RESET_PASSWORD_EMAIL } from '@/graphql/mutations/resetPassword';
-import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   email: string;
@@ -92,12 +92,13 @@ export default function ResetPassword() {
                   placeholderTextColor="gray"
                   value={formik.values.email}
                   onChangeText={formik.handleChange('email')}
+                  onBlur={formik.handleBlur('email')}
                   className={`rounded-[10px] font-Inter-Regular ${textColor}`}
                   autoCapitalize="none"
                   keyboardType="email-address"
                 />
               </View>
-              {formik.errors.email && <Text className="mb-4 text-error-500">{t('')}</Text>}
+              {formik.touched.email && formik.errors.email && <Text className="mb-4 text-error-500">{t('')}</Text>}
               <TouchableOpacity
                 testID="submit-button"
                 onPress={() => formik.handleSubmit()}

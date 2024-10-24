@@ -27,19 +27,20 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🚀 Build & Submit App
+      - name: 🚀 Build & Submit ios App
         run: |
           rm .easignore
           cp .gitignore .easignore
           echo '\npackage-lock.json' >> .easignore
-          eas build --platform $PLATFORM --profile $PROFILE --auto-submit --non-interactive
+          eas build --platform ios --profile $PROFILE --auto-submit --non-interactive
           rm .easignore
         env:
-          PLATFORM: ${{ vars.BUILD_PLATFORM }}
           PROFILE: ${{ vars.BUILD_PROFILE }}
+          EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}
 
       # This step will be deprecated and removed in the future once the google play account is created.
       - name: 🚀 Build Android App
         run: eas build --platform android --profile $PROFILE --non-interactive
         env:
           PROFILE: ${{ vars.BUILD_PROFILE }}
+          EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}

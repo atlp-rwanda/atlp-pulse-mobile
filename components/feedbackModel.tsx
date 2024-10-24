@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { BlurView } from 'expo-blur';
 import { AntDesign } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 
 interface FeedbackModalProps {
   isVisible: boolean;
@@ -11,62 +11,24 @@ interface FeedbackModalProps {
   bgColor: string;
 }
 
-const FeedbackModal: React.FC<FeedbackModalProps> = ({
-  isVisible,
-  onClose,
-  feedbacks,
-  textColor,
-  bgColor,
-}) => {
+const FeedbackModal: React.FC<FeedbackModalProps> = ({ isVisible, onClose, feedbacks }) => {
   if (!isVisible) return null;
+
+  const colorScheme = useColorScheme();
 
   return (
     <>
       <BlurView
-        intensity={100} // You can increase intensity for a more blurred background
-        tint="dark"
-        style={{
-          position: 'absolute',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-          width: '100%',
-        }}
-      >
-        {/* This TouchableOpacity handles outside click */}
-        <TouchableOpacity
-          onPress={onClose}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark overlay with 70% opacity
-          }}
-        />
-      </BlurView>
+        className="bg-primary-light dark:bg-primary-dark absolute justify-center items-center w-full h-full"
+        intensity={70}
+        tint={colorScheme === 'dark' ? 'dark' : 'light'}
+      ></BlurView>
 
       {/* Modal content */}
-      <View
-        style={{
-          position: 'absolute',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 20,
-          margin: 'auto',
-          width: '100%',
-        }}
-      >
-        <View className="m-auto flex-col rounded-lg  p-4 shadow-lg w-5/6 top-96  h-60 bg-[#c7d2fe] relative">
+      <View className="absolute justify-center items-center w-full h-full">
+        <View className="m-auto flex-col rounded-lg p-4 shadow-lg w-5/6 h-60 bg-secondary-light-300 relative">
           {/* Close Icon */}
-          <TouchableOpacity
-            onPress={onClose}
-            style={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              zIndex: 10, // Ensure it's on top
-            }}
-          >
+          <TouchableOpacity className="absolute top-6 right-4 z-10" onPress={onClose}>
             <AntDesign name="closecircle" size={30} color="#8667F2" />
           </TouchableOpacity>
 

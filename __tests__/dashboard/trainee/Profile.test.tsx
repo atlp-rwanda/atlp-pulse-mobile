@@ -1,10 +1,9 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Profile from '@/app/dashboard/trainee/Profile';
-import '@testing-library/jest-native/extend-expect';
+import Profile from '@/app/dashboard/trainee/profile';
 import { useQuery } from '@apollo/client';
-import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import '@testing-library/jest-native/extend-expect';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
+import { useColorScheme } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 
 jest.mock('@apollo/client', () => ({

@@ -3,57 +3,50 @@ import { useEffect, useState } from 'react';
 import { Image, Pressable, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
-import { editBG, editPic } from '@/assets/Icons/dashboard/Icons';
+import { editBG } from '@/assets/Icons/dashboard/Icons';
+import ProfileAvatar from '@/components/ProfileAvatar';
 import AboutTrainee from '@/components/trainee/About';
 import ProfileAccountTab from '@/components/trainee/Account';
 import TraineeOrg from '@/components/trainee/Organisation';
-import { GET_PROFILE } from '@/graphql/mutations/user';
+import { GET_PROFILE } from '@/graphql/queries/user';
 import { useQuery } from '@apollo/client';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocalSearchParams } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
 
 type TabKey = 'About' | 'Organisation' | 'Account';
 
 export default function Profile() {
+  const toast = useToast();
+  const router = useRouter();
   const colorScheme = useColorScheme();
   const [selectedType, setSelectedType] = useState<TabKey>('About');
   const [type, setType] = useState<string[]>(['About', 'Organisation', 'Account']);
   const [userToken, setUserToken] = useState<string | null>(null);
   const [profile, setProfile] = useState<any>({});
-  const params = useLocalSearchParams();
-  const toast = useToast();
+
+  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
+  const bgColor = colorScheme === 'dark' ? 'bg-secondary-dark-900' : 'bg-secondary-light-300';
+
   const handleTypeChange = (type: string) => {
     setSelectedType(type as TabKey);
   };
-  const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
-  const bgColor = colorScheme === 'dark' ? 'bg-secondary-dark-900' : 'bg-secondary-light-300';
 
   const accountPasswordUpdated = () => {
     setSelectedType('About');
   };
 
   useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const token = await AsyncStorage.getItem('authToken');
-        if (token) {
-          setUserToken(token);
-        } else {
-          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
-        }
-      } catch (error) {
-        toast.show('Failed to retrieve token.', {
-          type: 'danger',
-          placement: 'top',
-          duration: 3000,
-        });
+    (async () => {
+      const token = await AsyncStorage.getItem('authToken');
+      if (token) {
+        setUserToken(token);
       }
-    };
-    fetchToken();
+    })();
   }, []);
 
-  const { data, loading, error } = useQuery(GET_PROFILE, {
+  const { data, error } = useQuery(GET_PROFILE, {
     context: {
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -64,7 +57,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (error) {
-      toast.show('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
+      toast.show(`Error fetching profile: ${error.message}`, { type: 'danger' });
     }
   }, [error]);
 
@@ -77,47 +70,37 @@ export default function Profile() {
   return (
     <View>
       <View className="relative h-48">
-        <Image
-          source={
-            profile.cover ? { uri: profile.cover } : require('@/assets/images/background.png')
-          }
-          className="w-full h-full object-cover"
-        />
+        <CoverImage cover={profile?.cover} name={profile?.name} />
         <TouchableOpacity className="absolute bottom-1 right-4 rounded-full shadow-md">
           <SvgXml xml={editBG} />
         </TouchableOpacity>
 
         <View className=" absolute bottom-[-30px] left-6">
           <View className="relative">
-            <Image
-              source={
-                profile.avatar
-                  ? { uri: profile.avatar }
-                  : {
-                      uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=random&color=fff`,
-                    }
-              }
-              className="w-[100] h-[100] rounded-full"
-            />
-            <TouchableOpacity className="absolute right-[-65px] bottom-8 p-1">
-              <SvgXml xml={editPic} />
+            <ProfileAvatar name={profile?.name} src={profile.avatar} size='lg' />
+            <TouchableOpacity
+              onPress={() => router.push('/dashboard/trainee/profile/edit')}
+              className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row justify-center items-center"
+            >
+              <Ionicons name="pencil" size={18} color="white" />
+              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">Edit</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-      <View className="flex-row justify-center items-center p-1 gap-3 w-[100%] mt-16">
+      <View className="flex-row justify-center items-center gap-3 w-[100%] mt-16">
         {type.map((tabType, index) => (
           <Pressable
             key={index}
             onPress={() => handleTypeChange(tabType)}
-            className={`px-4 py-2 border-b-2 border-action-500 items-center shadow-s shadow-action-500 justify-center rounded-lg
+            className={`px-5 py-2 border-b-2 border-action-500 items-center shadow-s shadow-action-500 justify-center rounded-lg
           ${colorScheme === 'dark' ? 'text-primary-dark bg-secondary-dark-700' : 'text-secondary-light bg-secondary-light-200'}
           ${selectedType === tabType ? 'border-action-500' : 'border-transparent'}`}
           >
             <Text
-              className={`text-xl
+              className={`text-lg font-Inter-Medium
     ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark'}
-    ${selectedType === tabType ? 'text-action-500 font-bold' : ''}`}
+    ${selectedType === tabType ? 'text-action-500' : ''}`}
             >
               {tabType}
             </Text>
@@ -130,7 +113,7 @@ export default function Profile() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
-        className="px-6 mt-4 w-[100%] flex-grow"
+        className="mt-4 w-[100%] flex-grow"
       >
         {selectedType === 'About' && (
           <AboutTrainee profile={profile} bgColor={bgColor} textColor={textColor} />
@@ -147,3 +130,17 @@ export default function Profile() {
     </View>
   );
 }
+
+export const CoverImage = ({ cover, name }: { cover?: string; name?: string }) => {
+  if (!cover) {
+    return (
+      <View className="w-full h-full object-cover rounded-lg bg-secondary-light-300 dark:bg-secondary-dark-900 justify-center items-center">
+        <Text className="text-center text-gray-900 dark:text-white font-Inter-Medium text-xl">
+          {name}
+        </Text>
+      </View>
+    );
+  }
+
+  return <Image src={cover} className="w-full h-full object-cover rounded-lg" />;
+};

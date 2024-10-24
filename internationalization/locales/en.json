@@ -161,5 +161,12 @@
     "network_error": "There was a problem contacting the server",
     "general_error": "An unexpected error occurred.",
     "auth_error": "Please wait to be added to a program or cohort"
+  },
+  "account": {
+    "changePassword": "Change Password",
+    "resetPassword": "Reset Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
   }
 }
