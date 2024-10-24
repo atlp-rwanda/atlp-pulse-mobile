@@ -39,9 +39,11 @@
     "@react-native-picker/picker": "2.7.5",
     "@react-navigation/native": "^6.0.2",
     "apollo-server": "^3.13.0",
+    "axios": "^1.7.7",
     "expo": "~51.0.37",
     "expo-blur": "~13.0.2",
     "expo-checkbox": "^3.0.0",
+    "expo-document-picker": "~12.0.2",
     "expo-font": "~12.0.10",
     "expo-image": "~1.13.0",
     "expo-linking": "~6.3.1",
@@ -80,14 +82,14 @@
     "react-toastify": "^10.0.6",
     "tailwind-rn": "^4.2.0",
     "vector-icons": "^0.1.0",
-    "yup": "^1.4.0",
-    "expo-document-picker": "~12.0.2"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.7.2",
     "@types/jest": "^29.5.13",
+    "@types/jwt-decode": "^3.1.0",
     "@types/react": "~18.2.45",
     "@types/react-test-renderer": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.6.0",

@@ -19,7 +19,7 @@ import { router } from 'expo-router';
 import { useFormik } from 'formik';
 import { COUNTRIES } from '@/constants/countries';
 import { useMutation, useQuery } from '@apollo/client';
-import Resume from '@/app/dashboard/Resume/Resume';
+import Resume from '@/components/Resume';
 import { EditProfileSchema } from '@/validations/editProfile.schema';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';

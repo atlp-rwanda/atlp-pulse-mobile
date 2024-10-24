@@ -47,3 +47,20 @@ export const GET_PROFILE = gql`
     }
   }
 `;
+export const GET_TRAINEE_PROFILE = gql`
+  query GetProfile {
+    getProfile {
+      firstName
+      name
+      city
+      country
+      address
+      phoneNumber
+      biography
+      avatar
+      cover
+      lastName
+      resume
+    }
+  }
+`;

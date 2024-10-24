@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'react-native';
 
@@ -20,9 +20,10 @@ interface AboutTraineeProps {
   profile: Profile;
   bgColor: string;
   textColor: string;
+  Resume: Profile;
 }
 
-const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor }) => {
+const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor,Resume }) => {
   const colorScheme = useColorScheme();
 
   return (
@@ -62,9 +63,18 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
           </Text>
         </View>
         <Text className={`${textColor} text-xl`}>RESUME</Text>
+        <View className="flex-row m-2 items-center">
+        <Ionicons name='book-outline' size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
         <Text className={`${textColor} text-md m-2`}>
-          {profile.resume ? profile.resume : 'No Resume uploaded yet'}
+            {Resume.resume ? (
+            <Text style={{ color: `${textColor}`}} onPress={() => Resume.resume && Linking.openURL(Resume.resume)}>
+              Resume
+            </Text>
+            ) : (
+            'No Resume uploaded yet'
+            )}
         </Text>
+        </View>
       </View>
       <View className={`${bgColor} w-[100%] p-6 rounded-md mt-5 mb-20`}>
         <Text className={`${textColor} text-xl`}>BIOGRAPHY</Text>

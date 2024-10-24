@@ -1,22 +1,4 @@
-import { logo } from '@/components/icons/auth/icons';
-import {
-  avatar,
-  avatarlight,
-  burger_menu,
-  gitdark,
-  gitlight,
-  homedark,
-  homelight,
-  messagedark,
-  messagelight,
-  notifications_black,
-  notifications_white,
-  phonedark,
-  phonelight,
-  pulse,
-  toggle_dark,
-  toggle_light,
-} from '@/components/icons/icons';
+
 import { View, Text } from '@/components/Themed';
 import { Pressable, ScrollView, TouchableOpacity, useColorScheme, Image } from 'react-native';
 import { Svg, SvgXml } from 'react-native-svg';
@@ -30,7 +12,7 @@ import { useToast } from 'react-native-toast-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { editBG, editPic } from '@/assets/Icons/dashboard/Icons';
-import { GET_PROFILE } from '@/graphql/mutations/user';
+import { GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/mutations/User';
 import TraineeOrg from '@/components/trainee/Organisation';
 
 type TabKey = 'About' | 'Organisation';
@@ -40,7 +22,9 @@ export default function Profile() {
   const [selectedType, setSelectedType] = useState<TabKey>('About');
   const [type, setType] = useState<string[]>(['About', 'Organisation']);
   const [userToken, setUserToken] = useState<string | null>(null);
+  const [orgToken, setOrgToken] = useState<string | null>(null);
   const [profile, setProfile] = useState<any>({});
+  const [traineeProfile, setTraineeProfile] = useState<any>({});
   const params = useLocalSearchParams();
   const toast = useToast();
   const handleTypeChange = (type: string) => {
@@ -64,6 +48,48 @@ export default function Profile() {
     };
     fetchToken();
   }, []);
+
+  useEffect(() => {
+    const fetchOrgToken = async () => {
+      try {
+        const orgToken = await AsyncStorage.getItem('orgToken');
+        if (orgToken) {
+          setOrgToken(orgToken);
+        } else {
+          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+        }
+      } catch (error) {
+        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
+      } 
+    };
+    fetchOrgToken();
+  }, []);
+ 
+ const { data: traineedata, error: err } = useQuery(GET_TRAINEE_PROFILE, {
+  context: {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  },
+  skip: !userToken,
+  variables: {
+    orgToken: orgToken,
+  },
+});
+
+useEffect(() => {
+  if (err) {
+    console.log('Error:', err); 
+    toast.show('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
+  }
+}, [err]);
+
+useEffect(() => {
+  if (traineedata) {
+    setTraineeProfile(traineedata.getProfile);
+  }
+}, [traineedata]);
+
 
   const { data, loading, error } = useQuery(GET_PROFILE, {
     context: {
@@ -134,7 +160,7 @@ export default function Profile() {
         <ScrollView contentContainerStyle={{ flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }} className="p-1 w-[100%] flex-grow">
 
         {selectedType === 'About' ? (
-          <AboutTrainee profile={profile} bgColor={bgColor} textColor={textColor} />
+          <AboutTrainee profile={profile} Resume={traineeProfile} bgColor={bgColor} textColor={textColor} />
         ) : (
           ''
         )}
