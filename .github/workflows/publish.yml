@@ -28,7 +28,12 @@ jobs:
         run: npm install
 
       - name: 🚀 Build & Submit App
-        run: eas build --platform $PLATFORM --profile $PROFILE --auto-submit --non-interactive
+        run: |
+          rm .easignore
+          cp .gitignore .easignore
+          echo '\npackage-lock.json' >> .easignore
+          eas build --platform $PLATFORM --profile $PROFILE --auto-submit --non-interactive
+          rm .easignore
         env:
           PLATFORM: ${{ vars.BUILD_PLATFORM }}
           PROFILE: ${{ vars.BUILD_PROFILE }}

@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "atlp-pulse-mobile",
-    "displayName": "ATLP Pulse",
-    "slug": "devpulse",
+    "name": "ATLP Pulse",
+    "slug": "atlp-pulse",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.atlp.pulseapp"
+      "bundleIdentifier": "com.atlp.pulseapp",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -37,11 +39,6 @@
           "category": ["BROWSABLE", "DEFAULT"]
         }
       ]
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
     },
     "plugins": ["expo-router", "expo-font", "expo-localization"],
     "experiments": {
