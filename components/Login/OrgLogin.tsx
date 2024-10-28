@@ -32,12 +32,6 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
     validationSchema: OrgLoginSchema,
   });
 
-  const handleNameChange = (inputText: string) => {
-    formik.setFieldValue('organization', inputText);
-    const newWidth = inputText ? Math.min(inputText.length * 11, 200) : 130;
-    setInputWidth(newWidth);
-  };
-
   return (
     <View testID="org-login">
       <View className="flex items-center justify-center gap-20 pt-36 ">
@@ -61,7 +55,7 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                 <TextInput
                   testID="org-input"
                   placeholder={t('orgLogin.orgPlaceholder')}
-                  placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
+                  placeholderTextColor={colorScheme === 'dark' ? '#9ca3af' : '#9e9e9e'}
                   onChangeText={formik.handleChange('organization')}
                   value={formik.values.organization}
                   style={{ marginLeft: 10, width: inputWidth }}
@@ -70,13 +64,12 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
                   className={`${colorScheme === 'dark' ? 'text-primary-light' : '#9e9e9e'}`}
                 />
                 <Text testID="pulse.co" className="text-gray-400">
-                  .pulse.co
+                  .pulse.org
                 </Text>
               </View>
             </View>
             <Text className="mt-2 text-center text-error-500">
-              {' '}
-              {formik.errors.organization ? t('orgLogin.error') : null}
+                 {formik.touched.organization && formik.errors.organization ? t('orgLogin.error') : null}
             </Text>
 
             <View className="flex flex-col gap-4">

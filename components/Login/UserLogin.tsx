@@ -93,15 +93,15 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               />
             </View>
             <Text className="mt-2 text-error-400 ">
-              {formik.errors.email && t('userLogin.emailRequired')}
+                 {formik.touched.email && formik.errors.email && formik.errors.email}
             </Text>
             <Text className={`pl-2  ${textColor}`}>{t('userLogin.password')}</Text>
             <View
-              className={`mt-2 relative flex flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
+              className={`mt-2 relative flex-row gap-2 border-2 border-[#D2D2D2] rounded-[10px] p-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
             >
               <SvgXml xml={colorScheme === 'dark' ? DarkLock : lock} />
               <TextInput
-                className={`font-Inter-Regular ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
+                className={`font-Inter-Regular flex-1 text-start ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
                 placeholder={t('userLogin.password')}
                 placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
                 secureTextEntry={secureTextEntry}
@@ -123,9 +123,9 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               </TouchableOpacity>
             </View>
 
-            <View className="flex flex-row justify-between">
-              <Text className="mt-2 text-error-400">
-                {formik.errors.password && t('userLogin.passwordRequired')}
+            <View className="flex flex-row justify-between items-start">
+              <Text className="mt-2 text-error-400 break-words max-w-[60%]">
+                   {formik.touched.password && formik.errors.password && formik.errors.password}
               </Text>
               <TouchableOpacity onPress={() => router.push('/auth/forgot-password')}>
                 <Text className="p-2 text-right text-action-500">

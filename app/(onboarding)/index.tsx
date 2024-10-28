@@ -2,7 +2,7 @@ import { Text, View } from '@/components/Themed';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { TouchableOpacity, useColorScheme } from 'react-native';
+import { ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { useTranslation } from 'react-i18next';
 import LanguagePicker from '@/components/LanguagePicker';
@@ -52,7 +52,7 @@ export default function AppOnboarding() {
   ];
 
   return (
-    <>
+    <ScrollView>
       {/* Pager View for Onboarding Screens */}
       <PagerView
         initialPage={page}
@@ -101,6 +101,6 @@ export default function AppOnboarding() {
           </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </ScrollView>
   );
 }
