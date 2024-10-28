@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: t('navbar.calendar'),
       iconLight: lightCalender,
       iconDark: darkCalender,
-      path: '/dashboard/trainee',
+      path: '/dashboard/calendar',
     },
   ];
 
