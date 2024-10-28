@@ -97,6 +97,8 @@ module.exports = {
           100: 'var(--color-neutral-100)',
           50: 'var(--color-neutral-50)',
         },
+        violet : '#8667F2',
+
       },
       fontFamily: {
         'Inter-Regular': ['Inter_400Regular'],
