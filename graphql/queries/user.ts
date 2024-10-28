@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_PROFILE = gql`
-  query {
+  query GetProfile {
     getProfile {
       id
       firstName
@@ -45,6 +45,24 @@ export const GET_PROFILE = gql`
           name
         }
       }
+    }
+  }
+`;
+export const GET_TRAINEE_PROFILE = gql`
+  query GetProfile {
+    getProfile {
+      id
+      firstName
+      name
+      city
+      country
+      address
+      phoneNumber
+      biography
+      avatar
+      cover
+      lastName
+      resume
     }
   }
 `;

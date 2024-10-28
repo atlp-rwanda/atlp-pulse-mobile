@@ -8,11 +8,11 @@ import ProfileAvatar from '@/components/ProfileAvatar';
 import AboutTrainee from '@/components/trainee/About';
 import ProfileAccountTab from '@/components/trainee/Account';
 import TraineeOrg from '@/components/trainee/Organisation';
-import { GET_PROFILE } from '@/graphql/queries/user';
+import {GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
 import { useQuery } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
+import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
 
 type TabKey = 'About' | 'Organisation' | 'Account';
@@ -32,7 +32,8 @@ export default function Profile() {
   const handleTypeChange = (type: string) => {
     setSelectedType(type as TabKey);
   };
-
+  const [orgToken, setOrgToken] = useState<string | null>(null);
+  const [traineeProfile, setTraineeProfile] = useState<any>({});
   const accountPasswordUpdated = () => {
     setSelectedType('About');
   };
@@ -66,12 +67,52 @@ export default function Profile() {
       setProfile(data.getProfile);
     }
   }, [data]);
+  
+  useEffect(() => {
+    const fetchOrgToken = async () => {
+      try {
+        const orgToken = await AsyncStorage.getItem('orgToken');
+        if (orgToken) {
+          setOrgToken(orgToken);
+        } else {
+          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+        }
+      } catch (error) {
+        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
+      } 
+    };
+    fetchOrgToken();
+  }, []);
+
+ const { data: traineedata, error: err } = useQuery(GET_TRAINEE_PROFILE, {
+  context: {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  },
+  skip: !userToken,
+  variables: {
+    orgToken: orgToken,
+  },
+});
+
+useEffect(() => {
+  if (err) {
+    toast.show(`Error fetching profile.${err}` , { type: 'danger', placement: 'top', duration: 3000 });
+  }
+}, [err]);
+
+useEffect(() => {
+  if (traineedata) {
+    setTraineeProfile(traineedata.getProfile);
+  }
+}, [traineedata]);
 
   return (
     <View>
       <View className="relative h-48">
-        <CoverImage cover={profile?.cover} name={profile?.name} />
-        <TouchableOpacity className="absolute bottom-1 right-4 rounded-full shadow-md">
+      <CoverImage cover={profile?.cover} name={profile?.name} />
+        <TouchableOpacity onPress={() => router.push('/dashboard/trainee/profile/edit')} className="absolute bottom-1 right-4 rounded-full shadow-md">
           <SvgXml xml={editBG} />
         </TouchableOpacity>
 
@@ -116,7 +157,7 @@ export default function Profile() {
         className="mt-4 w-[100%] flex-grow"
       >
         {selectedType === 'About' && (
-          <AboutTrainee profile={profile} bgColor={bgColor} textColor={textColor} />
+          <AboutTrainee profile={profile} Resume={traineeProfile} bgColor={bgColor} textColor={textColor} />
         )}
 
         {selectedType === 'Organisation' && (
