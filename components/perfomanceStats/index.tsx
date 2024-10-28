@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TRAINEE_RATING } from '@/graphql/queries/rating';
 import { useQuery } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -16,6 +16,7 @@ import CircularIndicator from './circleIndicator';
 import styles from './styles';
 
 const PerformanceScores = () => {
+  const toast = useToast()
   const { t } = useTranslation();
   const colors = {
     quality: 'rgba(160, 132, 244, 1)',
@@ -24,7 +25,6 @@ const PerformanceScores = () => {
   };
 
   const theme = useColorScheme();
-  const toast = useToast();
   const dimensions = useWindowDimensions();
 
   const backgroundColor = theme === 'dark' ? '#020917' : '#fff';
@@ -47,10 +47,20 @@ const PerformanceScores = () => {
         if (token) {
           setUserToken(token);
         } else {
-          toast.show('User token not found.', { type: 'danger' });
+          toast.show('Error: User token not found.', {
+            type: 'danger',
+            placement: 'top',
+            duration: 4000,
+            animationType: 'slide-in',
+          });
         }
       } catch (error) {
-        toast.show('Failed to fetch token.', { type: 'danger' });
+        toast.show('Error: Failed to fetch token.', {
+          type: 'danger',
+          placement: 'top',
+          duration: 4000,
+          animationType: 'slide-in',
+        });
       }
     };
     fetchToken();

@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
-  Alert,
   TextInput,
   TouchableOpacity,
   useColorScheme,
@@ -317,7 +316,7 @@ export default function RegisterForm() {
           <TouchableOpacity
             onPress={() => {
               if (!TCAccepted) {
-                Alert.alert('Warning', 'Please accept terms and conditions');
+                toast.show('Please accept terms and conditions', {type:"Warning"});
                 return;
               }
               formik.handleSubmit();
