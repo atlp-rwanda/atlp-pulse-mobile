@@ -18,12 +18,14 @@ import {
   lightPerformance,
 } from '@/assets/Icons/dashboard/Icons';
 import { Text, View } from '@/components/Themed';
+import { useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePathname, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import { useToast } from 'react-native-toast-notifications';
 
 interface SidebarProps {
   onClose: () => void;
@@ -35,6 +37,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const pathname = usePathname();
   const colorScheme = useColorScheme();
   const { t } = useTranslation();
+  const client = useApolloClient();
+  const toast = useToast();
 
   const UpperItems = [
     {
@@ -93,24 +97,32 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('authToken');
-      router.push('/auth/login');
+      await AsyncStorage.removeItem('auth_token');
+      await AsyncStorage.removeItem('orgToken');
+      await AsyncStorage.removeItem('orgName');
+      await client.resetStore();
+      router.replace('/auth/login');
     } catch (error) {
-      alert(`Error logging out:${error}`);
+      toast.show(`Failed to log out. Please try again.`);
     }
   };
 
   const handleItemPress = async (item: { name: string; path: string }) => {
     setActiveItem(item.name);
     try {
-      if (item.name === 'Sign out') {
+      if (item.name === t('navbar.signOut')) {
         await handleLogout();
+        router.push(item.path as any);
       } else {
         router.push(item.path as any);
         onClose();
       }
     } catch (error) {
-      alert(`Failed to navigate:${error}`);
+      toast.show(`Failed to navigate: ${error}`, {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     }
   };
 
