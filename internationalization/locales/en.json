@@ -59,7 +59,8 @@
     "placeholder": "Enter Email",
     "submitButton": "Continue",
     "successMessage": "Password reset request successful! Please check your email for a link to reset your password!",
-    "errorMessage": "An error occurred. Please try again."
+    "errorMessage": "An error occurred. Please try again.",
+    "errorEmail" : "Invalid Email"
   },
   "registerSchema": {
     "firstName": {

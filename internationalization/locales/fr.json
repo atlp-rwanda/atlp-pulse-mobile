@@ -59,7 +59,8 @@
     "placeholder": "Entrer l'email",
     "submitButton": "Continuer",
     "successMessage": "Demande de réinitialisation de mot de passe réussie! Veuillez vérifier votre email pour un lien pour réinitialiser votre mot de passe.",
-    "errorMessage": "Une erreur s'est produite. Veuillez réessayer."
+    "errorMessage": "Une erreur s'est produite. Veuillez réessayer.",
+    "errorEmail" : "E-mail invalide"
   },
   "registerSchema": {
     "firstName": {
