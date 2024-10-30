@@ -13,10 +13,10 @@ export default function TraineeRatings({
   openFeedbackModal: (feedback: any) => void;
 }) {
   const { t } = useTranslation();
-  const toast = useToast();
   const [sprintFilter, setSprintFilter] = useState('');
   const [selectedPhase, setSelectedPhase] = useState('Phase I');
   const [userToken, setUserToken] = useState<string | null>(null);
+  const toast = useToast();
 
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
@@ -45,7 +45,6 @@ export default function TraineeRatings({
     },
     skip: !userToken,
   });
-
   const handleSprintFilterChange = (text: string) => {
     setSprintFilter(text);
   };

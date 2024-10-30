@@ -1,46 +1,41 @@
 import { gql } from '@apollo/client';
 
-export const GET_ATTENDANCE = gql`
-  query ExampleQuery {
+
+export const GET_TRAINEE_ATTENDANCE = gql`
+  query GetTraineeAttendance {
     getTraineeAttendance {
-      id
-      trainees {
-        traineeId
-        traineeEmail
-        status {
-          days
-          value
+      teamName
+      traineeId
+      phases {
+        phase {
+          _id
+          name
         }
-      }
-      week
-    }
-  }
-`;
-
-export const GET_ATTENDANCE_BY_ID = gql`
-  query GetAttendance($id: ID!) {
-    getTraineeAttendanceByID(id: $id) {
-      id
-      week
-      trainees {
-        traineeId
-        traineeEmail
-        status {
-          days
-          value
+        weeks {
+          week
+          daysStatus {
+            mon {
+              date
+              score
+            }
+            tue {
+              date
+              score
+            }
+            wed {
+              date
+              score
+            }
+            thu {
+              date
+              score
+            }
+            fri {
+              date
+              score
+            }
+          }
         }
-      }
-    }
-  }
-`;
-
-export const GET_WEEKLY_ATTENDANCE = gql`
-  query GetTraineeAttendanceByID($traineeEmail: String!) {
-    getTraineeAttendanceByID(traineeEmail: $traineeEmail) {
-      weekNumber
-      traineeAttendance {
-        days
-        value
       }
     }
   }

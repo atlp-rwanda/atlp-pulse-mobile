@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-
 export const TRAINEE_RATING = gql`
   query Query {
     fetchRatingsTrainee {
@@ -11,11 +10,8 @@ export const TRAINEE_RATING = gql`
       phase
       sprint
       quantity
-      quantityRemark
       quality
-      qualityRemark
       professional_Skills
-      professionalRemark
       average
       cohort {
         name
