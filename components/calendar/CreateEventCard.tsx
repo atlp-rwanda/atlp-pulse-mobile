@@ -1,8 +1,40 @@
-import { View, Text, TextInput } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CustomButton from './CustomButton'
+import InputField from './InputField';
 
 const CreateEventCard = () => {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [isStartPickerVisible, setStartPickerVisibility] = useState(false);
+  const [isEndPickerVisible, setEndPickerVisibility] = useState(false);
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
+
+
+  const handleStartDateConfirm = (date:any) => {
+    setStartDate(date.toLocaleDateString()); 
+    setStartPickerVisibility(false)
+  };
+
+  const handleEndDateConfirm = (date:any) => {
+    setEndDate(date.toLocaleDateString());
+    setEndPickerVisibility(false)
+  };
+
+  const handleStartTimeConfirm = (date:any) => {
+    setStartTime(date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    setStartPickerVisibility(false);
+  };
+
+  const handleEndTimeConfirm = (date:any) => {
+    setEndTime(date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    setEndPickerVisibility(false);
+  };
+
   return (
     <View className='w-full'>
         <View className='mx-5 gap-6'>
@@ -12,41 +44,80 @@ const CreateEventCard = () => {
 
             <View className='gap-6 px-2'>
                 <View className=' gap-6'>
-                    <TextInput
-                    placeholder='Event Title'
-                    placeholderTextColor='#7b7b8b'
-                    className=' border border-violet py-1 pl-3 h-10 rounded-md items-center font-Inter-SemiBold text-white'
+                    <InputField
+                    placeholder = 'Event Title'
+                    value = ''
+                    editable = {true}
                     />
 
-                    <TextInput
-                    placeholder='Host Name'
-                    placeholderTextColor='#7b7b8b'
-                    className=' border border-violet py-1 pl-3 h-10 rounded-md font-Inter-SemiBold text-white'
+                    <InputField
+                    placeholder = 'Host Name'
+                    value = ''
+                    editable = {true}
                     />
                 </View>
                 <View className='flex-row justify-between gap-2'>
-                    <TextInput
-                        placeholder='Start Date'
-                        placeholderTextColor='#7b7b8b'
-                        className='w-44 border border-violet py-1 pl-3 h-10 rounded-md items-center font-Inter-SemiBold text-white'
+                    <TouchableOpacity  onPress={()=>setStartPickerVisibility(true)} className='w-44'>
+                        <InputField
+                        placeholder = 'start Date'
+                        value ={startDate}
+                        editable={false}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>setEndPickerVisibility(true)} className='w-44'>
+                        <InputField
+                        placeholder = 'End Date'
+                        value = {endDate}
+                        editable = {false}
+                        />
+                    </TouchableOpacity>
+
+                    <DateTimePickerModal
+                    isVisible={isStartPickerVisible}
+                    mode="date"
+                    onConfirm={handleStartDateConfirm}
+                    onCancel={()=> setStartPickerVisibility(false)}
                     />
-                    <TextInput
-                        placeholder='End Date'
-                        placeholderTextColor='#7b7b8b'
-                        className='w-44 border border-violet py-1 pl-3 h-10 rounded-md items-center font-Inter-SemiBold text-white'
+
+                    <DateTimePickerModal
+                    isVisible={isEndPickerVisible}
+                    mode="date"
+                    onConfirm={handleEndDateConfirm}
+                    onCancel={()=> setEndPickerVisibility(false)}
                     />
+                    
                 </View>
                 <View className='flex-row justify-between gap-2'>
-                    <TextInput
-                        placeholder='----:-- --'
-                        placeholderTextColor='#7b7b8b'
-                        className='w-44 border border-violet py-1 pl-3 h-10 rounded-md items-center font-Inter-SemiBold text-white'
+                    <TouchableOpacity onPress = {()=>setStartTimePickerVisibility(true)} className='w-44'>
+                        <InputField
+                        placeholder = '----:-- --'
+                        value ={startTime}
+                        editable = {false}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress = {()=>setEndTimePickerVisibility(true)} className='w-44'>
+                        <InputField
+                        placeholder = '----:-- --'
+                        value ={endTime}
+                        editable = {false}
+                        />
+                    </TouchableOpacity>
+
+                    <DateTimePickerModal
+                        isVisible={isStartPickerVisible}
+                        mode="time"
+                        onConfirm={handleStartTimeConfirm}
+                        onCancel={() => setStartPickerVisibility(false)}
                     />
-                    <TextInput
-                        placeholder='----:-- --'
-                        placeholderTextColor='#7b7b8b'
-                        className='w-44 border border-violet py-1 pl-3 h-10 rounded-md items-center font-Inter-SemiBold text-white'
+
+                    <DateTimePickerModal
+                        isVisible={isEndPickerVisible}
+                        mode="time"
+                        onConfirm={handleEndTimeConfirm}
+                        onCancel={() => setEndPickerVisibility(false)}
                     />
+                    
                 </View>
             </View>
             <View className=' flex-row justify-between items-center px-2'>
