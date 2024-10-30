@@ -11,11 +11,8 @@ export const TRAINEE_RATING = gql`
       phase
       sprint
       quantity
-      quantityRemark
       quality
-      qualityRemark
       professional_Skills
-      professionalRemark
       average
       cohort {
         name
