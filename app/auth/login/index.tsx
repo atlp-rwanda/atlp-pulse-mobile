@@ -90,9 +90,9 @@ export default function SignInOrganization() {
             }
 
             try {
-              await AsyncStorage.setItem('auth_token', token);
+              await AsyncStorage.setItem('authToken', token);
               
-              const storedToken = await AsyncStorage.getItem('auth_token');
+              const storedToken = await AsyncStorage.getItem('authToken');
 
               if (storedToken !== token) {
                 console.error('Stored token does not match received token');
