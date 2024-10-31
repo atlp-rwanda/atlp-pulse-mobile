@@ -30,7 +30,7 @@ export default function TraineeRatings({
       if (token) {
         setUserToken(token);
       } else {
-        toast.show(t('sprintRating.user_token_not_found'), { type: 'danger' });
+        toast.show(t('sprintRating.error') + t('sprintRating.user_token_not_found'), {type:"danger"});
       }
     };
     fetchToken();
@@ -56,7 +56,7 @@ export default function TraineeRatings({
 
   useEffect(() => {
     if (error) {
-      toast.show(t('sprintRating.error_loading_ratings'), { type: 'danger' });
+      toast.show(t('sprintRating.error')+t('sprintRating.error_loading_ratings'),{type:"danger"});
     }
   }, [loading, error]);
 
@@ -136,7 +136,7 @@ export default function TraineeRatings({
                             className="flex-row items-center text-white"
                           >
                             <AntDesign name="eye" size={15} color="white" />
-                            <Text className="text-white ml-1">{t('sprintRating.view')}</Text>
+                            <Text className="ml-1 text-white">{t('sprintRating.view')}</Text>
                           </TouchableOpacity>
                         </View>
                       </View>

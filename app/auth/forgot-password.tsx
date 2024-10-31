@@ -41,7 +41,7 @@ export default function ResetPassword() {
       try {
         await resetMutation({
           variables: { email: values.email },
-          onCompleted: (data) => {
+          onCompleted: () => {
             toast.show('Check your email to proceed!', {
               type: 'success',
               placement: 'top',
@@ -98,7 +98,7 @@ export default function ResetPassword() {
                   keyboardType="email-address"
                 />
               </View>
-              {formik.touched.email && formik.errors.email && <Text className="mb-4 text-error-500">{t('')}</Text>}
+              {formik.touched.email && formik.errors.email && <Text className="mb-4 text-error-500">{t('forgotPassword.errorEmail')}</Text>}
               <TouchableOpacity
                 testID="submit-button"
                 onPress={() => formik.handleSubmit()}

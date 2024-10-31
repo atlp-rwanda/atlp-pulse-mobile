@@ -32,13 +32,13 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
+  const toast = useToast();
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const colorScheme = useColorScheme();
   const { t } = useTranslation();
   const client = useApolloClient();
-  const toast = useToast();
 
   const UpperItems = [
     {
@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: t('navbar.calendar'),
       iconLight: lightCalender,
       iconDark: darkCalender,
-      path: '/dashboard/trainee',
+      path: '/dashboard/calendar',
     },
   ];
 
@@ -104,7 +104,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       await AsyncStorage.removeItem('auth');
       router.push('/auth/login?logout=1');
     } catch (error) {
-      toast.show(`Failed to log out. Please try again.`);
+      toast.show(`Error logging out:${error}`, {
+        type: 'danger',
+        placement: 'top',
+        duration: 4000,
+        animationType: 'slide-in',
+      });
     }
   };
 
@@ -119,10 +124,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
         onClose();
       }
     } catch (error) {
-      toast.show(`Failed to navigate: ${error}`, {
+      toast.show(`Failed to navigate:${error}`, {
         type: 'danger',
         placement: 'top',
-        duration: 3000,
+        duration: 4000,
+        animationType: 'slide-in',
       });
     }
   };
