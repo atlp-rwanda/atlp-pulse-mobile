@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 import CountryFlag from 'react-native-country-flag';
 import { changeLanguage } from '@/internationalization';
 
+
 const LANGUAGES = [
   { code: 'kin', labelKey: 'languages.kinyarwanda', flagCode: 'RW' },
   { code: 'en', labelKey: 'languages.english', flagCode: 'GB' },
   { code: 'fr', labelKey: 'languages.french', flagCode: 'FR' },
 ];
 
-export default function LanguagePicker() {
+export default function LanguagePicker({showFlag=true}) {
   const { i18n, t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
   const colorScheme = useColorScheme();
@@ -20,7 +21,7 @@ export default function LanguagePicker() {
   const getCurrentLanguageLabel = () => {
     return t(
       LANGUAGES.find((lang) => lang.code === i18n.language)?.labelKey || 'languages.english'
-    );
+    )
   };
 
   const handleLanguageChange = async (code: string) => {
@@ -35,11 +36,12 @@ export default function LanguagePicker() {
         activeOpacity={0.6}
         className="p-2 bg-white rounded dark:bg-primary-dark"
       >
-        <View className="flex-row items-center p-4">
-          <CountryFlag
+        <View className="flex-row items-center ">
+          {showFlag?<CountryFlag
             isoCode={LANGUAGES.find((lang) => lang.code === i18n.language)?.flagCode || 'GB'}
             size={24}
-          />
+          /> : null }
+          
           <Text className="flex-1 ml-3 text-lg font-medium text-gray-900 dark:text-white">
             {getCurrentLanguageLabel()}
           </Text>

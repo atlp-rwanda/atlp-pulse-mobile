@@ -1,4 +1,4 @@
-import Resume from '@/app/dashboard/Resume/Resume';
+import Resume from '@/components/Resume';
 import ProfileAvatar from '@/components/ProfileAvatar';
 import { COUNTRIES } from '@/constants/countries';
 import { UPDATE_PROFILE } from '@/graphql/mutations/UpdateProfile.mutation';

@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       iconLight: lightLogout,
       iconDark: darkLogout,
       path: '/auth/login',
-    },
+    }
   ];
 
   useEffect(() => {

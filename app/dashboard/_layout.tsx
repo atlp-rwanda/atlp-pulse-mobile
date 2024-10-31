@@ -5,10 +5,7 @@ import {
   lightNotifyIcon,
   menu,
 } from '@/assets/Icons/dashboard/Icons';
-import ProfileAvatar from '@/components/ProfileAvatar';
 import Sidebar from '@/components/sidebar';
-import { GET_PROFILE } from '@/graphql/queries/user';
-import { useQuery } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Slot, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -56,22 +53,16 @@ export type ProfileType = {
   };
 };
 
+import ProfileDropdown from '@/components/ProfileDropdown';
 export default function AuthLayout() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const colorScheme = useColorScheme();
   const [authToken, setAuthToken] = useState<string | null>(null);
-  const [profile, setProfile] = useState<ProfileType | null>(null);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const { data: profileData } = useQuery(GET_PROFILE, {
-    context: {
-      headers: { Authorization: `Bearer ${authToken}` },
-    },
-    skip: !authToken,
-  });
 
   useEffect(() => {
     (async function () {
@@ -86,14 +77,7 @@ export default function AuthLayout() {
     })();
   }, [authToken]);
 
-  useEffect(() => {
-    (async function () {
-      if (profileData != undefined) {
-        setProfile(profileData.getProfile);
-        await AsyncStorage.setItem('userProfile', JSON.stringify(profileData.getProfile));
-      }
-    })();
-  }, [profileData]);
+
 
   return (
     <KeyboardAvoidingView
@@ -129,9 +113,7 @@ export default function AuthLayout() {
                   height={40}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/dashboard/trainee/profile')}>
-                <ProfileAvatar name={profile?.name} src={profile?.avatar} size='xs' />
-              </TouchableOpacity>
+              <ProfileDropdown />
             </View>
           </View>
         </View>
