@@ -11,7 +11,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useFormik } from 'formik';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   Alert,
@@ -19,9 +19,9 @@ import {
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
-import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   firstName: string;
@@ -70,12 +70,12 @@ export default function RegisterForm() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const authToken = await AsyncStorage.getItem('org_token');
+      const authToken = await AsyncStorage.getItem('orgToken');
       if (authToken) {
         try {
           const parsedToken = jwtDecode<TokenPayload>(authToken);
           if (parsedToken.exp < Date.now()) {
-            await AsyncStorage.removeItem('org_token');
+            await AsyncStorage.removeItem('orgToken');
           } else {
             router.push('/dashboard/trainee');
           }
@@ -107,7 +107,7 @@ export default function RegisterForm() {
 
         if (data) {
           toast.show(t('userRegister.successfullyRegistered'), { type: 'success' });
-          await AsyncStorage.setItem('org_token', data.createUser.token);
+          await AsyncStorage.setItem('orgToken', data.createUser.token);
           router.push('/auth/login');
         }
 
@@ -148,7 +148,7 @@ export default function RegisterForm() {
     <View className="justify-center flex-1 p-8">
       <View className="mb-8">
         <Text className="mb-3 text-xl text-center text-gray-800 font-Inter-SemiBold dark:text-gray-200">
-          {t('userRegister.title')}
+          {t('userRegister.registerYourAccount')}
         </Text>
         <Text className="text-center text-gray-800 font-Inter-Regular dark:text-gray-200">
           {t('userRegister.joinOrg')} {orgName}
@@ -156,8 +156,8 @@ export default function RegisterForm() {
       </View>
 
       <View className="flex flex-col">
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.firstName')}:
           </Text>
           <View
@@ -167,18 +167,22 @@ export default function RegisterForm() {
 
             <TextInput
               testID="first-name"
-              placeholder="First Name"
+              placeholder={t('userRegister.firstName')}
               onChangeText={formik.handleChange('firstName')}
+              onBlur={formik.handleBlur('firstName')}
               value={formik.values.firstName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              placeholderTextColor="#9ca3af"
+              className={`text-gray-600 pr-3 py-5`}
             />
           </View>
-          <Text className="my-1 text-error-500">{formik.errors.firstName}</Text>
+          {formik.touched.firstName && formik.errors.firstName && (
+            <Text className="text-error-500 mt-1">{formik.errors.firstName}</Text>
+          )}
         </View>
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.lastName')}:
           </Text>
           <View
@@ -188,18 +192,22 @@ export default function RegisterForm() {
 
             <TextInput
               testID="last-name"
-              placeholder="Last Name"
+              placeholder={t('userRegister.lastName')}
               onChangeText={formik.handleChange('lastName')}
+              onBlur={formik.handleBlur('lastName')}
               value={formik.values.lastName}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              placeholderTextColor="#9ca3af"
+              className={`text-gray-600 pr-3 py-5`}
             />
           </View>
-          <Text className="my-1 text-error-500">{formik.errors.lastName}</Text>
+          {formik.touched.lastName && formik.errors.lastName && (
+            <Text className="text-error-500 mt-1">{formik.errors.lastName}</Text>
+          )}
         </View>
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.email')}
           </Text>
           <View
@@ -213,37 +221,39 @@ export default function RegisterForm() {
               value={email!}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 pt-4 pb-6`}
+              className={`text-gray-500 pr-3 pt-4 pb-6`}
               editable={false}
             />
           </View>
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="z-10 mb-3">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.gender')}:
           </Text>
-          <View className="flex flex-row items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 shadow shadow-gray-50 bg-primary-light">
+          <View className="flex flex-row items-center justify-center px-3 rounded-lg border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-400 bg-primary-light">
             <Ionicons name="female" size={20} color="gray" />
             <View className="flex-1">
-              <Picker
-                style={{ height: 35 }}
-                selectedValue={formik.values.gender}
-                onValueChange={(value: string) => {
-                  formik.setFieldValue('gender', value);
-                }}
-              >
-                <Picker.Item label="Select Gender" value="" enabled={false} />
-                <Picker.Item label={t('userRegister.male')} value="Male" />
-                <Picker.Item label={t('userRegister.female')} value="Female" />
-              </Picker>
+              <DropDownPicker
+                open={genderSelectOpen}
+                items={genderOptions}
+                value={gender}
+                setOpen={setGenderSelectOpen}
+                setValue={setGender}
+                theme="LIGHT"
+                placeholder="Select Gender"
+                multiple={false}
+                style={{ borderColor: 'transparent' }}
+              />
             </View>
           </View>
-          <Text className="my-1 text-error-500">{formik.errors.gender}</Text>
+          {formik.touched.gender && formik.errors.gender && (
+            <Text className="text-error-500 mt-1">{formik.errors.gender}</Text>
+          )}
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.dob')}
           </Text>
           <DatePicker
@@ -252,11 +262,13 @@ export default function RegisterForm() {
               formik.setFieldValue('dob', date);
             }}
           />
-          <Text className="my-1 text-error-500">{formik.errors.dob}</Text>
+          {formik.touched.dob && formik.errors.dob && (
+            <Text className="text-error-500 mt-1">{formik.errors.dob}</Text>
+          )}
         </View>
 
-        <View>
-          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium">
+        <View className="mb-4">
+          <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
             {t('userRegister.password')}:
           </Text>
           <View
@@ -265,12 +277,14 @@ export default function RegisterForm() {
             <Ionicons name="person" size={26} color="gray" className="mx-3" />
             <TextInput
               testID="password"
-              placeholder="Password"
+              placeholder={t('userRegister.password')}
               onChangeText={formik.handleChange('password')}
+              onBlur={formik.handleBlur('password')}
               value={formik.values.password}
               style={{ flex: 1 }}
               autoCapitalize="none"
-              className={`text-gray-600 placeholder:text-gray-400 pr-3 py-5`}
+              placeholderTextColor="#9ca3af"
+              className={`text-gray-600 pr-3 py-5`}
               secureTextEntry={!showPassword}
             />
             <Ionicons
@@ -283,7 +297,9 @@ export default function RegisterForm() {
               }}
             />
           </View>
-          <Text className="my-1 text-error-500">{formik.errors.password}</Text>
+          {formik.touched.password && formik.errors.password && (
+            <Text className="text-error-500 mt-1">{formik.errors.password}</Text>
+          )}
         </View>
 
         <View className="flex flex-col gap-4 mt-2">

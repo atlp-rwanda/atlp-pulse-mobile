@@ -1,0 +1,45 @@
+import { Image } from 'react-native';
+import { Text, View } from './Themed';
+
+type AvatarProps = {
+  name?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  src?: string;
+};
+
+export default function ProfileAvatar({ name, size = 'md', src }: AvatarProps) {
+  const sizeClass = {
+    xs: 'w-11 h-11',
+    sm: 'w-14 h-14',
+    md: 'w-20 h-20',
+    lg: 'w-28 h-28',
+    xl: 'w-36 h-36',
+  };
+
+  const textSizeClass = {
+    xs: 'text-xl font-Inter-Medium',
+    sm: 'text-3xl font-Inter-Medium',
+    md: 'text-4xl font-Inter-Medium',
+    lg: 'text-6xl font-Inter-Regular',
+    xl: 'text-7xl font-Inter-Regular',
+  };
+
+  if (src) {
+    return <Image source={{ uri: src }} className={`rounded-full ${sizeClass[size]}`} />;
+  }
+
+  return (
+    <View
+      className={`p-0 rounded-full items-center justify-center bg-[#cbecd7] ${sizeClass[size]}`}
+    >
+      <Text style={{ lineHeight: 0 }} className={`font-Inter-Regular ${textSizeClass[size]}`}>
+        {name
+          ?.toUpperCase()
+          .split(' ')
+          .filter((_, i) => i < 2)
+          .map((w) => w[0])
+          .join('') || 'UN'}
+      </Text>
+    </View>
+  );
+}

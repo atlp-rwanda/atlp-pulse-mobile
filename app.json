@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ATLP Pulse",
+    "name": "PULSE",
     "slug": "atlp-pulse",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -32,7 +32,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "*.devpulse.org",
+              "host": "*.devdevpulse.org",
               "pathPrefix": "/register"
             }
           ],

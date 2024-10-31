@@ -13,7 +13,7 @@
     "signIn": "Injira muri kampani yawe",
     "enterOrgURL": "Injiza URL ya Pulse ya kampani yawe",
     "continue": "Komeza",
-    "orgPlaceholder": "<Izina-rya kampani>.pulse.co",
+    "orgPlaceholder": "<Izina-rya kampani>",
     "error": "Izina rya kampani rirakenewe"
   },
   "userLogin": {
@@ -161,5 +161,12 @@
     "network_error": "Habaye ikibazo mu kuvugana na seriveri",
     "general_error": "Habaye ikibazo kitateganyijwe.",
     "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
+  },
+  "account": {
+    "changePassword": "Hindura ijambo ry'ibanga",
+    "resetPassword": "Hindura ijambo ry'ibanga",
+    "currentPassword": "Ijambo ry'ibanga usanganywe",
+    "newPassword": "Ijambo ry'ibanga rishya",
+    "confirmPassword": "Emeza ijambo ry'ibanga"
   }
 }

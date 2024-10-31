@@ -1,11 +1,11 @@
-import { useState, useEffect, Key } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useQuery } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TRAINEE_RATING } from '../graphql/mutations/ratings';
-import { useColorScheme } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Key, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ScrollView, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
+import { TRAINEE_RATING } from '../graphql/mutations/ratings';
 
 export default function TraineeRatings({
   openFeedbackModal,
@@ -13,6 +13,7 @@ export default function TraineeRatings({
   openFeedbackModal: (feedback: any) => void;
 }) {
   const { t } = useTranslation();
+  const toast = useToast();
   const [sprintFilter, setSprintFilter] = useState('');
   const [selectedPhase, setSelectedPhase] = useState('Phase I');
   const [userToken, setUserToken] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export default function TraineeRatings({
       if (token) {
         setUserToken(token);
       } else {
-        Alert.alert(t('sprintRating.error'), t('sprintRating.user_token_not_found'));
+        toast.show(t('sprintRating.user_token_not_found'), { type: 'danger' });
       }
     };
     fetchToken();
@@ -55,7 +56,7 @@ export default function TraineeRatings({
 
   useEffect(() => {
     if (error) {
-      Alert.alert(t('sprintRating.error'), t('sprintRating.error_loading_ratings'));
+      toast.show(t('sprintRating.error_loading_ratings'), { type: 'danger' });
     }
   }, [loading, error]);
 
@@ -79,11 +80,10 @@ export default function TraineeRatings({
             {t('sprintRating.recent_feedback')}
           </Text>
 
-          <View className="p-3">
+          <View className="px-3">
             <Text className={`font-bold text-xl ${textColor} pb-2`}>{phaseName}</Text>
-
             <TextInput
-              className={`border border-[#8667F2] rounded-md pl-1 bg-white ${inputbg}`}
+              className={`border py-4 border-[#8667F2] rounded-md bg-white ${inputbg}`}
               placeholder={t('sprintRating.filter_by_sprint')}
               value={sprintFilter}
               onChangeText={handleSprintFilterChange}
@@ -92,9 +92,9 @@ export default function TraineeRatings({
             />
           </View>
 
-          <View className={`p-3 rounded h-auto mb-5  ${textColor}`}>
+          <View className={`px-3 rounded h-auto mb-16 ${textColor}`}>
             <View className="">
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                 <View className="w-screen">
                   <View className="flex-row text-sm justify-between bg-[#c7d2fe] p-1 pt-4 pb-4 border-b border-[#b1b1b1] mt-5 rounded-tl-lg rounded-tr-lg">
                     <Text className="w-16 text-xs font-bold text-center">
@@ -122,7 +122,7 @@ export default function TraineeRatings({
                     fetchedData.map((item: any, index: Key | null | undefined) => (
                       <View
                         key={index}
-                        className="flex-row justify-around border-b border-[#b1b1b1] p-2"
+                        className="flex-row justify-around items-center border-b border-[#b1b1b1] px-2 py-3"
                       >
                         <Text className={`w-16  ${textColor} text-center`}>{item.sprint}</Text>
                         <Text className={`w-16 ${textColor} text-center`}>{item.quantity}</Text>
@@ -130,13 +130,13 @@ export default function TraineeRatings({
                         <Text className={`w-28 ${textColor} text-center`}>
                           {item.professional_Skills}
                         </Text>
-                        <View className="w-16 bg-[#8667F2] rounded-full justify-center align-middle p-1">
+                        <View className="bg-[#8667F2] rounded-full justify-center align-middle px-3 py-2">
                           <TouchableOpacity
                             onPress={() => openFeedbackModal(item)}
                             className="flex-row items-center text-white"
                           >
                             <AntDesign name="eye" size={15} color="white" />
-                            <Text className="text-white">{t('sprintRating.view')}</Text>
+                            <Text className="text-white ml-1">{t('sprintRating.view')}</Text>
                           </TouchableOpacity>
                         </View>
                       </View>

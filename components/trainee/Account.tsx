@@ -4,6 +4,7 @@ import { ApolloError, useMutation } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFormik } from 'formik';
+import { t } from 'i18next';
 import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -69,23 +70,24 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
 
   return (
     <View className={`${bgColor} mx-4 p-6 rounded-lg w-full`}>
-      <Text className={`${textColor} font-Inter-SemiBold text-xl mb-5`}>RESET YOUR PASSWORD</Text>
+      <Text className={`${textColor} font-Inter-SemiBold text-xl mb-5 uppercase`}>{t('account.resetPassword')}</Text>
       <View className="mb-4">
         <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
-          Current Password:
+          {t('account.currentPassword')}:
         </Text>
         <View
           className={`flex-row items-center rounded text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-600 bg-primary-light`}
         >
           <TextInput
             testID="current-password"
-            placeholder="Current Password"
+            placeholder={t('account.currentPassword')}
             onChangeText={formik.handleChange('currentPassword')}
+            onBlur={formik.handleBlur('currentPassword')}
             value={formik.values.currentPassword}
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showCurrentPassword}
-            className={`text-gray-600 placeholder:text-gray-400 text-base px-3 py-4`}
+            className={`placeholder:text-gray-500 text-base px-3 py-4`}
           />
           <Ionicons
             name={showCurrentPassword ? 'eye-off' : 'eye'}
@@ -97,27 +99,28 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             }}
           />
         </View>
-        {formik.errors.currentPassword && (
+        {formik.touched.currentPassword && formik.errors.currentPassword && (
           <Text className="text-error-500 mt-1">{formik.errors.currentPassword}</Text>
         )}
       </View>
 
       <View className="mb-4">
         <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
-          New Password:
+          {t('account.newPassword')}:
         </Text>
         <View
           className={`flex-row items-center rounded text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-600 bg-primary-light`}
         >
           <TextInput
             testID="new-password"
-            placeholder="New Password"
+            placeholder={t('account.newPassword')}
             onChangeText={formik.handleChange('newPassword')}
+            onBlur={formik.handleBlur('newPassword')}
             value={formik.values.newPassword}
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showNewPassword}
-            className={`text-gray-600 placeholder:text-gray-400 text-base px-3 py-4`}
+            className={`placeholder:text-gray-500 text-base px-3 py-4`}
           />
           <Ionicons
             name={showNewPassword ? 'eye-off' : 'eye'}
@@ -129,27 +132,28 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             }}
           />
         </View>
-        {formik.errors.newPassword && (
+        {formik.touched.newPassword && formik.errors.newPassword && (
           <Text className="text-error-500 mt-1">{formik.errors.newPassword}</Text>
         )}
       </View>
 
       <View className="mb-4">
         <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
-          Confirm Password:
+          {t('account.confirmPassword')}:
         </Text>
         <View
           className={`flex-row items-center rounded text-gray-700 border border-gray-300 shadow shadow-gray-50 dark:shadow-gray-600 bg-primary-light`}
         >
           <TextInput
             testID="confirm-password"
-            placeholder="Confirm Password"
+            placeholder={t('account.confirmPassword')}
             onChangeText={formik.handleChange('confirmPassword')}
+            onBlur={formik.handleBlur('confirmPassword')}
             value={formik.values.confirmPassword}
             style={{ flex: 1 }}
             autoCapitalize="none"
             secureTextEntry={!showConfirmPassword}
-            className={`text-gray-600 text-base placeholder:text-gray-400 px-3 py-4`}
+            className={`text-base placeholder:text-gray-500 px-3 py-4`}
           />
           <Ionicons
             name={showConfirmPassword ? 'eye-off' : 'eye'}
@@ -161,7 +165,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
             }}
           />
         </View>
-        {formik.errors.confirmPassword && (
+        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
           <Text className="text-error-500 mt-1">{formik.errors.confirmPassword}</Text>
         )}
       </View>
@@ -172,7 +176,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
         {loading ? (
           <ActivityIndicator color="white" />
         ) : (
-          <Text className={`text-white text-lg`}>Change Password</Text>
+          <Text className={`text-white text-lg`}>{t('account.changePassword')}</Text>
         )}
       </TouchableOpacity>
     </View>

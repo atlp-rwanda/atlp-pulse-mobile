@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { SvgXml } from 'react-native-svg';
-import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
-import Button from '@/components/buttons';
 import { lock } from '@/assets/Icons/auth/Icons';
-import { useFormik } from 'formik';
-import { SetNewPasswordSchema } from '@/validations/login.schema';
-import { useLocalSearchParams } from 'expo-router';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import Button from '@/components/buttons';
+import { bottomIcon_dark, bottomIcon_light } from '@/components/icons/icons';
 import { FORGOT_PASSWORD, VERIFY_RESET_PASSWORD_TOKEN } from '@/graphql/mutations/resetPassword';
+import { SetNewPasswordSchema } from '@/validations/login.schema';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { Ionicons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
 
 type FormValues = {
@@ -116,6 +115,7 @@ const SetNewPassword = () => {
                   placeholder="Password"
                   secureTextEntry={securePassword}
                   onChangeText={formik.handleChange('password')}
+                  onBlur={formik.handleBlur('password')}
                   value={formik.values.password}
                 />
                 <TouchableOpacity
@@ -129,7 +129,7 @@ const SetNewPassword = () => {
                   />
                 </TouchableOpacity>
               </View>
-              {formik.errors.password && (
+              {formik.touched.password && formik.errors.password && (
                 <Text className="text-error-500 mg-2">{formik.errors.password}</Text>
               )}
               <Text className={`${textColor}`}>Confirm new Password</Text>
@@ -142,6 +142,7 @@ const SetNewPassword = () => {
                   placeholder="Confirm Password"
                   secureTextEntry={secureConfirmPassword}
                   onChangeText={formik.handleChange('confirmpassword')}
+                  onBlur={formik.handleBlur('confirmpassword')}
                   value={formik.values.confirmpassword}
                 />
                 <TouchableOpacity
@@ -155,7 +156,7 @@ const SetNewPassword = () => {
                   />
                 </TouchableOpacity>
               </View>
-              {formik.errors.confirmpassword && (
+              {formik.touched.confirmpassword && formik.errors.confirmpassword && (
                 <Text className="text-error-500 mg-2">{formik.errors.confirmpassword}</Text>
               )}
             </View>

@@ -97,11 +97,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('auth_token');
+      await AsyncStorage.removeItem('authToken');
       await AsyncStorage.removeItem('orgToken');
       await AsyncStorage.removeItem('orgName');
-      await client.resetStore();
-      router.replace('/auth/login');
+      await AsyncStorage.removeItem('userProfile');
+      await AsyncStorage.removeItem('auth');
+      router.push('/auth/login?logout=1');
     } catch (error) {
       toast.show(`Failed to log out. Please try again.`);
     }
