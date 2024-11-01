@@ -26,7 +26,7 @@ interface TicketsData {
   getAllTickets: Ticket[];
 }
 
-interface TicketsQueryVariables { }
+interface TicketsQueryVariables {}
 
 export default function Tickets() {
   const { t } = useTranslation();
@@ -43,7 +43,6 @@ export default function Tickets() {
   const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
   const inputbg = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-primary-light';
@@ -52,12 +51,16 @@ export default function Tickets() {
     const fetchToken = async () => {
       const token = await AsyncStorage.getItem('authToken');
       if (token) setUserToken(token);
-      else toast.show('Token not found', { type: "danger" });
+      else toast.show('Token not found', { type: 'danger' });
     };
     fetchToken();
   }, []);
 
-  const { data: ticketsData, loading: ticketsLoading, error } = useQuery<TicketsData, TicketsQueryVariables>(GET_TICKETS, {
+  const {
+    data: ticketsData,
+    loading: ticketsLoading,
+    error,
+  } = useQuery<TicketsData, TicketsQueryVariables>(GET_TICKETS, {
     context: {
       headers: { Authorization: `Bearer ${userToken}` },
     },
@@ -73,18 +76,19 @@ export default function Tickets() {
 
   useEffect(() => {
     if (error) {
-      toast.show('Error fetching tickets', { type: "danger" });
+      toast.show('Error fetching tickets', { type: 'danger' });
     }
   }, [ticketsLoading, error]);
 
   const handleFilterChange = (value: string) => {
     setFilterInput(value);
     const lowercasedValue = value.toLowerCase();
-    const filteredData = ticketsData?.getAllTickets.filter(ticket =>
-      ticket.subject.toLowerCase().includes(lowercasedValue) ||
-      ticket.message.toLowerCase().includes(lowercasedValue) ||
-      ticket.user.email.toLowerCase().includes(lowercasedValue) ||
-      ticket.assignee.email.toLowerCase().includes(lowercasedValue)
+    const filteredData = ticketsData?.getAllTickets.filter(
+      (ticket) =>
+        ticket.subject.toLowerCase().includes(lowercasedValue) ||
+        ticket.message.toLowerCase().includes(lowercasedValue) ||
+        ticket.user.email.toLowerCase().includes(lowercasedValue) ||
+        ticket.assignee.email.toLowerCase().includes(lowercasedValue)
     );
     setFilteredTickets(filteredData || []);
     setPageIndex(0);
@@ -169,32 +173,43 @@ export default function Tickets() {
                 </View>
 
                 {ticketsLoading ? (
-                  <Text className={`${textColor} text-center font-bold p-10`}>Loading tickets...</Text>
-                ) :
-                currentTickets.length ? (
+                  <Text className={`${textColor} text-center font-bold p-10`}>
+                    Loading tickets...
+                  </Text>
+                ) : currentTickets.length ? (
                   currentTickets.map((ticket) => (
-                    <View key={ticket.id} className="flex-row justify-around border-b border-[#b1b1b1] py-2">
+                    <View
+                      key={ticket.id}
+                      className="flex-row justify-around border-b border-[#b1b1b1] py-2"
+                    >
                       <Text className={`w-24 ${textColor} px-1`}>{ticket.subject}</Text>
                       <Text className={`w-24 ${textColor} px-1`}>{ticket.message}</Text>
-                      <Text className={`w-28 ${textColor} px-1`}>{formatDate(ticket.createdAt)}</Text>
+                      <Text className={`w-28 ${textColor} px-1`}>
+                        {formatDate(ticket.createdAt)}
+                      </Text>
                       <Text className={`w-44 ${textColor} px-1`}>{ticket.user?.email}</Text>
                       <Text className={`w-48 ${textColor} px-1`}>{ticket.assignee?.email}</Text>
                       <View className="rounded-full justify-center align-middle px-3 py-2 w-20">
-                        <TouchableOpacity onPress={() => handleActionsPress(ticket.id)} className="flex-row items-center text-white">
+                        <TouchableOpacity
+                          onPress={() => handleActionsPress(ticket.id)}
+                          className="flex-row items-center text-white"
+                        >
                           <SvgXml xml={colorScheme === 'dark' ? darkActions : lightActions} />
                         </TouchableOpacity>
                         {isDropdownVisible && selectedTicketId === ticket.id && (
-                <ActionsDropdown
-                  ticketId={ticket.id}
-                  onView={() => openFeedbackModal(ticket)}
-                  onClose={() => setIsDropdownVisible(false)}
-                />
-              )}
+                          <ActionsDropdown
+                            ticketId={ticket.id}
+                            onView={() => openFeedbackModal(ticket)}
+                            onClose={() => setIsDropdownVisible(false)}
+                          />
+                        )}
                       </View>
                     </View>
                   ))
                 ) : (
-                  <Text className={`${textColor} text-center font-bold p-10`}>{t('tickets.noTickets')}</Text>
+                  <Text className={`${textColor} text-center font-bold p-10`}>
+                    {t('tickets.noTickets')}
+                  </Text>
                 )}
               </View>
             </ScrollView>
@@ -213,10 +228,10 @@ export default function Tickets() {
               columnLength={currentTickets.length}
             />
             <TicketDetailsModal
-        visible={isModalVisible}
-        onClose={closeModal}
-        ticket={selectedTicket}
-      />
+              visible={isModalVisible}
+              onClose={closeModal}
+              ticket={selectedTicket}
+            />
           </View>
         </View>
       </ScrollView>

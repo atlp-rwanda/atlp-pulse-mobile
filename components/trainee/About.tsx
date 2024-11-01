@@ -1,28 +1,16 @@
-import React from 'react';
-import { View, Text, Linking, useColorScheme } from 'react-native';
+import { ProfileType } from '@/app/dashboard/_layout';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-interface Profile {
-  name?: string;
-  user?: {
-    email?: string;
-  };
-  phoneNumber?: string;
-  address?: string;
-  githubUsername?: string;
-  resume?: string;
-  biography?: string;
-}
+import { Linking, Text, useColorScheme, View } from 'react-native';
 
 interface AboutTraineeProps {
-  profile: Profile;
+  profile?: ProfileType;
   bgColor: string;
   textColor: string;
-  Resume: Profile;
 }
 
-const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor,Resume }) => {
+const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor }) => {
   const colorScheme = useColorScheme();
   const { t } = useTranslation();
 
@@ -35,25 +23,25 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
         <View className="flex-row gap-3 m-2">
           <Ionicons name="person" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
           <Text className={`${textColor} text-lg`}>
-            {profile.name ? profile.name : t('organization.unavailable')}
+            {profile?.name || t('organization.unavailable')}
           </Text>
         </View>
         <View className="flex-row gap-3 m-2">
           <Ionicons name="mail" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
           <Text className={`${textColor} text-lg`}>
-            {profile.user?.email ? profile.user?.email : t('organization.unavailable')}
+            {profile?.user?.email || t('organization.unavailable')}
           </Text>
         </View>
         <View className="flex-row gap-3 m-2">
           <Ionicons name="call" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
           <Text className={`${textColor} text-lg`}>
-            {profile.phoneNumber ? profile.phoneNumber : t('organization.unavailable')}
+            {profile?.phoneNumber || t('organization.unavailable')}
           </Text>
         </View>
         <View className="flex-row gap-3 m-2">
           <Ionicons name="home" size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
           <Text className={`${textColor} text-lg`}>
-            {profile.address ? profile.address : t('organization.unavailable')}
+            {profile?.address || t('organization.unavailable')}
           </Text>
         </View>
         <View className="flex-row gap-3 m-2">
@@ -63,21 +51,30 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
             color={colorScheme === 'dark' ? 'white' : 'black'}
           />
           <Text className={`${textColor} text-lg`}>
-            {profile.githubUsername ? profile.githubUsername : t('organization.unavailable')}
+            {profile?.githubUsername || t('organization.unavailable')}
           </Text>
         </View>
-        <Text className={`${textColor} text-xl`}>{t('about.resume')}</Text>
-        <View className="flex-row m-2 items-center">
-        <Ionicons name='book-outline' size={20} color={colorScheme === 'dark' ? 'white' : 'black'} />
-        <Text className={`${textColor} text-md m-2`}>
-            {Resume.resume ? (
-            <Text style={{ color: `${textColor}`}} onPress={() => Resume.resume && Linking.openURL(Resume.resume)}>
-              Resume
-            </Text>
-            ) : (
-            'No Resume uploaded yet'
-            )}
+        <Text className={`${textColor} text-xl font-Inter-SemiBold mt-6 mb-2 uppercase`}>
+          {t('about.resume')}
         </Text>
+        <View className="flex-row m-2 items-center">
+          <Ionicons
+            name="book-outline"
+            size={20}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
+          <Text className={`${textColor} text-md m-2`}>
+            {profile?.resume ? (
+              <Text
+                style={{ color: `${textColor}` }}
+                onPress={() => Linking.openURL(profile?.resume!)}
+              >
+                {t('about.viewResume')}
+              </Text>
+            ) : (
+              'No Resume uploaded yet'
+            )}
+          </Text>
         </View>
       </View>
       <View className={`${bgColor} w-[100%] p-6 rounded-md mt-5 mb-20`}>
@@ -85,7 +82,7 @@ const AboutTrainee: React.FC<AboutTraineeProps> = ({ profile, bgColor, textColor
           {t('about.biography')}
         </Text>
         <Text className={`${textColor} text-lg m-2`}>
-          {profile.biography ? profile.biography : t('about.noBiography')}
+          {profile?.biography || t('about.noBiography')}
         </Text>
       </View>
     </>

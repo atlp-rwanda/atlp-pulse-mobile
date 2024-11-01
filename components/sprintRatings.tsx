@@ -30,7 +30,7 @@ export default function TraineeRatings({
       if (token) {
         setUserToken(token);
       } else {
-        toast.show(t('sprintRating.user_token_not_found'), {type:"danger"});
+        toast.show(t('sprintRating.user_token_not_found'), { type: 'danger' });
       }
     };
     fetchToken();
@@ -55,7 +55,7 @@ export default function TraineeRatings({
 
   useEffect(() => {
     if (error) {
-      toast.show(t('sprintRating.error_loading_ratings'),{type:"danger"});
+      toast.show(t('sprintRating.error_loading_ratings'), { type: 'danger' });
     }
   }, [loading, error]);
 
