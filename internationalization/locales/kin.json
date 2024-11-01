@@ -59,7 +59,8 @@
     "placeholder": "Injiza imeri",
     "submitButton": "Komeza",
     "successMessage": "Gusaba gusubiramo ijambo ry'ibanga byakozwe neza! Nyamuneka reba imeri yawe kugirango usubiremo ijambo ry'ibanga.",
-    "errorMessage": "Habaye ikibazo. Ongera ugerageze."
+    "errorMessage": "Habaye ikibazo. Ongera ugerageze.",
+    "errorEmail" : "Imeri itemewe"
   },
   "registerSchema": {
     "firstName": {
