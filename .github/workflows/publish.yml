@@ -25,22 +25,24 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
-        run: npm install
-
-      - name: 🚀 Build & Submit ios App
         run: |
-          rm .easignore
-          cp .gitignore .easignore
-          echo '\npackage-lock.json' >> .easignore
-          eas build --platform ios --profile $PROFILE --auto-submit --non-interactive
-          rm .easignore
-        env:
-          PROFILE: ${{ vars.BUILD_PROFILE }}
-          EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}
+          npm install
+          npx expo install --fix
 
       # This step will be deprecated and removed in the future once the google play account is created.
       - name: 🚀 Build Android App
         run: eas build --platform android --profile $PROFILE --non-interactive
+        env:
+          PROFILE: ${{ vars.BUILD_PROFILE }}
+          EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}
+
+      - name: 🚀 Build & Submit ios App
+        run: |
+          rm -f .easignore
+          cp .gitignore .easignore
+          echo '\npackage-lock.json' >> .easignore
+          eas build --platform ios --profile $PROFILE --auto-submit --non-interactive
+          rm .easignore
         env:
           PROFILE: ${{ vars.BUILD_PROFILE }}
           EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}

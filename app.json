@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "PULSE",
-    "slug": "atlp-pulse",
-    "version": "1.0.0",
+    "name": "Devpulse",
+    "slug": "devpulse",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "pulseapp",
+    "scheme": "devpulse",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -32,7 +32,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "*.devdevpulse.org",
+              "host": "*.devpulse.org",
               "pathPrefix": "/register"
             }
           ],
