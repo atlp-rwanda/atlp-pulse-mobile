@@ -4,8 +4,27 @@ import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mu
 import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect,useState } from 'react';
 import { useToast } from 'react-native-toast-notifications';
+import {ToastAndroid } from 'react-native';
+
+class ErrorHandler {
+  static handleNetworkError() {
+    ToastAndroid.show('There was a problem contacting the server', ToastAndroid.LONG);
+  }
+
+  static handleInvalidCredentials() {
+    ToastAndroid.show('Error Invalid credentials',ToastAndroid.LONG);
+  }
+
+  static handleCustomError(message: string | undefined) {
+    ToastAndroid.show('Error:' + message,ToastAndroid.LONG);
+  }
+
+  static handleGeneralError() {
+    ToastAndroid.show('Error An unexpected error occurred.',ToastAndroid.LONG);
+  }
+}
 
 export default function SignInOrganization() {
   const toast = useToast();
@@ -47,11 +66,13 @@ export default function SignInOrganization() {
           setOrgLoginSuccess(true);
         },
         onError(err: any) {
-          if (err instanceof ApolloError) {
-            toast.show(err.message, { type: 'danger' });
-          } else {
-            toast.show(err.message, { type: 'danger' });
-          }
+          toast.show(err.message,{
+            type: 'fail',
+            placement : 'top',
+            duration : 5000,
+            animationType : 'slide-in',
+            style: { backgroundColor: 'red' },
+          })
         },
       });
     } catch (err: any) {
@@ -94,6 +115,10 @@ export default function SignInOrganization() {
               });
               return;
             }
+
+          } else {
+            await AsyncStorage.setItem('authToken', data.loginUser.token);
+            router.push('/dashboard');
           }
         },
         onError: (err) => {
