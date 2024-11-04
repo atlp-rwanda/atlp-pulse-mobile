@@ -9,6 +9,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
@@ -20,6 +21,7 @@ type FormValues = {
 
 const SetNewPassword = () => {
   const { token } = useLocalSearchParams();
+  const {t} = useTranslation();
   const originalToken = Array.isArray(token) ? token.join('.') : token?.replace(/\*/g, '.');
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
@@ -29,7 +31,7 @@ const SetNewPassword = () => {
   const [ResetPassword] = useMutation(FORGOT_PASSWORD, {
     onCompleted: () => {
       setTimeout(() => {
-        toast.show('You have successfully reset your password!', {
+        toast.show(t('toasts.auth.resetSuccess'), {
           type: 'success',
           placement: 'top',
           duration: 4000,

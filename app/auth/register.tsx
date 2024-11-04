@@ -79,7 +79,7 @@ export default function RegisterForm() {
             router.push('/dashboard/trainee');
           }
         } catch (err) {
-          toast.show('Invalid token or expired token', { type: 'danger' });
+          toast.show(t('toasts.auth.invalidToken'), { type: 'danger' });
         }
       }
     };
@@ -117,7 +117,7 @@ export default function RegisterForm() {
         if (error instanceof ApolloError) {
           toast.show(`Error: ${error.message}`, { type: 'danger' });
         } else {
-          toast.show(`Error: Unknown error`, { type: 'danger' });
+          toast.show(t('toasts.auth.unknownErr'), { type: 'danger' });
         }
       }
       setLoading(false);
@@ -133,7 +133,7 @@ export default function RegisterForm() {
         setOrgName(parsedToken.name);
       }
     } catch (err) {
-      toast.show('Invalid token or expired token', { type: 'danger' });
+      toast.show(t('toasts.auth.invalidToken'), { type: 'danger' });
     }
   }, []);
 
@@ -316,7 +316,7 @@ export default function RegisterForm() {
           <TouchableOpacity
             onPress={() => {
               if (!TCAccepted) {
-                toast.show('Please accept terms and conditions', {type:"Warning"});
+                toast.show(t('toasts.auth.acceptTerms'), {type:"Warning"});
                 return;
               }
               formik.handleSubmit();

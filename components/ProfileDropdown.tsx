@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_PROFILE } from '@/graphql/queries/user';
 import ProfileAvatar from './ProfileAvatar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 const ProfileDropdown = () => {
   const theme = useColorScheme();
   const [profile, setProfile] = useState<ProfileType | null>(null);
@@ -14,6 +15,7 @@ const ProfileDropdown = () => {
 
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
+  const {t} = useTranslation ();
 
   const togglePopover = () => {
     setIsVisible(!isVisible);
@@ -77,7 +79,7 @@ const ProfileDropdown = () => {
                 ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}
                 `}
             >
-              Profile
+              {t('settings.profile')}
             </Text>
           </TouchableOpacity>
 
@@ -90,7 +92,7 @@ const ProfileDropdown = () => {
                 ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}
                 `}
             >
-              Settings
+              {t('settings.title')}
             </Text>
           </TouchableOpacity>
         </View>

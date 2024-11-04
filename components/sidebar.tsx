@@ -104,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       await AsyncStorage.removeItem('auth');
       router.push('/auth/login?logout=1');
     } catch (error) {
-      toast.show(`Error logging out:${error}`, {
+      toast.show(t('toasts.dashboard.logoutErr'), {
         type: 'danger',
         placement: 'top',
         duration: 4000,
@@ -124,7 +124,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
         onClose();
       }
     } catch (error) {
-      toast.show(`Failed to navigate:${error}`, {
+      toast.show(t('toasts.dashboard.navigationErr'), {
         type: 'danger',
         placement: 'top',
         duration: 4000,

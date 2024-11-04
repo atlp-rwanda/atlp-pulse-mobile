@@ -155,19 +155,78 @@
     "english": "English",
     "french": "Français"
   },
-  "loginmsg": {
-    "welcome": "Welcome! Sign in to Continue",
-    "invalid_credentials": "Invalid credentials",
-    "error": "Error",
-    "network_error": "There was a problem contacting the server",
-    "general_error": "An unexpected error occurred.",
-    "auth_error": "Please wait to be added to a program or cohort"
-  },
   "account": {
     "changePassword": "Change Password",
     "resetPassword": "Reset Password",
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password"
-  }
+  },
+  "editProfile": {
+    "editProfile": "EDIT PROFILE",
+    "backToProfile" : "Back to Profile",
+    "city" : "City",
+    "country" : "Country",
+    "updateProfile" : "Update Profile",
+    "uploadResume" : "UPLOAD RESUME",
+    "uploadFromPhone" : "Upload from Phone",
+    "uploadResumeFromPhone" : "Upload resume from your phone",
+    "addLink" : "Add external Link",
+    "enterLink" : "Enter external link",
+    "uploadLink" : "Upload resume from external link",
+    "chooseFile" : "Choose File" ,
+    "upload" : "Upload",
+    "edit": "Edit"
+},
+"settings":{
+  "title" : "Settings",
+  "profile": "Profile",
+  "editProfile": "Edit profile, export account, data…",
+  "change": "Change",
+  "appearance": "Appearance",
+  "themePreferences": "Theme preferences",
+  "language": "Language",
+  "languagePreference": "Language Preference",
+  "emailNotify": "Email Notifications",
+  "emailFeeds": "Feedback emails, reminder emails, news emails",
+  "pushNotify": "Push Notifications",
+  "pushUpdates": "Grade updates, session reminders, performance comments",
+  "privacy": "Privacy and Security",
+  "login": "Login Activity" ,
+  "loginHistory": "History of Your login session",
+  "view": "View"
+},
+"toasts":{
+  "auth": {
+    "unknownErr" : "Error: Unknown error",
+    "invalidToken": "Invalid token or expired token",
+    "acceptTerms" : "Please accept terms and conditions",
+    "invalidCredentials": "Invalid credentials",
+    "error": "Error",
+    "networkError": "There was a problem contacting the server",
+    "generalError": "An unexpected error occurred.",
+    "authError": "Please wait to be added to a program or cohort",
+    "loginErr": "This app is for trainees only! Login through the web",
+    "logSuccess": "Welcome! Sign in to Continue",
+    "checkEmail" : "Check your email to proceed!",
+    "resetSuccess": "You have successfully reset your password!"
+},
+"dashboard":{
+  "tokenNotFound": "User Token Not found.",
+  "failedToken" : "Failed to retrieve token.",
+  "profileErr": "Error fetching profile.",
+  "updateSuccess": "Profile has been updated",
+  "updateFailed": "Failed to update profile",
+  "decodeErr": "Failed to decode token.",
+  "uploadCvError": "Upload Error",
+  "uploadCvSuccess": "Resume uploaded successfully",
+  "mutationFail": "GET_TRAINEE_PROFILE cache update failed.",
+  "fileErr": "Please choose a file",
+  "linkErr": "Please enter a valid external link",
+  "logoutErr" : "Error logging out",
+  "navigationErr" : "Failed to navigate",
+  "updatePassSuccess": "Password updated successfully",
+  "updatePassFail": "Oops, something went wrong"
+}
+}
 }

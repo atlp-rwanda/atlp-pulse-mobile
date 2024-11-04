@@ -14,12 +14,14 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
+import { useTranslation } from 'react-i18next';
 
 type TabKey = 'About' | 'Organisation' | 'Account';
 
 export default function Profile() {
   const toast = useToast();
   const router = useRouter();
+  const { t } = useTranslation();
   const colorScheme = useColorScheme();
   const [selectedType, setSelectedType] = useState<TabKey>('About');
   const [type, setType] = useState<string[]>(['About', 'Organisation', 'Account']);
@@ -58,7 +60,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (error) {
-      toast.show(`Error fetching profile: ${error.message}`, { type: 'danger' });
+      toast.show(t('toasts.dashboard.profileErr'), { type: 'danger' });
     }
   }, [error]);
 
@@ -75,10 +77,10 @@ export default function Profile() {
         if (orgToken) {
           setOrgToken(orgToken);
         } else {
-          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+          toast.show(t('toasts.dashboard.tokenNotFound'), { type: 'danger', placement: 'top', duration: 3000 });
         }
       } catch (error) {
-        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.failedToken'), { type: 'danger', placement: 'top', duration: 3000 });
       } 
     };
     fetchOrgToken();
@@ -98,7 +100,7 @@ export default function Profile() {
 
 useEffect(() => {
   if (err) {
-    toast.show(`Error fetching profile.${err}` , { type: 'danger', placement: 'top', duration: 3000 });
+    toast.show(t('toasts.dashboard.profileErr') , { type: 'danger', placement: 'top', duration: 3000 });
   }
 }, [err]);
 
@@ -121,10 +123,10 @@ useEffect(() => {
             <ProfileAvatar name={profile?.name} src={profile.avatar} size='lg' />
             <TouchableOpacity
               onPress={() => router.push('/dashboard/trainee/profile/edit')}
-              className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row justify-center items-center"
+              className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row  items-center w-32 h-13"
             >
               <Ionicons name="pencil" size={18} color="white" />
-              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">Edit</Text>
+              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">{t('editProfile.edit')}</Text>
             </TouchableOpacity>
           </View>
         </View>

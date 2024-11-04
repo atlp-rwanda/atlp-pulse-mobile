@@ -155,19 +155,79 @@
     "english": "Icyongereza",
     "french": "Igifaransa"
   },
-  "loginmsg": {
-    "welcome": "Murakaza neza! Injira kugira ngo ukomeze",
-    "invalid_credentials": "Ibisobanuro byanyu sibyo",
-    "error": "Ikosa",
-    "network_error": "Habaye ikibazo mu kuvugana na seriveri",
-    "general_error": "Habaye ikibazo kitateganyijwe.",
-    "auth_error": "Mutegereze ko mwongerwa muri gahunda cyangwa itsinda"
-  },
   "account": {
     "changePassword": "Hindura ijambo ry'ibanga",
     "resetPassword": "Hindura ijambo ry'ibanga",
     "currentPassword": "Ijambo ry'ibanga usanganywe",
     "newPassword": "Ijambo ry'ibanga rishya",
     "confirmPassword": "Emeza ijambo ry'ibanga"
-  }
+  },
+  "editProfile": {
+    "editProfile": "HINDURA UMWIRONDORO",
+    "backToProfile" : "Subira ku mwirondoro",
+    "city" : "Umujyi",
+    "country" : "Igihugu",
+    "updateProfile" : "Kuvugurura Umwirondoro",
+    "uploadResume" : "SHYIRAHO CV",
+    "uploadFromPhone" : "Kura Muri Telefoni",
+    "uploadResumeFromPhone" : "Kura CV muri Telefoni",
+    "addLink" : "Ongeraho Ihuza ryo hanze",
+    "enterLink" : "Injiza ihuza ryo hanze",
+    "uploadLink" : "Shyiraho CV uhereye kumurongo wo hanze",
+    "chooseFile" : "Hitamo Dosiye",
+    "upload" : "Shyiraho",
+    "edit": "Hindura"
+},
+"settings": {
+  "title" : "Igenamiterere",
+  "profile": "Umwirondoro",
+  "editProfile": "Hindura umwirondoro, ohereza konti, amakuru…",
+  "change": "Hindura",
+  "appearance": "Kugaragara",
+  "themePreferences": "Ibyifuzo by’inyandiko",
+  "language": "Ururimi",
+  "languagePreference": "Ibyifuzo by'ururimi",
+  "emailNotify": "Ibyanditswe ku Imeyili",
+  "emailFeeds": "Imeyili z'ibitekerezo, kwibutsa, amakuru",
+  "pushNotify": "Gutanga amatangazo",
+  "pushUpdates": "Amakuru ku manota, kwibutsa amasomo, ibisobanuro ku myitwarire",
+  "privacy": "Ubuzima bwite n'Umutekano",
+  "login": "Ibikorwa byo kwinjira",
+  "loginHistory": "Amateka y'ibihe wakoresheje winjira",
+  "view": "Reba"
+},
+"toasts": {
+  "auth":{
+    "registerErr": "Ikimenyetso kirarangiye cyangwa ntigikora",
+    "unknownErr": "Ikosa: Ikosa ritazwi",
+    "invalidToken": "Ikimenyetso kirarangiye cyangwa ntigikora",
+    "terms": "Nyamuneka emera amabwiriza n'amategeko",
+    "invalidCredentials": "Amakuru ya konti ntabwo ari yo",
+    "error": "Ikosa",
+    "networkError": "Habaye ikibazo cyo kuvugana n'umukozi wa seriveri",
+    "generalError": "Habaye ikosa ritunguranye.",
+    "authError": "Tegereza kugira ngo wongerwe muri gahunda cyangwa itsinda",
+    "loginErr": "Iyi porogaramu n'iy'abanyeshuri gusa! Injira ukoresheje urubuga",
+    "logSuccess": "Murakaza neza! Injira kugira ngo ukomeze",
+"checkEmail": "Reba email yawe kugira ngo ukomeze!",
+"resetSuccess": "Wongeye gushyiraho ijambo ry'ibanga neza!"
+  },
+"dashboard": {
+  "tokenNotFound": "Ikimenyetso cya konti nticyabonetse.",
+  "failedToken": "Byanze kubona ikimenyetso.",
+  "profileErr": "Ikosa mu kubona umwirondoro.",
+  "updateSuccess": "Umwirondoro wahinduwe neza",
+  "updateFailed": "Ntibyakunze guhindura umwirondoro",
+  "decodeErr": "Byanze gusobanura ikimenyetso.",
+  "uploadCvError": "Ikosa mu gushyira CV",
+  "uploadCvSuccess": "CV yashyizweho neza",
+  "mutationFail": "Guhindura GET_TRAINEE_PROFILE byanze.",
+  "fileErr": "Nyamuneka hitamo dosiye",
+  "linkErr": "Nyamuneka shyiramo link y'inyuma ikwiye",
+  "logoutErr": "Ikosa mu gusohoka",
+  "navigationErr": "Byanze kugera aho ushaka",
+  "updatePassSuccess": "Ijambo ry'ibanga ryongewe neza",
+  "updatePassFail": "Yooo, habaye ikibazo"
+}
+}
 }

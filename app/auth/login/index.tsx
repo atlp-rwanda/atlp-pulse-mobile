@@ -7,6 +7,7 @@ import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect,useState } from 'react';
 import { useToast } from 'react-native-toast-notifications';
 import {ToastAndroid } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 class ErrorHandler {
   static handleNetworkError() {
@@ -29,6 +30,7 @@ class ErrorHandler {
 export default function SignInOrganization() {
   const toast = useToast();
   const router = useRouter();
+  const {t} = useTranslation();
   const [orgLoginSuccess, setOrgLoginSuccess] = useState(false);
   const [orgLoginMutation] = useMutation(ORG_LOGIN_MUTATION);
   const [LoginUser] = useMutation(LOGIN_MUTATION);
@@ -57,7 +59,7 @@ export default function SignInOrganization() {
           AsyncStorage.setItem('orgToken', loginOrg.token);
           let value: string = String(values.organization);
           AsyncStorage.setItem('orgName', value);
-          toast.show('Welcome! Sign in to Continue', {
+          toast.show(t('toasts.auth.logSuccess'), {
             type: 'success',
             placement: 'top',
             duration: 4000,
@@ -76,7 +78,7 @@ export default function SignInOrganization() {
         },
       });
     } catch (err: any) {
-      toast.show(`An unexpected error occurred: ${err.message}`, { type: 'danger' });
+      toast.show(t('toasts.auth.generalError'), { type: 'danger' });
     }
   };
 
@@ -110,7 +112,7 @@ export default function SignInOrganization() {
                 : router.push('/dashboard');
               return;
             } else {
-              toast.show('This app is for trainees only! Login through the web', {
+              toast.show(t('toasts.auth.loginErr'), {
                 type: 'danger',
               });
               return;
@@ -123,16 +125,16 @@ export default function SignInOrganization() {
         },
         onError: (err) => {
           if (err.networkError) {
-            toast.show('There was a problem contacting the server', { type: 'danger' });
+            toast.show(t('toasts.auth.networkError'), { type: 'danger' });
           } else if (err.message.toLowerCase() === 'invalid credential') {
-            toast.show('Invalid credentials', { type: 'danger' });
+            toast.show(t('toasts.auth.invalidCredentials'), { type: 'danger' });
           } else if (err instanceof ApolloError) {
             toast.show(err.message, { type: 'danger' });
           }
         },
       });
     } catch (error: any) {
-      toast.show(`An unexpected error occurred: ${error.message}`, { type: 'danger' });
+      toast.show(t('toasts.auth.generalError') , { type: 'danger' });
     }
   };
 
