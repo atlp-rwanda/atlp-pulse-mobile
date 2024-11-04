@@ -2,10 +2,10 @@ import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import EventCard from './EventCard';
 import DatePickerCard from './DatePickerCard';
-import WorningCard from './WorningCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GET_EVENTS} from '@/graphql/queries/event';
 import { useQuery } from '@apollo/client';
+import dayjs,{ Dayjs } from 'dayjs'
 
 type Event = {
   id: string;
@@ -18,8 +18,7 @@ type Event = {
 };
 
 const CalendarBody = () => {
-  const [isWarningVisible, setWarningVisible] = useState(false);
-  const [eventToDelete, setEventToDelete] = useState('');
+  const [selectedDate, setSelectedDate] = useState<string | null>(dayjs().format('YYYY-MM-DD'));
   const colorScheme = useColorScheme();
   const [authToken, setAuthToken] = useState<string | null>(null);
 
@@ -41,16 +40,20 @@ const CalendarBody = () => {
     skip: !authToken,
   });
 
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error fetching events: {error.message}</Text>;
 
-  const handleDeleteEvent = (eventName:any) => {
-    setEventToDelete(eventName);
-    setWarningVisible(true);
-  };
+  // Get today's date in the format of your events' start dates
+  const today = dayjs().format('YYYY-MM-DD');
 
-  const handleConfirmDelete = () => {
-    // Handle event deletion logic here
-    console.log(`Deleting event: ${eventToDelete}`);
-    setWarningVisible(false);
+  // Filter events to only include today's events
+  const todayEvents = data?.getEvents?.filter((event: Event) => {
+    const eventDate = dayjs(event.start).format('YYYY-MM-DD'); // Assuming start holds the date
+    return eventDate === today;
+  });
+
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date); // Update the selected date based on user's choice
   };
 
   return (
@@ -59,29 +62,20 @@ const CalendarBody = () => {
         <Text className={`text-xl font-Inter-Bold rounded ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>Calender</Text>
       </View>
       <View className='w-full'>
-        <DatePickerCard/>
+        <DatePickerCard
+        onDateChange={handleDateChange}
+        />
       </View>
 
       <View className='w-full'>
-      {data?.getEvents?.map((event: Event) => (
-        <EventCard
-        key={event.id}
-        eventName={event.title}
-        onDelete={handleDeleteEvent}
-        />
-      ))}
-      </View>
-      {isWarningVisible && (
-        <View className='absolute flex justify-center items-center bg-opacity-50'>
-          <WorningCard
-            isvisible={isWarningVisible}
-            EventToDelete={eventToDelete}
-            onCancel={()=>setWarningVisible(false)}
-            onConfirm={handleConfirmDelete}
+      {todayEvents?.map((event: Event) => (
+          <EventCard
+            key={event.id}
+            eventstarttime={event.timeToStart}
+            eventName={event.title}
           />
-        </View>
-      )}
-
+        ))}
+      </View>
     </View>
   )
 }
