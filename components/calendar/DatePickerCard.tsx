@@ -5,7 +5,11 @@ import CalendarHeader from './CalendarHeader';
 import dayjs,{ Dayjs } from 'dayjs'
 
 
-const DatePickerCard = () => {
+type DatePickerCardProps = {
+  onDateChange: (date: string) => void;
+};
+
+const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
   const [currentDate, setCurrentDate] = useState(dayjs(new Date()).format('YYYY-MM-DD'))
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const colorScheme = useColorScheme();
@@ -19,6 +23,7 @@ const DatePickerCard = () => {
 
   const handleDayPress = (day: { dateString: string }) => {
     setSelectedDate(day.dateString);
+    onDateChange(day.dateString);
   };
 
   const handleBlur = () => {
