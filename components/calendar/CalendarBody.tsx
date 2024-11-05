@@ -1,4 +1,3 @@
-// CalendarBody.tsx
 import { View, Text, useColorScheme } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
