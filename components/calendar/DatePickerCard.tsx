@@ -59,20 +59,31 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
     markedDates[todayDate] = {
       ...markedDates[todayDate], // Preserve any existing dot
       selected: true,
-      selectedColor: colorScheme === 'light' ? '#8667F24D' : '#8667F24D',
+      selectedColor: colorScheme === 'light' ? '#8667F2' : '#8667F24D',
       selectedTextColor: '#FFFFFF',
     };
 
-    // Mark selected date
-    if (selectedDate) {
-      markedDates[selectedDate] = {
-        ...markedDates[selectedDate], // Preserve any existing dot
-        selected: true,
-        selectedColor: '#8667F2',
-        selectedTextColor: '#FFFFFF',
-      };
-    }
-
+    // Mark selected date distinctly with custom style
+  if (selectedDate) {
+    markedDates[selectedDate] = {
+      selected: true,
+      color: '#8667F2', // Custom background color for selected date
+      textColor: '#FFFFFF', // Text color for selected date
+      // Add custom styles for selected day
+      dotColor: '#FFFFFF', // Dot color for events
+      // Add the new styling properties here
+      customStyles: {
+        container: {
+          borderWidth: 3,
+          borderColor: '#8667F2',
+          borderRadius: 16,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 0.5,
+        },
+      },
+    };
+  }
     return markedDates;
   };
 
