@@ -1,4 +1,3 @@
-// DatePickerCard.tsx
 import { View, useColorScheme, TouchableWithoutFeedback } from 'react-native';
 import React, { useState } from 'react';
 import { Calendar } from 'react-native-calendars';
@@ -35,7 +34,6 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
     setSelectedDate(null);
   };
 
-  // Helper function to get marked dates with dots for events
   const getMarkedDates = () => {
     const markedDates: { [key: string]: any } = {};
 
@@ -48,33 +46,29 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
         if (!markedDates[dateString]) {
           markedDates[dateString] = {
             marked: true,
-            dotColor: '#008080', // Customize dot color as needed
+            dotColor: '#8667F2',
             textColor: colorScheme === 'light' ? '#333333' : '#FFFFFF',
           };
         }
       }
     });
 
-    // Mark today's date
     markedDates[todayDate] = {
-      ...markedDates[todayDate], // Preserve any existing dot
+      ...markedDates[todayDate],
       selected: true,
       selectedColor: colorScheme === 'light' ? '#8667F2' : '#8667F24D',
       selectedTextColor: '#FFFFFF',
     };
 
-    // Mark selected date distinctly with custom style
   if (selectedDate) {
     markedDates[selectedDate] = {
       selected: true,
-      color: '#8667F2', // Custom background color for selected date
-      textColor: '#FFFFFF', // Text color for selected date
-      // Add custom styles for selected day
-      dotColor: '#FFFFFF', // Dot color for events
-      // Add the new styling properties here
+      color: '#8667F2',
+      textColor: '#FFFFFF',
+      dotColor: '#FFFFFF',
       customStyles: {
         container: {
-          borderWidth: 3,
+          borderWidth: 2.3,
           borderColor: '#8667F2',
           borderRadius: 16,
           justifyContent: 'center',
