@@ -86,9 +86,9 @@ export default function AppOnboarding() {
       </View>
 
       {/* Language Switcher */}
-      {/* <View className="mb-4">
+      <View className="mb-4">
         <LanguagePicker />
-      </View> */}
+      </View>
 
       {/* Get Started Button */}
       <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
