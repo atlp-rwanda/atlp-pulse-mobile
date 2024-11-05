@@ -5,6 +5,7 @@ import DatePickerCard from './DatePickerCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GET_EVENTS } from '@/graphql/queries/event';
 import { useQuery } from '@apollo/client';
+import CalendarSkeleton from './CalendarSkeleton';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
@@ -45,7 +46,7 @@ const CalendarBody = () => {
     skip: !authToken,
   });
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) return <CalendarSkeleton />;
   if (error) return <Text>Error fetching events: {error.message}</Text>;
 
   const events = data?.getEvents || [];
