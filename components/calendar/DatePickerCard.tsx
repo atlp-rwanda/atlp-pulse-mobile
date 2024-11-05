@@ -1,25 +1,30 @@
-import { View, Text, useColorScheme, TouchableWithoutFeedback } from 'react-native'
-import React, { useState } from 'react'
+// DatePickerCard.tsx
+import { View, useColorScheme, TouchableWithoutFeedback } from 'react-native';
+import React, { useState } from 'react';
 import { Calendar } from 'react-native-calendars';
 import CalendarHeader from './CalendarHeader';
-import dayjs,{ Dayjs } from 'dayjs'
+import dayjs from 'dayjs';
 
+type Event = {
+  id: string;
+  start: string;
+  end: string;
+};
 
 type DatePickerCardProps = {
   onDateChange: (date: string) => void;
+  events: Event[];
 };
 
-const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
-  const [currentDate, setCurrentDate] = useState(dayjs(new Date()).format('YYYY-MM-DD'))
+const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events }) => {
+  const [currentDate, setCurrentDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const colorScheme = useColorScheme();
   const todayDate = dayjs().format('YYYY-MM-DD');
-  
-  const handleMonthChange = (newDate:string | Dayjs) => {
-    const formattedDate = typeof newDate === 'string' ? newDate : newDate.format('YYYY-MM-DD');
-    setCurrentDate(formattedDate)
-    console.log(newDate)
-  }
+
+  const handleMonthChange = (newDate: string) => {
+    setCurrentDate(newDate);
+  };
 
   const handleDayPress = (day: { dateString: string }) => {
     setSelectedDate(day.dateString);
@@ -28,6 +33,47 @@ const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
 
   const handleBlur = () => {
     setSelectedDate(null);
+  };
+
+  // Helper function to get marked dates with dots for events
+  const getMarkedDates = () => {
+    const markedDates: { [key: string]: any } = {};
+
+    events.forEach((event) => {
+      const startDate = dayjs(event.start);
+      const endDate = dayjs(event.end);
+
+      for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date = date.add(1, 'day')) {
+        const dateString = date.format('YYYY-MM-DD');
+        if (!markedDates[dateString]) {
+          markedDates[dateString] = {
+            marked: true,
+            dotColor: '#008080', // Customize dot color as needed
+            textColor: colorScheme === 'light' ? '#333333' : '#FFFFFF',
+          };
+        }
+      }
+    });
+
+    // Mark today's date
+    markedDates[todayDate] = {
+      ...markedDates[todayDate], // Preserve any existing dot
+      selected: true,
+      selectedColor: colorScheme === 'light' ? '#8667F24D' : '#8667F24D',
+      selectedTextColor: '#FFFFFF',
+    };
+
+    // Mark selected date
+    if (selectedDate) {
+      markedDates[selectedDate] = {
+        ...markedDates[selectedDate], // Preserve any existing dot
+        selected: true,
+        selectedColor: '#8667F2',
+        selectedTextColor: '#FFFFFF',
+      };
+    }
+
+    return markedDates;
   };
 
   return (
@@ -39,7 +85,7 @@ const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
           onMonthChange={(month) => handleMonthChange(dayjs(month.dateString).format('YYYY-MM-DD'))}
           theme={{
             calendarBackground: colorScheme === 'light' ? '#FFFFFF' : '#020917',
-            textSectionTitleColor: colorScheme === 'light' ? '#C5C5C5' : ' #585757',   
+            textSectionTitleColor: colorScheme === 'light' ? '#C5C5C5' : '#585757',
             dayTextColor: colorScheme === 'light' ? '#585757' : '#C5C5C5',
             todayTextColor: "#8667F24D",
             selectedDayBackgroundColor: "#020917",
@@ -47,34 +93,10 @@ const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
             textDisabledColor: "#D6C7A1",
           }}
           markingType="custom"
-          markedDates={{
-            [todayDate]: {
-              selected: true,
-              selectedColor: colorScheme === 'light' ? '#8667F24D' : '#8667F24D',
-              selectedTextColor: '#FFFFFF',
-            },
-            ...(selectedDate && {
-            [selectedDate]: {
-              customStyles: {
-                container: {
-                  borderWidth: 3,
-                  borderColor: '#8667F2',
-                  borderRadius: 16, 
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  padding: 0.5,
-                },
-                text: {
-                  color: '#FFFFFF',
-                  fontWeight: 'bold',
-                },
-              },
-            },
-          }),
-          }}
-          customHeader={()=>(
+          markedDates={getMarkedDates()}
+          customHeader={() => (
             <CalendarHeader currentDate={currentDate} onChangeMonth={handleMonthChange} />
-        )}
+          )}
           onDayPress={handleDayPress}
           hideExtraDays={true}
           hideDayNames={false}
@@ -83,7 +105,7 @@ const DatePickerCard :React.FC<DatePickerCardProps> = ({ onDateChange }) => {
         />
       </View>
     </TouchableWithoutFeedback>
-  )
-}
+  );
+};
 
-export default DatePickerCard
+export default DatePickerCard;
