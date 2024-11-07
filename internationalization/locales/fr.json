@@ -155,19 +155,79 @@
     "english": "Anglais",
     "french": "Français"
   },
-  "loginmsg": {
-    "welcome": "Bienvenue! Connectez-vous pour continuer",
-    "invalid_credentials": "Identifiants invalides",
-    "error": "Erreur",
-    "network_error": "Il y a eu un problème de connexion avec le serveur",
-    "general_error": "Une erreur inattendue s'est produite.",
-    "auth_error": "Veuillez attendre d'être ajouté à un programme ou à une cohorte"
-  },
   "account": {
     "changePassword": "Changer le mot de passe",
     "resetPassword": "Réinitialiser le mot de passe",
     "currentPassword": "Mot de passe actuel",
     "newPassword": "Nouveau mot de passe",
     "confirmPassword": "Confirmer le mot de passe"
-  }
+  },
+  "editProfile": {
+    "editProfile": "MODIFIER LE PROFIL",
+    "backToProfile" : "Retour au Profil",
+    "city" : "Ville",
+    "country" : "Pays",
+    "updateProfile" : "Mettre à Jour le Profil",
+    "uploadResume" : "TÉLÉCHARGER CV",
+    "uploadFromPhone" : "Télécharger depuis le Téléphone",
+    "uploadResumeFromPhone" : "Téléchargez le CV depuis votre téléphone",
+    "addLink" : "Ajouter lien externe",
+    "enterLink" : "Entrer lien externe",
+    "uploadLink" : "Télécharger le CV à partir d'un lien externe",
+    "chooseFile" : "Choisir le Fichier",
+    "upload" : "Télécharger",
+    "edit": "Modifier"
+},
+"settings": {
+  "title" : "Paramètres",
+  "profile": "Profil",
+  "editProfile": "Modifier le profil, exporter le compte, données…",
+  "change": "Modifier",
+  "appearance": "Apparence",
+  "themePreferences": "Préférences de thème",
+  "language": "Langue",
+  "languagePreference": "Préférence de langue",
+  "emailNotify": "Notifications par e-mail",
+  "emailFeeds": "E-mails de retour, rappels, actualités",
+  "pushNotify": "Notifications poussées",
+  "pushUpdates": "Mises à jour des notes, rappels de session, commentaires de performance",
+  "privacy": "Confidentialité et Sécurité",
+  "login": "Activité de connexion",
+  "loginHistory": "Historique de vos sessions de connexion",
+  "view": "Voir"
+},
+"toasts": {
+  "auth": {
+    "registerErr": "Jeton invalide ou expiré",
+    "unknownErr": "Erreur : Erreur inconnue",
+    "invalidToken": "Jeton invalide ou expiré",
+    "terms": "Veuillez accepter les conditions générales",
+    "invalidCredentials": "Identifiants invalides",
+    "error": "Erreur",
+    "networkError": "Un problème est survenu lors de la connexion au serveur",
+    "generalError": "Une erreur inattendue s'est produite.",
+    "authError": "Veuillez attendre d'être ajouté à un programme ou à une cohorte",
+    "loginErr": "Cette application est réservée aux stagiaires ! Connectez-vous via le web",
+    "logSuccess": "Bienvenue ! Connectez-vous pour continuer",
+  "checkEmail": "Vérifiez votre e-mail pour continuer !",
+"resetSuccess": "Vous avez réinitialisé votre mot de passe avec succès !"
+  },
+"dashboard": {
+  "tokenNotFound": "Jeton utilisateur introuvable.",
+  "failedToken": "Échec de la récupération du jeton.",
+  "profileErr": "Erreur lors de la récupération du profil.",
+  "updateSuccess": "Le profil a été mis à jour",
+  "updateFailed": "Échec de la mise à jour du profil",
+  "decodeErr": "Échec du décodage du jeton.",
+  "uploadCvError": "Erreur de téléchargement",
+  "uploadCvSuccess": "CV téléchargé avec succès",
+  "mutationFail": "La mise à jour du cache GET_TRAINEE_PROFILE a échoué.",
+  "fileErr": "Veuillez choisir un fichier",
+  "linkErr": "Veuillez entrer un lien externe valide",
+  "logoutErr": "Erreur de déconnexion",
+  "navigationErr": "Échec de la navigation",
+  "updatePassSuccess": "Mot de passe mis à jour avec succès",
+  "updatePassFail": "Oups, quelque chose s'est mal passé"
+}
+}
 }

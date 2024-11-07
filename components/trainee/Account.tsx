@@ -4,11 +4,11 @@ import { ApolloError, useMutation } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFormik } from 'formik';
-import { t } from 'i18next';
 import { useState } from 'react';
 import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import { Text, View } from '../Themed';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   currentPassword: string;
@@ -22,6 +22,7 @@ type ProfileAccountTabProps = {
 
 export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTabProps) {
   const toast = useToast();
+  const { t } = useTranslation();
   const colorScheme = useColorScheme();
   const [loading, setLoading] = useState(false);
   const [changeUserPassword] = useMutation(CHANGE_USER_PASSWORD);
@@ -46,7 +47,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
         });
 
         if (data) {
-          toast.show(data?.changeUserPassword || 'Password updated successfully', {
+          toast.show(data?.changeUserPassword || t('toasts.dashboard.updatePassSuccess'), {
             type: 'success',
           });
           passwordUpdated?.();
@@ -60,7 +61,7 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
         if (error instanceof ApolloError) {
           toast.show(error.message, { type: 'danger' });
         } else {
-          toast.show(`Oops, something went wrong`, { type: 'danger' });
+          toast.show(t('toasts.dashboard.updatePassFail'), { type: 'danger' });
         }
       }
       setLoading(false);

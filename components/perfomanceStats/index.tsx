@@ -47,7 +47,7 @@ const PerformanceScores = () => {
         if (token) {
           setUserToken(token);
         } else {
-          toast.show('Error: User token not found.', {
+          toast.show(t('toasts.dashboard.tokenNotFound'), {
             type: 'danger',
             placement: 'top',
             duration: 4000,
@@ -55,7 +55,7 @@ const PerformanceScores = () => {
           });
         }
       } catch (error) {
-        toast.show('Error: Failed to fetch token.', {
+        toast.show(t('toasts.dashboard.failedToken'), {
           type: 'danger',
           placement: 'top',
           duration: 4000,

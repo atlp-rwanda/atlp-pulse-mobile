@@ -21,6 +21,7 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useToast } from 'react-native-toast-notifications';
 import { CoverImage } from '.';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = {
   firstName: string;
@@ -39,6 +40,7 @@ const EditProfile = () => {
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-secondary-dark-900' : 'bg-secondary-light-300';
   const toast = useToast();
+  const { t } = useTranslation();
   const [Loading, setLoading] = useState(false);
   const [tab, setTab] = useState(0);
   const [profile, setProfile] = useState<any>({});
@@ -58,10 +60,10 @@ const EditProfile = () => {
         if (token) {
           setUserToken(token);
         } else {
-          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+          toast.show(t('toasts.dashboard.tokenNotFound'), { type: 'danger', placement: 'top', duration: 3000 });
         }
       } catch (error) {
-        toast.show('Failed to retrieve token.', {
+        toast.show(t('toasts.dashboard.failedToken'), {
           type: 'danger',
           placement: 'top',
           duration: 3000,
@@ -81,7 +83,7 @@ const EditProfile = () => {
   });
   useEffect(() => {
     if (error) {
-      toast.show('Error fetching profile.', { type: 'danger', placement: 'top', duration: 3000 });
+      toast.show(t('toasts.dashboard.profileErr'), { type: 'danger', placement: 'top', duration: 3000 });
     }
   }, [error]);
 
@@ -131,7 +133,7 @@ const EditProfile = () => {
         });
 
         if (data) {
-          toast.show('Profile has been updated', {
+          toast.show(t('toasts.dashboard.updateSuccess'), {
             type: 'success',
             placement: 'top',
             duration: 4000,
@@ -139,7 +141,7 @@ const EditProfile = () => {
           router.push('/dashboard/trainee/profile');
         }
       } catch (error) {
-        toast.show('Failed to update profile', {
+        toast.show(t('toasts.dashboard.updateFailed'), {
           type: 'danger',
           placement: 'top',
           duration: 4000,
@@ -178,14 +180,13 @@ const EditProfile = () => {
         <View className=" absolute bottom-[-30px] left-6">
           <View className="relative">
             <ProfileAvatar name={profile?.name} src={profile.avatar} size="lg" />
-            <TouchableOpacity className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row justify-center items-center">
+            <TouchableOpacity className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13">
               <Ionicons name="pencil" size={18} color="white" />
-              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">Edit</Text>
+              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">{t('editProfile.edit')}</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-
       <View className="flex-row justify-center items-center gap-3 my-4">
         <TouchableOpacity
           className={`${bgColor} px-4 py-3 border-b-4 ${
@@ -195,7 +196,7 @@ const EditProfile = () => {
           }`}
           onPress={() => handleTabPress('EDIT PROFILE')}
         >
-          <Text className={`${textColor}`}>EDIT PROFILE</Text>
+          <Text className={`${textColor}`}>{t('editProfile.editProfile')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           className={`${bgColor} px-4 py-3 border-b-4 ${
@@ -205,7 +206,7 @@ const EditProfile = () => {
           }`}
           onPress={() => handleTabPress('UPLOAD RESUME')}
         >
-          <Text className={`${textColor}`}>UPLOAD RESUME</Text>
+          <Text className={`${textColor}`}>{t('editProfile.uploadResume')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -216,7 +217,7 @@ const EditProfile = () => {
             className="flex-row flex-grow-0 items-center justify-start mb-4 bg-action-500 px-2 py-2 rounded-lg"
           >
             <Ionicons name="arrow-back" size={20} color={'white'} />
-            <Text className="text-white text-lg ">Back to Profile</Text>
+            <Text className="text-white text-lg ">{t('editProfile.backToProfile')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -224,13 +225,13 @@ const EditProfile = () => {
           <>
             <View className="mb-4">
               <View className="mb-4">
-                <Text className={`${textColor} p-2`}>First Name</Text>
+                <Text className={`${textColor} p-2`}>{t('userRegister.firstName')}</Text>
                 <View
                   className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
                   <TextInput
                     testID="first-name"
-                    placeholder="First Name"
+                    placeholder={t('userRegister.firstName')}
                     onChangeText={formik.handleChange('firstName')}
                     onBlur={formik.handleBlur('firstName')}
                     value={formik.values.firstName}
@@ -243,13 +244,13 @@ const EditProfile = () => {
                 )}
               </View>
               <View className="mb-4">
-                <Text className={`${textColor} p-2`}>Last Name</Text>
+                <Text className={`${textColor} p-2`}>{t('userRegister.lastName')}</Text>
                 <View
                   className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
                   <TextInput
                     testID="last-name"
-                    placeholder="Last Name"
+                    placeholder="{t('userRegister.lastName')}"
                     onChangeText={formik.handleChange('lastName')}
                     onBlur={formik.handleBlur('lastName')}
                     value={formik.values.lastName}
@@ -262,13 +263,13 @@ const EditProfile = () => {
                 )}
               </View>
               <View className="mb-4">
-                <Text className={`${textColor} p-2`}>Phone Number</Text>
+                <Text className={`${textColor} p-2`}>{t('about.phoneNumber')}</Text>
                 <View
                   className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
                   <TextInput
                     testID="phoneNumber"
-                    placeholder="Phone Number"
+                    placeholder={t('about.phoneNumber')}
                     onChangeText={formik.handleChange('phoneNumber')}
                     onBlur={formik.handleBlur('phoneNumber')}
                     value={formik.values.phoneNumber}
@@ -281,13 +282,13 @@ const EditProfile = () => {
               </View>
 
               <View className="mb-4">
-                <Text className={`${textColor} p-2`}>GitHub Username</Text>
+                <Text className={`${textColor} p-2`}>{t('about.githubUsername')}</Text>
                 <View
                   className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
                   <TextInput
                     testID="githubUsername"
-                    placeholder="GitHub Username"
+                    placeholder={t('about.githubUsername')}
                     onChangeText={formik.handleChange('githubUsername')}
                     onBlur={formik.handleBlur('githubUsername')}
                     value={formik.values.githubUsername}
@@ -299,13 +300,13 @@ const EditProfile = () => {
 
               <View className="flex-row gap-4 mb-4 w-full">
                 <View className="flex-1">
-                  <Text className={`${textColor} p-2`}>Address</Text>
+                  <Text className={`${textColor} p-2`}>{t('about.address')}</Text>
                   <View
                     className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                   >
                     <TextInput
                       testID="address"
-                      placeholder="Address"
+                      placeholder={t('about.address')}
                       onChangeText={formik.handleChange('address')}
                       onBlur={formik.handleBlur('address')}
                       value={formik.values.address}
@@ -316,13 +317,13 @@ const EditProfile = () => {
                 </View>
 
                 <View className="flex-1">
-                  <Text className={`${textColor} p-2`}>City</Text>
+                  <Text className={`${textColor} p-2`}>{t('editProfile.city')}</Text>
                   <View
                     className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                   >
                     <TextInput
                       testID="city"
-                      placeholder="City"
+                      placeholder={t('editProfile.city')}
                       onChangeText={formik.handleChange('city')}
                       onBlur={formik.handleBlur('city')}
                       value={formik.values.city}
@@ -334,7 +335,7 @@ const EditProfile = () => {
               </View>
 
               <View className="mb-4 z-30">
-                <Text className={`${textColor} p-2`}>Country</Text>
+                <Text className={`${textColor} p-2`}>{t('editProfile.country')}</Text>
 
                 <View
                   className={`flex-row items-center px-3 ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
@@ -356,13 +357,13 @@ const EditProfile = () => {
                 </View>
               </View>
               <View className="mb-4">
-                <Text className={`${textColor} p-2`}>Biography</Text>
+                <Text className={`${textColor} p-2`}>{t('about.biography')}</Text>
                 <View
                   className={`flex-row items-center ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
                   <TextInput
                     testID="biography"
-                    placeholder="Biography"
+                    placeholder={t('about.biography')}
                     onChangeText={formik.handleChange('biography')}
                     onBlur={formik.handleBlur('biography')}
                     value={formik.values.biography}
@@ -383,7 +384,7 @@ const EditProfile = () => {
               {Loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text className="text-white text-center text-lg">Update Profile</Text>
+                <Text className="text-white text-center text-lg">{t('editProfile.updateProfile')}</Text>
               )}
             </TouchableOpacity>
           </>

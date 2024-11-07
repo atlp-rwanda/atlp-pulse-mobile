@@ -3,11 +3,13 @@ import { View, Switch, Text, useColorScheme, TouchableOpacity, StyleSheet } from
 import { router } from 'expo-router';
 import LanguagePicker from '../LanguagePicker';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useTranslation } from 'react-i18next';
 
-const Settings = () => {
+const settings = () => {
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [pushNotifications, setPushNotifications] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState('system');
+  const { t } = useTranslation();
 
   const colorScheme = selectedTheme === 'system' ? useColorScheme() : selectedTheme;
   const textStyle = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
@@ -22,20 +24,19 @@ const Settings = () => {
 
   return (
     <View className={`p-4 mb-8 ${containerStyle}`}>
-      <Text className={`text-2xl font-extrabold ml-4 mb-4 ${textStyle}`}>Settings</Text>
-
+      <Text className={`text-2xl font-extrabold ml-4 mb-4 ${textStyle}`}>{t('settings.title')}</Text>
       {/* Profile Section */}
       <View className="mb-6 p-4 rounded-lg flex flex-row justify-center">
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Profile</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>Edit profile, export account, data…</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.profile')}</Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.editProfile')}</Text>
         </View>
         <TouchableOpacity className="flex items-end">
           <Text
             className={`${textStyle} mt-2`}
             onPress={() => router.push('/dashboard/trainee/profile')}
           >
-            Change
+            {t('settings.change')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -43,8 +44,8 @@ const Settings = () => {
       {/* Theme Picker */}
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex flex-row`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Appearance</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>Theme preferences</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.appearance')}</Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.themePreferences')}</Text>
         </View>
         <View className="flex-row items-center gap-5">
           <Dropdown
@@ -63,9 +64,9 @@ const Settings = () => {
 
       {/* Language Picker */}
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg  justify-between`}>
-        <Text className={`text-xl font-bold ${textStyle}`}>Language</Text>
+        <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.language')}</Text>
         <View className="flex-row justify-between  w-full mr-4">
-          <Text className={`${textStyle} mt-2 text-lg flex-1`}>Language Preference</Text>
+          <Text className={`${textStyle} mt-2 text-lg flex-1`}>{t('settings.languagePreference')}</Text>
           <View className={`border  ${borderColor}  flex-1 rounded-md `}>
             <LanguagePicker showFlag={false} />
           </View>
@@ -75,9 +76,9 @@ const Settings = () => {
       {/* Email Notifications */}
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-between`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Email Notifications</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.emailNotify')}</Text>
           <Text className={`text-lg mt-2 ${textStyle}`}>
-            Feedback emails, reminder emails, news emails
+          {t('settings.emailFeeds')}
           </Text>
         </View>
         <Switch
@@ -91,9 +92,9 @@ const Settings = () => {
       {/* Push Notifications */}
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-between`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Push Notifications</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.pushNotify')}</Text>
           <Text className={`text-lg mt-2 ${textStyle}`}>
-            Grade updates, session reminders, performance comments
+          {t('settings.pushUpdates')}
           </Text>
         </View>
         <Switch
@@ -107,19 +108,19 @@ const Settings = () => {
       {/* Privacy and Security */}
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-center`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Privacy and Security</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>Privacy and Security</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.privacy')}</Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.privacy')}</Text>
         </View>
-        <Text className={`mt-2 ${textStyle}`}>Change</Text>
+        <Text className={`mt-2 ${textStyle}`}>{t('settings.change')}</Text>
       </View>
 
       {/* Login Activity */}
       <View className={`p-4 mb-7 border-t ${borderColor} rounded-lg flex flex-row justify-center`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>Login Activity</Text>
-          <Text className={`text-lg ${textStyle}`}>History of Your login session</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.login')}</Text>
+          <Text className={`text-lg ${textStyle}`}>{t('settings.loginHistory')}</Text>
         </View>
-        <Text className={`mt-2 ${textStyle}`}>View</Text>
+        <Text className={`mt-2 ${textStyle}`}>{t('settings.view')}</Text>
       </View>
     </View>
   );
@@ -139,4 +140,4 @@ const styles = StyleSheet.create({
   }),
 });
 
-export default Settings;
+export default settings;

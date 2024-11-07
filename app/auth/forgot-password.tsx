@@ -42,7 +42,7 @@ export default function ResetPassword() {
         await resetMutation({
           variables: { email: values.email },
           onCompleted: () => {
-            toast.show('Check your email to proceed!', {
+            toast.show(t('toasts.auth.checkEmail'), {
               type: 'success',
               placement: 'top',
               duration: 4000,

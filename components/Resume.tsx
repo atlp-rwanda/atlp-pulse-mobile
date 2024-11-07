@@ -11,6 +11,7 @@ import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {jwtDecode} from 'jwt-decode';
 import { GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
+import { useTranslation } from 'react-i18next';
 
 const Resume = () => {
   const colorScheme = useColorScheme();
@@ -25,6 +26,7 @@ const Resume = () => {
   const [userToken, setUserToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const toast = useToast();
+  const { t } = useTranslation();
   const [UploadResume, { loading }] = useMutation(UPLOAD_RESUME);
   const resume_url = process.env.RESUME_URL;
   const [fileLoading, setFileLoading] = useState(false); 
@@ -38,10 +40,10 @@ const Resume = () => {
         if (token) {
           setUserToken(token);
         } else {
-          toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
+          toast.show(t('toasts.dashboard.tokenNotFound'), { type: 'danger', placement: 'top', duration: 3000 });
         }
       } catch (error) {
-        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.failedToken'), { type: 'danger', placement: 'top', duration: 3000 });
       } 
     };
     fetchToken();
@@ -59,7 +61,7 @@ const Resume = () => {
         const decoded = jwtDecode<DecodedToken>(userToken as string);
           setUserId(decoded.userId);
       } catch (error) {
-        toast.show(`Failed to decode token.${error}`, { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.decodeErr'), { type: 'danger', placement: 'top', duration: 3000 });
       }
     }
   }, [userToken]);
@@ -112,7 +114,7 @@ const Resume = () => {
         });
         
       } else {
-        toast.show(`Upload error: ${error}`, { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.uploadCvError'), { type: 'danger', placement: 'top', duration: 3000 });
       }
       throw error;
     }
@@ -149,11 +151,11 @@ const Resume = () => {
               });
             }
           } catch (e) {
-            toast.show('GET_TRAINEE_PROFILE cache update failed.', { type: 'danger', placement: 'top', duration: 3000 });
+            toast.show(t('toasts.dashboard.mutationFail'), { type: 'danger', placement: 'top', duration: 3000 });
           }
         },
           onCompleted: (data) => {
-            toast.show('Resume uploaded successfully', { type: 'success', placement: 'top', duration: 3000 });
+            toast.show(t('toasts.dashboard.uploadCvSuccess'), { type: 'success', placement: 'top', duration: 3000 });
             setResumeName(null);
           },  
           onError: (error) => {
@@ -162,7 +164,7 @@ const Resume = () => {
         });
 
       } else {
-        toast.show('Please choose a file', { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.fileErr'), { type: 'danger', placement: 'top', duration: 3000 });
       }
     } else {
       if (externalLink.trim()) {
@@ -194,11 +196,11 @@ const Resume = () => {
                 });
               }
             } catch (e) {
-                toast.show('GET_TRAINEE_PROFILE cache update failed.', { type: 'danger', placement: 'top', duration: 3000 });
+                toast.show(t('toasts.dashboard.mutationFail'), { type: 'danger', placement: 'top', duration: 3000 });
             }
           },
           onCompleted: (data) => {
-            toast.show('Resume uploaded successfully', { type: 'success', placement: 'top', duration: 3000 });
+            toast.show(t('toasts.dashboard.uploadCvSuccess'), { type: 'success', placement: 'top', duration: 3000 });
             setExternalLink('');
           },
           onError: (error) => {
@@ -207,29 +209,29 @@ const Resume = () => {
           
         });
       } else {
-        toast.show('Please enter a valid external link', { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(t('toasts.dashboard.linkErr'), { type: 'danger', placement: 'top', duration: 3000 });
       }
     }
   };
   return (
-    <ScrollView className={`flex bg-gray-900 ${bgColor} p-10`}>
+    <ScrollView className={`flex bg-gray-900 ${bgColor} p-5`}>
       <View className="flex-row w-full justify-between mb-4">
         <TouchableOpacity
-          className={`p-5 ${isUploadPC ? activebuttonbg : inactivebuttonbg} rounded-md`}
+          className={`w-40 p-2 ${isUploadPC ? activebuttonbg : inactivebuttonbg} rounded-md`}
           onPress={() => setIsUploadPC(true)}
         >
-          <Text className="text-white">Upload from Phone</Text>
+          <Text className="text-white">{t('editProfile.uploadFromPhone')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`p-5 ml-2 ${!isUploadPC ? activebuttonbg : inactivebuttonbg} rounded-md`}
+          className={`w-40 p-2 ml-2 ${!isUploadPC ? activebuttonbg : inactivebuttonbg} rounded-md`}
           onPress={() => setIsUploadPC(false)}
         >
-          <Text className="text-white">Add external link</Text>
+          <Text className="text-white">{t('editProfile.addLink')}</Text>
         </TouchableOpacity>
       </View>
       {isUploadPC ? (
         <View className={` w-full p-2  rounded-md  ${colorScheme === 'dark' ? 'text-primary-dark bg-secondary-dark-700' : 'bg-secondary-light-500'}`}>
-          <Text className={`mb-4 ${textColor } text-lg`}>Upload resume from your Phone</Text>
+          <Text className={`mb-4 ${textColor } text-lg`}>{t('editProfile.uploadResumeFromPhone')}</Text>
           <View
             className={` items-start gap-1 `}
           >
@@ -246,18 +248,18 @@ const Resume = () => {
             {loading ? (
               <ActivityIndicator size="small" color="#FFF" />
             ) : (
-              <Text className={`text-white`}>Upload</Text>
+              <Text className={`text-white`}>{t('editProfile.upload')}</Text>
             )}
             </TouchableOpacity>
           </View>
         </View>
       ) : (
         <View className={` items-start gap-5 w-full p-2 ${colorScheme === 'dark' ? ' bg-secondary-dark-700' : 'bg-secondary-light-500'}  rounded-md`}>
-            <Text className={`${textColor} text-lg`}>Upload resume from external link</Text>
+            <Text className={`${textColor} text-lg`}>{t('editProfile.uploadLink')}</Text>
            
             <TextInput
             className={`${textColor} ${colorScheme === 'dark' ? 'bg-secondary-dark-500' : 'bg-secondary-light-600'}  p-2 w-full rounded-md mb-4"`}
-            placeholder="Enter external link"
+            placeholder={t('editProfile.enterLink')}
             placeholderTextColor="#999"
             value={externalLink}
             onChangeText={setExternalLink}
@@ -271,7 +273,7 @@ const Resume = () => {
             {loading ? (
               <ActivityIndicator size="small" color="#FFF" />
             ) : (
-              <Text className={`text-white`}>Upload</Text>
+              <Text className={`text-white`}>{t('editProfile.upload')}</Text>
             )}
             </TouchableOpacity>
           </View>
