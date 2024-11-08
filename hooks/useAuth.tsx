@@ -4,11 +4,24 @@ import React, { createContext, ReactNode, useEffect, useMemo, useState } from 'r
 const getInitialState = async () => {
   try {
     const storedUser = await AsyncStorage.getItem('auth');
-    if (storedUser) return JSON.parse(storedUser);
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      return {
+        ...parsedUser,
+        id: parsedUser.userId || parsedUser.id, // Ensure id is always set
+        notifications: parsedUser.notifications || []
+      };
+    }
   } catch (error) {
     console.error('Failed to load user from AsyncStorage:', error);
   }
-  return { name: '', role: 'user', auth: false, notifications: [] };
+  return { 
+    id: '', 
+    name: '', 
+    role: 'user', 
+    auth: false, 
+    notifications: [] 
+  };
 };
 
 interface User {
@@ -57,6 +70,7 @@ const UserProvider: React.FC<Props> = ({ children }) => {
 
   const login = async (data: any) => {
     const userData = {
+      id: data.user?.id,
       name: data.user?.profile?.name,
       firstName: data.user?.profile?.firstName,
       auth: true,
@@ -104,6 +118,15 @@ const UserProvider: React.FC<Props> = ({ children }) => {
       notifications: [notification, ...prevUser.notifications],
     }));
   };
+
+  const useAuth = () => {
+    const context = React.useContext(UserContext);
+    if (context === undefined) {
+      throw new Error('useAuth must be used within a UserProvider');
+    }
+    return context;
+  };
+  
 
   const value = useMemo(
     () => ({

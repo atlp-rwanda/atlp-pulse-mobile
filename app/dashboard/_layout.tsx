@@ -19,6 +19,8 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
+import UserProvider from '@/hooks/useAuth';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export type ProfileType = {
   firstName: string;
@@ -60,7 +62,7 @@ export default function AuthLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const colorScheme = useColorScheme();
   const [authToken, setAuthToken] = useState<string | null>(null);
-
+  const [user, setUser] = useState(null);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
@@ -77,57 +79,67 @@ export default function AuthLayout() {
   }, [authToken]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{
-        flex: 1,
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-      className="bg-primary-light dark:bg-primary-dark"
-    >
-      <View className={`bg-primary-light dark:bg-primary-dark h-full`}>
-        <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center px-3 ">
-          <View className="flex-row justify-between">
-            <View className="flex-row items-center">
-              <TouchableOpacity onPress={toggleSidebar}>
-                <SvgXml xml={menu} width={40} height={40} />
-              </TouchableOpacity>
-              <SvgXml
-                xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon}
-                width={110}
-                height={40}
-              />
-            </View>
-            <View className="flex-row gap-5">
-              <TouchableOpacity onPress={() => router.push('/dashboard')}>
+    
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{
+          flex: 1,
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+        className="bg-primary-light dark:bg-primary-dark"
+      >
+        <GestureHandlerRootView style={{ flex: 1 }}>
+        <View className={`bg-primary-light dark:bg-primary-dark h-full`}>
+          <View className="w-full h-[60px] relative bg-primary-light dark:bg-primary-dark flex justify-center px-3 ">
+            <View className="flex-row justify-between">
+              <View className="flex-row items-center">
+                <TouchableOpacity onPress={toggleSidebar}>
+                  <SvgXml xml={menu} width={40} height={40} />
+                </TouchableOpacity>
                 <SvgXml
-                  xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon}
-                  width={25}
+                  xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon}
+                  width={110}
                   height={40}
                 />
-              </TouchableOpacity>
-              <ProfileDropdown />
+              </View>
+                  
+              <UserProvider>
+              <View className="flex-row gap-5">
+                <TouchableOpacity
+                  onPress={() => router.push('/dashboard/trainee/notifications' as any)}
+                >
+                  <SvgXml
+                    xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon}
+                    width={25}
+                    height={40}
+                  />
+                </TouchableOpacity>
+                <ProfileDropdown />
+              </View>
+              </UserProvider>
             </View>
           </View>
+          <ScrollView
+            contentContainerClassName="px-5 py-3"
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <Slot />
+          </ScrollView>
         </View>
-        <ScrollView
-          contentContainerClassName="px-5 py-3"
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <Slot />
-        </ScrollView>
-      </View>
-      {isSidebarOpen && (
-        <View className="absolute top-0 left-0 bottom-0">
-          <Sidebar onClose={toggleSidebar} />
-        </View>
-      )}
-    </KeyboardAvoidingView>
+
+        {isSidebarOpen && (
+          <View className="absolute top-0 left-0 bottom-0">
+            <Sidebar onClose={toggleSidebar} />
+          </View>
+        )}
+        </GestureHandlerRootView>
+      </KeyboardAvoidingView>
+    
   );
 }

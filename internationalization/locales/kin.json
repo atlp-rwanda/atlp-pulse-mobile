@@ -229,5 +229,25 @@
   "updatePassSuccess": "Ijambo ry'ibanga ryongewe neza",
   "updatePassFail": "Yooo, habaye ikibazo"
 }
+},
+"notifications": {
+  "deleteSuccess": "Itangazo ryasibwe neza",
+  "deleteFailed": "Kunanirwa gusiba itangazo",
+  "markAllAsRead": "Emeza ko byose byasomwe",
+  "markAllAsReadSuccess": "Amatangazo yose yashyizwe nk'ibyasomwe",
+  "markAllAsReadFailed": "Byanze gushyira amatangazo yose nk'ibyasomwe",
+  "markAsReadSuccess": "Itangazo ryashyizwe nk'iryasomwe",
+  "markAsReadFailed": "Byanze gushyira itangazo nk'iryasomwe",
+  "errorLoadingNotifications": "Ikosa ryo gupakira amatangazo",
+  "errorDeletingNotification": "Kunanirwa gusiba itangazo",
+  "errorMarkingAsRead": "Kunanirwa gushyira itangazo nk'iryasomwe",
+  "errorMarkingAllAsRead": "Kunanirwa gushyira amatangazo yose nk'ibyasomwe",
+  "unread": "Ibitasomwe",
+  "all": "Byose",
+  "loading": "Gushakisha amatangazo...",
+  "noNotifications": "Nta matagazo yabonetse",
+  "delete": "Siba",
+  "notifications": "Amatangazo"
+
 }
 }
