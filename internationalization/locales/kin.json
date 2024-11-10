@@ -249,6 +249,43 @@
   "noNotifications": "Nta matagazo yabonetse",
   "delete": "Siba",
   "notifications": "Amatangazo"
-
+},
+"loginActivity":{
+  "title": "Ibikorwa byo Kwinjira",
+  "Date": "Itariki",
+  "CountryName": "Izina ry'Igihugu",
+  "City": "Umujyi",
+  "State": "Intara",
+  "IPv4": "IPv4",
+  "Attempt": "Gererageza",
+  "Nologinactivitiesyet": "Nta bikorwa byo kwinjira birabaho.",
+  "Failed": "Byanze",
+  "Success": "Byakunze",
+  "Page{page}of{totalPages}": "Urupapuro {{page}} muri {{totalPages}}",
+  "Previous": "Ibyabanje",
+  "Next": "Ibikurikira"
+},
+"attendance":{
+  "attendance": "Kwitabira kwawe",
+  "week": "Icyumweru:",
+  "day": "Umunsi",
+  "date": "Itariki",
+  "score": "Amanota",
+  "attendanceAverages": "Amanota y'ibitabo by'ukwitabira:",
+  "phaseName": "Izina ry'igihe",
+  "allPhasesAverage": "Inota rusange ry'ibice byose:",
+  "youDontHaveAttendance": "Nta gitabo cy'ukwitabira ufite muri sisitemu ubu.",
+  "attendedAndCommunicated": "[2] Yitabiriye kandi yaganiriye",
+  "didntAttendButCommunicated": "[1] Ntiyitabiriye ariko yaganiriye",
+  "didntAttendAndCommunicate": "[0] Ntiyitabiriye kandi ntiyaganiriye"
+},
+"days":{
+  "mon": "Kuwa 1",
+  "tue": "Kuwa 2",
+  "wed": "Kuwa 3",
+  "thu": "Kuwa 4",
+  "fri": "Kuwa 5"
 }
+
+
 }

@@ -7,6 +7,8 @@ import { GET_TRAINEE_ATTENDANCE } from '@/graphql/queries/Attendance';
 import { useColorScheme } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import { jwtDecode } from 'jwt-decode';
+import { useTranslation } from 'react-i18next';
+
 
 interface DayStatus {
   date: string;
@@ -38,7 +40,7 @@ interface TraineeAttendanceData {
   phases: PhaseData[];
 }
 
-const staticDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+const staticDays = ['mon', 'tue', 'wed', 'thu', 'fri'];
 
 export default function TraineeAttendance() {
   const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
@@ -49,6 +51,7 @@ export default function TraineeAttendance() {
 
 
   const toast = useToast();
+  const {t} = useTranslation ();
 
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
@@ -145,14 +148,14 @@ export default function TraineeAttendance() {
   return (
     <ScrollView className={`${bgColor}`}>
       <View className="m-4">
-        <Text className={`${textColor} font-bold text-xl`}>Your Attendance</Text>
+        <Text className={`${textColor} font-bold text-xl`}>{t('attendance.attendance')}</Text>
         <View className="flex-row items-baseline justify-between">
           <Text className={`${textColor} font-bold text-xl`}>{phaseName}</Text>
           <TouchableOpacity
-            className={`border w-32 mt-5 ${nthbgColor} rounded-lg p-2 flex-row justify-between items-center`}
+            className={`border w-fit mt-5 ${nthbgColor} rounded-lg p-2 flex-row justify-between items-center`}
             onPress={() => setDropdownVisible(!dropdownVisible)}
           >
-            <Text className={`${textColor} font-bold text-xl`}>Week:</Text>
+            <Text className={`${textColor} font-bold text-xl`}>{t('attendance.week')}</Text>
             <Text className={`${textColor} font-bold text-xl`}>{selectedWeek}</Text>
             <AntDesign name="down" size={18} color={Color} />
           </TouchableOpacity>
@@ -179,9 +182,9 @@ export default function TraineeAttendance() {
 
         <View className="border mt-5">
           <View className={`flex-row justify-around h-10 ${thbg}`}>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>Day</Text>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>Date</Text>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>Score</Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.day')}</Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.date')}</Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.score')}</Text>
           </View>
 
           {selectedWeekData ? (
@@ -192,7 +195,7 @@ export default function TraineeAttendance() {
                   key={day}
                   className={`flex-row justify-around h-12 items-center ${index % 2 === 0 ? nthbgColor : bgColor}`}
                 >
-                  <Text className={`${textColor} flex-1 text-center`}>{day}</Text>
+                  <Text className={`${textColor} flex-1 text-center`}>{t(`days.${day}`)}</Text>
                   <Text className={`${textColor} flex-1 text-center`}>
                     {date ? formatDate(date) : '-'}
                   </Text>
@@ -214,20 +217,20 @@ export default function TraineeAttendance() {
             })
           ) : (
             <Text className={`${textColor} text-center p-4`}>
-              You don't have an attendance record in the system at the moment.
+              {t('attendance.youDontHaveAttendance')}
             </Text>
           )}
         </View>
         <View className="flex flex-col gap-y-8 xmd:flex-row justify-between xmd:items-end list-inside py-5 pl-0 pr-1 md:px-10 md:py-5 text-[.8rem] xmd:text-[.83rem] md:text-sm">
           <View>
-            <Text className={`uppercase font-semibold mb-3 ${textColor}`}>Attendance Averages:</Text>
+            <Text className={`uppercase font-semibold mb-3 ${textColor}`}>{t('attendance.attendanceAverages')}</Text>
             <View className="flex flex-col gap-y-2 list-disc font-medium pl-3">
-            <Text className={`${textColor} font-bold`}>Week: {selectedWeekAverage !== undefined ? selectedWeekAverage : 0.0}</Text>
+            <Text className={`${textColor} font-bold`}>{t('attendance.week')} {selectedWeekAverage !== undefined ? selectedWeekAverage : 0.0}</Text>
 
               <Text className={`${textColor} font-bold`}>
-                {phaseName !== undefined ? phaseName : 'Phase Name'}: {phaseAverage !== undefined ? phaseAverage : 0.0}
+                {phaseName !== undefined ? phaseName : t('attendance.phaseName')}: {phaseAverage !== undefined ? phaseAverage : 0.0}
               </Text>
-              <Text className={`${textColor} font-bold`}>All Phases Average: {allPhasesAverageData}</Text>
+              <Text className={`${textColor} font-bold`}>{t('attendance.allPhasesAverage')} {allPhasesAverageData}</Text>
             </View>
           </View>
         </View>
@@ -235,15 +238,15 @@ export default function TraineeAttendance() {
         <View className="p-3 gap-3">
           <View className="flex-row gap-2">
             <AntDesign name="checkcircle" size={21} color="green" />
-            <Text className={`${textColor}`}>= [2] Attended and Communicated</Text>
+            <Text className={`${textColor}`}>= {t('attendance.attendedAndCommunicated')}</Text>
           </View>
           <View className="flex-row gap-2">
             <Image source={require('../../../assets/images/attend.png')} />
-            <Text className={`${textColor}`}>= [1] Didn't attend but communicated</Text>
+            <Text className={`${textColor}`}>= {t('attendance.didntAttendButCommunicated')}</Text>
           </View>
           <View className="flex-row gap-2">
             <AntDesign name="closecircle" size={21} color="red" />
-            <Text className={`${textColor}`}>= [0] Didn't attend and didn't communicate</Text>
+            <Text className={`${textColor}`}>= {t('attendance.didntAttendAndCommunicate')}</Text>
           </View>
         </View>
       </View>
