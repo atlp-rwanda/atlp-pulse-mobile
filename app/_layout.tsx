@@ -19,6 +19,7 @@ import 'react-native-reanimated';
 import { ToastProvider } from 'react-native-toast-notifications';
 export { ErrorBoundary } from 'expo-router';
 import '../internationalization/index';
+import { NotificationProvider } from '@/hooks/useNotification';
 
 export const unstable_settings = {
   initialRouteName: '(onboarding)',
