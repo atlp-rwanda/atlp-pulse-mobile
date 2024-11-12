@@ -101,6 +101,7 @@
   },
   "performance": {
     "performance_scores": "Performance Scores",
+    "average": "AVERAGE",
     "quality": "Quality",
     "quantity": "Quantity",
     "professionalism": "Professionalism",
