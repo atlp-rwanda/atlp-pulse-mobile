@@ -230,5 +230,26 @@
   "updatePassSuccess": "Mot de passe mis à jour avec succès",
   "updatePassFail": "Oups, quelque chose s'est mal passé"
 }
+},
+"notifications": {
+  "deleteSuccess": "Notification supprimée avec succès",
+  "deleteFailed": "Échec de la suppression de la notification",
+  "markAllAsRead": "Marquer tout comme lu",
+  "markAllAsReadSuccess": "Toutes les notifications marquées comme lues",
+  "markAllAsReadFailed": "Échec du marquage de toutes les notifications comme lues",
+  "markAsReadSuccess": "Notification marquée comme lue",
+  "markAsReadFailed": "Échec du marquage de la notification comme lue",
+  "errorLoadingNotifications": "Erreur de chargement des notifications",
+  "errorDeletingNotification": "Échec de la suppression de la notification",
+  "errorMarkingAsRead": "Échec du marquage de la notification comme lue",
+  "errorMarkingAllAsRead": "Échec du marquage de toutes les notifications comme lues",
+  "unread": "Non lu",
+  "all": "Tous",
+  "loading": "Chargement des notifications...",
+  "noNotifications": "Aucune notification pour le moment",
+  "delete": "Supprimer",
+  "notifications": "Notifications"
+
 }
+
 }

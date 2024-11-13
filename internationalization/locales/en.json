@@ -229,5 +229,24 @@
   "updatePassSuccess": "Password updated successfully",
   "updatePassFail": "Oops, something went wrong"
 }
+},
+"notifications":{
+  "deleteSuccess": "Notification deleted successfully",
+  "deleteFailed": "Failed to delete notification",
+  "markAllAsRead": "Mark all as read",
+  "markAllAsReadSuccess": "All notifications marked as read",
+  "markAllAsReadFailed": "Failed to mark all notifications as read",
+  "markAsReadSuccess": "Notification marked as read",
+  "markAsReadFailed": "Failed to mark notification as read",
+  "errorLoadingNotifications": "Error loading notifications",
+  "errorDeletingNotification": "Failed to delete notification",
+  "errorMarkingAsRead": "Failed to mark notification as read",
+  "errorMarkingAllAsRead": "Failed to mark all notifications as read",
+  "unread": "Unread",
+  "all": "All",
+  "loading": "Loading notifications...",
+  "noNotifications": "No notifications yet",
+  "delete": "Delete",
+  "notifications": "Notifications"
 }
 }

@@ -57,6 +57,7 @@ function RootLayoutNav() {
   useApolloClientDevTools(client);
 
   return (
+    
     <ApolloProvider client={client}>
       <ToastProvider placement="top" duration={5000}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -68,5 +69,6 @@ function RootLayoutNav() {
         </ThemeProvider>
       </ToastProvider>
     </ApolloProvider>
+    
   );
 }

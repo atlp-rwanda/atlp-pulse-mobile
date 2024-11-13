@@ -8,7 +8,7 @@ import ProfileAvatar from '@/components/ProfileAvatar';
 import AboutTrainee from '@/components/trainee/About';
 import ProfileAccountTab from '@/components/trainee/Account';
 import TraineeOrg from '@/components/trainee/Organisation';
-import {GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
+import { GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
 import { useQuery } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -69,7 +69,7 @@ export default function Profile() {
       setProfile(data.getProfile);
     }
   }, [data]);
-  
+
   useEffect(() => {
     const fetchOrgToken = async () => {
       try {
@@ -86,17 +86,17 @@ export default function Profile() {
     fetchOrgToken();
   }, []);
 
- const { data: traineedata, error: err } = useQuery(GET_TRAINEE_PROFILE, {
-  context: {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
+  const { data: traineedata, error: err } = useQuery(GET_TRAINEE_PROFILE, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     },
-  },
-  skip: !userToken,
-  variables: {
-    orgToken: orgToken,
-  },
-});
+    skip: !userToken,
+    variables: {
+      orgToken: orgToken,
+    },
+  });
 
 useEffect(() => {
   if (err) {
@@ -104,23 +104,26 @@ useEffect(() => {
   }
 }, [err]);
 
-useEffect(() => {
-  if (traineedata) {
-    setTraineeProfile(traineedata.getProfile);
-  }
-}, [traineedata]);
+  useEffect(() => {
+    if (traineedata) {
+      setTraineeProfile(traineedata.getProfile);
+    }
+  }, [traineedata]);
 
   return (
     <View>
       <View className="relative h-48">
-      <CoverImage cover={profile?.cover} name={profile?.name} />
-        <TouchableOpacity onPress={() => router.push('/dashboard/trainee/profile/edit')} className="absolute bottom-1 right-4 rounded-full shadow-md">
+        <CoverImage cover={profile?.cover} name={profile?.name} />
+        <TouchableOpacity
+          onPress={() => router.push('/dashboard/trainee/profile/edit')}
+          className="absolute bottom-1 right-4 rounded-full shadow-md"
+        >
           <SvgXml xml={editBG} />
         </TouchableOpacity>
 
         <View className=" absolute bottom-[-30px] left-6">
           <View className="relative">
-            <ProfileAvatar name={profile?.name} src={profile.avatar} size='lg' />
+            <ProfileAvatar name={profile?.name} src={profile.avatar} size="lg" />
             <TouchableOpacity
               onPress={() => router.push('/dashboard/trainee/profile/edit')}
               className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row  items-center w-32 h-13"
@@ -159,7 +162,12 @@ useEffect(() => {
         className="mt-4 w-[100%] flex-grow"
       >
         {selectedType === 'About' && (
-          <AboutTrainee profile={profile} Resume={traineeProfile} bgColor={bgColor} textColor={textColor} />
+          <AboutTrainee
+            profile={profile}
+            Resume={traineeProfile}
+            bgColor={bgColor}
+            textColor={textColor}
+          />
         )}
 
         {selectedType === 'Organisation' && (
