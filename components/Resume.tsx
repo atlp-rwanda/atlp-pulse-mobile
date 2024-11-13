@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {RESUME_URL} from '@env';
 import { View, Text, TouchableOpacity, ScrollView, useColorScheme, TextInput, ActivityIndicator } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { DocumentPickerResult } from 'expo-document-picker';
@@ -28,7 +27,7 @@ const Resume = () => {
   const toast = useToast();
   const { t } = useTranslation();
   const [UploadResume, { loading }] = useMutation(UPLOAD_RESUME);
-  const resume_url = process.env.RESUME_URL;
+  const resume_url = process.env.EXPO_PUBLIC_RESUME_URL;
   const [fileLoading, setFileLoading] = useState(false); 
 
 
