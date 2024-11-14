@@ -12,6 +12,9 @@ const ProfileDropdown = () => {
   const theme = useColorScheme();
   const [profile, setProfile] = useState<ProfileType | null>(null);
   const [authToken, setAuthToken] = useState<string | null>(null);
+  const [loginActivity, setLoginActivity] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
 
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
@@ -61,7 +64,7 @@ const ProfileDropdown = () => {
         onRequestClose={togglePopover}
         from={
           <TouchableOpacity onPress={togglePopover}>
-            <ProfileAvatar name={profile?.name} src={profile?.avatar} size="xs" />
+            <ProfileAvatar name={profile?.name} src={profile?.avatar} size="sm" />
           </TouchableOpacity>
         }
       >
@@ -93,6 +96,22 @@ const ProfileDropdown = () => {
                 `}
             >
               {t('settings.title')}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="py-2"
+            onPress={() => handleNavigate('/dashboard/trainee/LoginActivity')}
+            onPressIn={() => setIsHovered(true)}
+      onPressOut={() => setIsHovered(false)}
+          >
+            <Text
+              className={`
+                ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}
+                ${isHovered ? 'text-blue-500' : ''}
+                `}
+            >
+              {t('loginActivity.title')}
             </Text>
           </TouchableOpacity>
         </View>

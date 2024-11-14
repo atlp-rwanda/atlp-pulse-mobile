@@ -51,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: t('navbar.attendance'),
       iconLight: lightAttendance,
       iconDark: darkAttendance,
-      path: '/dashboard/trainee/attendance',
+      path: '/dashboard/trainee/Attendance',
     },
     {
       name: t('navbar.performance'),

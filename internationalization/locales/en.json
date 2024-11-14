@@ -248,5 +248,43 @@
   "noNotifications": "No notifications yet",
   "delete": "Delete",
   "notifications": "Notifications"
+
+},
+"loginActivity":{
+  "title" : "Login Activities",
+  "Date": "Date",
+  "CountryName": "Country Name",
+  "City": "City",
+  "State": "State",
+  "IPv4": "IPv4",
+  "Attempt": "Attempt",
+  "Nologinactivitiesyet": "No login activities yet.",
+  "Failed": "Failed",
+  "Success": "Success",
+  "Page{page}of{totalPages}": "Page {{page}} of {{totalPages}}",
+  "Previous": "Previous",
+  "Next": "Next"
+},
+"attendance":{
+  "attendance": "Your Attendance",
+  "week": "Week:",
+  "day": "Day",
+  "date": "Date",
+  "score": "Score",
+  "attendanceAverages": "Attendance Averages:",
+  "phaseName": "Phase Name",
+  "allPhasesAverage": "All Phases Average:", 
+  "youDontHaveAttendance": "You don't have an attendance record in the system at the moment.",
+  "attendedAndCommunicated": "[2] Attended and Communicated",
+  "didntAttendButCommunicated": "[1] Didn't attend but communicated",
+  "didntAttendAndCommunicate": "[0] Didn't attend and didn't communicate"
+},
+"days":{
+  "mon": "Mon",
+  "tue": "Tue",
+  "wed": "Wed",
+  "thu": "Thu",
+  "fri": "Fri"
 }
+
 }

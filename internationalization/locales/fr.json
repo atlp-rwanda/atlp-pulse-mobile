@@ -250,6 +250,43 @@
   "delete": "Supprimer",
   "notifications": "Notifications"
 
-}
+},
+"loginActivity":{
+  "title": "Activités de connexion",
+  "Date": "Date",
+  "CountryName": "Nom du pays",
+  "City": "Ville",
+  "State": "État",
+  "IPv4": "IPv4",
+  "Attempt": "Tentative",
+  "Nologinactivitiesyet": "Pas encore d'activités de connexion.",
+  "Failed": "Échec",
+  "Success": "Succès",
+  "Page{page}of{totalPages}": "Page {{page}} sur {{totalPages}}",
+  "Previous": "Précédent",
+  "Next": "Suivant"
+},
+"attendance":{
+  "attendance": "Votre présence",
+  "week": "Semaine:",
+  "day": "Jour",
+  "date": "Date",
+  "score": "Score",
+  "attendanceAverages": "Moyennes de présence:",
+  "phaseName": "Nom de la phase",
+  "allPhasesAverage": "Moyenne de toutes les phases:",
+  "youDontHaveAttendance": "Vous n'avez pas d'enregistrement de présence dans le système pour le moment.",
+  "attendedAndCommunicated": "[2] Présent et communiqué",
+  "didntAttendButCommunicated": "[1] N'a pas assisté mais a communiqué",
+  "didntAttendAndCommunicate": "[0] N'a pas assisté et n'a pas communiqué"
+},
+"days": {
+  "mon": "Lundi",
+  "tue": "Mardi",
+  "wed": "Mercredi",
+  "thu": "Jeudi",
+  "fri": "Vendredi"
+  }
+
 
 }
