@@ -69,3 +69,24 @@ export const updateEmailNotifications = gql`
     updateEmailNotifications(id: $updateEmailNotificationsId)
   }
 `;
+
+export const TICKETS_NOTS_SUB = gql`
+  subscription OnTicket {
+    sendNotsOnTickets {
+      id
+      message
+      createdAt
+      read
+      receiver
+      sender {
+        id
+        email
+        role
+        profile {
+          name
+          avatar
+        }
+      }
+    }
+  }
+`;
