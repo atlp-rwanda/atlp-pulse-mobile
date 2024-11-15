@@ -23,10 +23,7 @@ import { SvgXml } from 'react-native-svg';
 import UserProvider from '@/hooks/useAuth';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NotificationProvider, NotificationContext } from '@/hooks/useNotification';
-import ProfileAvatar from '@/components/ProfileAvatar';
-import { GET_PROFILE } from '@/graphql/queries/user';
-import { useQuery } from '@apollo/client';
-import ProfileSidebar from '@/components/ProfileSidebar';
+
 
 export type ProfileType = {
   firstName: string;
@@ -66,31 +63,28 @@ export default function DashboardLayout() {
   const insets = useSafeAreaInsets();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isProfileSidebarOpen, setIsProfileSidebarOpen] = useState<boolean>(false);
-  const [profile, setProfile] = useState<ProfileType | null>(null);
+
   const colorScheme = useColorScheme();
   const [authToken, setAuthToken] = useState<string | null>(null);
-
-  const { data: profileData } = useQuery(GET_PROFILE, {
-    context: { headers: { Authorization: `Bearer ${authToken}` } },
-    skip: !authToken,
-  });
+  const [user, setUser] = useState(null);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   useEffect(() => {
-    (async () => {
+    (async function () {
       const cachedToken = await AsyncStorage.getItem('authToken');
-      setAuthToken(cachedToken);
+      if (cachedToken != authToken) {
+        setAuthToken(cachedToken);
+      }
 
-      if (!cachedToken) {
+      if (cachedToken === null) {
         router.push('/auth/login');
       }
     })();
-  }, []);
+  }, [authToken]);
 
   if (!authToken) {
-    return null; 
+    return null; // or a loading spinner
   }
 
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
-  const toggleProfileSidebar = () => setIsProfileSidebarOpen((prev) => !prev);
   return (
     <NotificationProvider>
       <KeyboardAvoidingView
@@ -119,14 +113,10 @@ export default function DashboardLayout() {
                     height={40}
                   />
                 </View>
-                <View className="flex flex-row items-center gap-3">
-                  <UserProvider>
-                    <NotificationContent />
-                  </UserProvider>
-                  <TouchableOpacity onPress={toggleProfileSidebar}>
-                    <ProfileAvatar name={profile?.name} src={profile?.avatar} size="sm" />
-                  </TouchableOpacity>
-                </View>
+
+                <UserProvider>
+                  <NotificationContent />
+                </UserProvider>
               </View>
             </View>
             <ScrollView
@@ -144,11 +134,6 @@ export default function DashboardLayout() {
               <Sidebar onClose={toggleSidebar} />
             </View>
           )}
-          {isProfileSidebarOpen && (
-            <View className="absolute top-0 left-0 bottom-0">
-              <ProfileSidebar onClose={toggleProfileSidebar} />
-            </View>
-          )}
         </GestureHandlerRootView>
       </KeyboardAvoidingView>
     </NotificationProvider>
@@ -162,7 +147,9 @@ function NotificationContent() {
 
   return (
     <View className="flex-row gap-5">
-      <TouchableOpacity onPress={() => router.push('/dashboard/trainee/notifications' as any)}>
+      <TouchableOpacity
+        onPress={() => router.push('/dashboard/trainee/notifications' as any)}
+      >
         <SvgXml
           xml={colorScheme === 'dark' ? darkNotifyIcon : lightNotifyIcon}
           width={25}
@@ -176,6 +163,7 @@ function NotificationContent() {
           </View>
         )}
       </View>
+      {/* <ProfileDropdown /> */}
     </View>
   );
 }
