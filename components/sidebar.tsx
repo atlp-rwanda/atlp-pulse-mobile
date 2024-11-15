@@ -134,7 +134,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   };
 
   return (
-    <View className="flex-1 h-full pt-10 shadow-lg w-96 bg-primary-light dark:bg-primary-dark">
+    <View className="flex-1 h-full pt-10 shadow-lg w-screen bg-primary-light dark:bg-primary-dark">
       <View className="flex-row items-center justify-between p-4">
         <SvgXml
           xml={colorScheme === 'dark' ? darkLogoIcon : lightLogoIcon}
