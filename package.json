@@ -12,7 +12,7 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "build:ios": "rm .easignore && cp .gitignore .easignore && echo '\npackage-lock.json' >> .easignore && eas build --platform ios --profile preview && rm .easignore",
+    "build:ios": "rm -f .easignore && cp .gitignore .easignore && echo '\npackage-lock.json' >> .easignore && eas build --platform ios --profile preview && rm .easignore",
     "build:android": "eas build --platform android --profile preview"
   },
   "jest": {

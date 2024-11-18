@@ -35,6 +35,7 @@ jobs:
         env:
           PROFILE: ${{ vars.BUILD_PROFILE }}
           EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}
+          EXPO_PUBLIC_RESUME_URL: ${{ vars.EXPO_PUBLIC_RESUME_URL }}
 
       - name: 🚀 Build & Submit ios App
         run: |
@@ -46,3 +47,4 @@ jobs:
         env:
           PROFILE: ${{ vars.BUILD_PROFILE }}
           EXPO_PUBLIC_APOLLO_CLIENT_URI: ${{ vars.EXPO_PUBLIC_APOLLO_CLIENT_URI }}
+          EXPO_PUBLIC_RESUME_URL: ${{ vars.EXPO_PUBLIC_RESUME_URL }}
