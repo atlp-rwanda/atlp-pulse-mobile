@@ -204,7 +204,8 @@
     "uploadLink" : "Télécharger le CV à partir d'un lien externe",
     "chooseFile" : "Choisir le Fichier",
     "upload" : "Télécharger",
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "photo": "Photo"
 },
 "settings": {
   "title" : "Paramètres",
@@ -255,7 +256,11 @@
   "logoutErr": "Erreur de déconnexion",
   "navigationErr": "Échec de la navigation",
   "updatePassSuccess": "Mot de passe mis à jour avec succès",
-  "updatePassFail": "Oups, quelque chose s'est mal passé"
+  "updatePassFail": "Oups, quelque chose s'est mal passé",
+  "permissionDenied": "Permission pour accéder aux photos a été refusée",
+  "avatarUpdated": "Photo de profil mise à jour avec succès",
+  "avatarError": "Erreur lors de la mise à jour de la photo de profil",
+  "imagePickerError": "Erreur lors de la sélection de l'image"
 }
 },
 "notifications": {

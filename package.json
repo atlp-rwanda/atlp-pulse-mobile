@@ -84,8 +84,7 @@
     "react-test-renderer": "^18.2.0",
     "vector-icons": "^0.1.0",
     "yup": "^1.4.0",
-    "react-native-get-random-values": "~1.11.0",
-    "undefined": "react-native-async-storage/async-storage"
+    "expo-image-picker": "~15.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

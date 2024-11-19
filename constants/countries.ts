@@ -49,6 +49,10 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Australia',
   },
   {
+    value: 'AT',
+    label: 'Austria',
+  },
+  {
     value: 'AZ',
     label: 'Azerbaijan',
   },
@@ -166,7 +170,7 @@ export const COUNTRIES: SelectMenuOption[] = [
   },
   {
     value: 'CO',
-    label: 'Columbia',
+    label: 'Colombia',
   },
   {
     value: 'KM',
@@ -237,12 +241,24 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'El Salvador',
   },
   {
+    value: 'GQ',
+    label: 'Equatorial Guinea',
+  },
+  {
     value: 'ER',
     label: 'Eritrea',
   },
   {
     value: 'EE',
     label: 'Estonia',
+  },
+  {
+    value: 'ET',
+    label: 'Ethiopia',
+  },
+  {
+    value: 'FK',
+    label: 'Falkland Islands',
   },
   {
     value: 'FO',
@@ -283,6 +299,10 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'GH',
     label: 'Ghana',
+  },
+  {
+    value: 'GI',
+    label: 'Gibraltar',
   },
   {
     value: 'GR',
@@ -433,7 +453,7 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Lesotho',
   },
   {
-    value: 'LB',
+    value: 'LR',
     label: 'Liberia',
   },
   {
@@ -525,6 +545,10 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Montenegro',
   },
   {
+    value: 'MS',
+    label: 'Montserrat',
+  },
+  {
     value: 'MA',
     label: 'Morocco',
   },
@@ -541,16 +565,16 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Namibia',
   },
   {
+    value: 'NR',
+    label: 'Nauru',
+  },
+  {
     value: 'NP',
     label: 'Nepal',
   },
   {
     value: 'NL',
     label: 'Netherlands',
-  },
-  {
-    value: 'AN',
-    label: 'Netherlands Antilles',
   },
   {
     value: 'NC',
@@ -573,6 +597,14 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Nigeria',
   },
   {
+    value: 'NU',
+    label: 'Niue',
+  },
+  {
+    value: 'NF',
+    label: 'Norfolk Island',
+  },
+  {
     value: 'KP',
     label: 'North Korea',
   },
@@ -591,6 +623,10 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'PK',
     label: 'Pakistan',
+  },
+  {
+    value: 'PW',
+    label: 'Palau',
   },
   {
     value: 'PS',
@@ -615,6 +651,10 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'PH',
     label: 'Philippines',
+  },
+  {
+    value: 'PN',
+    label: 'Pitcairn Islands',
   },
   {
     value: 'PL',
@@ -651,6 +691,14 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'RW',
     label: 'Rwanda',
+  },
+  {
+    value: 'BL',
+    label: 'Saint Barthélemy',
+  },
+  {
+    value: 'SH',
+    label: 'Saint Helena',
   },
   {
     value: 'KN',
@@ -733,6 +781,10 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'South Africa',
   },
   {
+    value: 'GS',
+    label: 'South Georgia and the South Sandwich Islands',
+  },
+  {
     value: 'KR',
     label: 'South Korea',
   },
@@ -755,6 +807,10 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'SR',
     label: 'Suriname',
+  },
+  {
+    value: 'SJ',
+    label: 'Svalbard and Jan Mayen',
   },
   {
     value: 'SZ',
@@ -791,6 +847,10 @@ export const COUNTRIES: SelectMenuOption[] = [
   {
     value: 'TG',
     label: 'Togo',
+  },
+  {
+    value: 'TK',
+    label: 'Tokelau',
   },
   {
     value: 'TO',
@@ -857,12 +917,20 @@ export const COUNTRIES: SelectMenuOption[] = [
     label: 'Vanuatu',
   },
   {
+    value: 'VA',
+    label: 'Vatican City',
+  },
+  {
     value: 'VE',
     label: 'Venezuela',
   },
   {
     value: 'VN',
     label: 'Vietnam',
+  },
+  {
+    value: 'WF',
+    label: 'Wallis and Futuna',
   },
   {
     value: 'EH',
