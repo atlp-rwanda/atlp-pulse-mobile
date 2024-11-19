@@ -33,9 +33,9 @@ export default function LanguagePicker({ showFlag = true }) {
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
         activeOpacity={0.6}
-        className="p-2 bg-white rounded dark:bg-primary-dark"
+        className="p-5 bg-transparent rounded w-[100%]"
       >
-        <View className="flex-row items-center ">
+        <View className="flex-row items-center justify-around ">
           {showFlag ? (
             <CountryFlag
               isoCode={LANGUAGES.find((lang) => lang.code === i18n.language)?.flagCode || 'GB'}
@@ -56,14 +56,15 @@ export default function LanguagePicker({ showFlag = true }) {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
+        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
         <TouchableOpacity
-          className="items-center justify-center flex-1 bg-black bg-opacity-50"
+          className="items-center justify-center flex-1 "
           activeOpacity={1}
           onPress={() => setModalVisible(false)}
         >
           <View className="w-4/5 p-6 bg-white rounded-lg dark:bg-gray-800">
             <TouchableOpacity
-              className="w-full"
+              className="p-4 rounded-lg bg-white dark:bg-gray-800"
               activeOpacity={1}
               onPress={(e) => e.stopPropagation()}
             >
@@ -71,7 +72,7 @@ export default function LanguagePicker({ showFlag = true }) {
                 {t('selectLanguage')}
               </Text>
 
-              <View>
+              <View >
                 {LANGUAGES.map((lang) => (
                   <TouchableOpacity
                     key={lang.code}
@@ -94,15 +95,11 @@ export default function LanguagePicker({ showFlag = true }) {
                 ))}
               </View>
 
-              <TouchableOpacity
-                className="p-3 mt-4 bg-blue-600 rounded-lg"
-                onPress={() => setModalVisible(false)}
-              >
-                <Text className="text-lg font-semibold text-center text-white">{t('close')}</Text>
-              </TouchableOpacity>
+              
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
+        </View>
       </Modal>
     </View>
   );
