@@ -16,8 +16,12 @@ export const GET_PROFILE = gql`
       biography
       githubUsername
       user {
+        id
         organizations
         email
+        pushNotifications
+        emailNotifications
+        twoFactorAuth
         role
         team {
           name

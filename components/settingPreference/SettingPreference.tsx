@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
-import { View, Switch, Text, useColorScheme, TouchableOpacity, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Switch, Text, useColorScheme, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { router } from 'expo-router';
 import LanguagePicker from '../LanguagePicker';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useQuery } from '@apollo/client';
+import { EnableTwoFactorAuth,DisableTwoFactorAuth } from '@/graphql/mutations/two-factor.mutation';
+import {updatePushNotifications,updateEmailNotifications} from '@/graphql/mutations/notificationMutation';
+import { useToast } from 'react-native-toast-notifications';
+import {
+  forward_pref_icon,
+  down_arrow
+}  from '@/assets/Preference_icons/preference_icons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GET_PROFILE } from '@/graphql/queries/user';
 
 const settings = () => {
-  const [emailNotifications, setEmailNotifications] = useState(false);
-  const [pushNotifications, setPushNotifications] = useState(false);
+  const toast = useToast();
+  const [profile, setprofile] = useState(null)
+  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [emailEnabled, setEmailEnabled] = useState(false);
+  const [enableTwoFactorAuth] = useMutation(EnableTwoFactorAuth);
+  const [disableTwoFactorAuth] = useMutation(DisableTwoFactorAuth);
+  const [updateEmailNotificationsMutation] = useMutation(updateEmailNotifications);
+  const [updatePushNotificationsMutation] = useMutation(updatePushNotifications);
+  const [userToken, setUserToken] = useState<string | null>(null);
   const [selectedTheme, setSelectedTheme] = useState('system');
   const { t } = useTranslation();
+
+  const [isProfileExpanded, setIsProfileExpanded] = useState(false);
 
   const colorScheme = selectedTheme === 'system' ? useColorScheme() : selectedTheme;
   const textStyle = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
@@ -22,23 +42,119 @@ const settings = () => {
     { label: 'Dark', value: 'dark' },
   ];
 
+  useEffect(() => {
+    (async () => {
+      const token = await AsyncStorage.getItem('authToken');
+      if (token) {
+        setUserToken(token);
+      }
+    })();
+  }, []);
+
+  const { data, error } = useQuery(GET_PROFILE, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+    skip: !userToken,
+  });
+
+  useEffect(() => {
+    if (data?.getProfile?.user) {
+      const user = data.getProfile.user;
+      setprofile(user);
+      setIsTwoFactorEnabled(user.twoFactorAuth);
+      setPushEnabled(user.pushNotifications);
+      setEmailEnabled(user.emailNotifications);
+    }
+  }, [data]);
+
+
+  const handleEnableTwoFactor = async () => {
+    try {
+      setIsTwoFactorEnabled(true);
+      await enableTwoFactorAuth({ variables: { email: data.getProfile.user?.email } });
+      toast.show(t('toasts.preferences.enableTwo-way'), { type: 'success', placement: 'top', duration: 3000 });
+      
+    } catch (error) {
+      setIsTwoFactorEnabled(false);
+      toast.show(t('toasts.preferences.failEnableTwoway'), { type: 'danger', placement: 'top', duration: 3000 });
+    }
+  };
+
+  const handleDisableTwoFactor = async () => {
+    try {
+      setIsTwoFactorEnabled(false);
+      await disableTwoFactorAuth({ variables: { email: data.getProfile.user?.email } });
+      toast.show(t('toasts.preferences.desableTwo-way'), { type: 'success', placement: 'top', duration: 3000 });
+
+    } catch (error) {
+      setIsTwoFactorEnabled(true);
+      toast.show(t('toasts.preferences.failDesableTwoway'), { type: 'danger', placement: 'top', duration: 3000 });
+    }
+  };
+
+  const handleEmailNotificationChange = async () => {
+    try {
+      await updateEmailNotificationsMutation({
+        variables: { updateEmailNotificationsId: data.getProfile.user.id },
+      });
+      setEmailEnabled((prevEmailEnabled) => !prevEmailEnabled);
+      toast.show(t('toasts.preferences.updateEmailNotification'), { type: 'success', placement: 'top', duration: 3000 });
+
+    } catch (error) {
+      toast.show(t('toasts.preferences.failUpdatingeEmail'), { type: 'danger', placement: 'top', duration: 3000 });
+    }
+  };
+
+  const handlePushNotificationChange = async () => {
+    try {
+      await updatePushNotificationsMutation({
+        variables: { updatePushNotificationsId: data.getProfile.user?.id },
+      });
+      setPushEnabled((prevPushEnabled) => !prevPushEnabled);
+      toast.show(t('toasts.preferences.updatePushNotification'), { type: 'success', placement: 'top', duration: 3000 });
+
+    } catch (error) {
+      toast.show(t('toasts.preferences.failUpdatingPush'), { type: 'danger', placement: 'top', duration: 3000 });
+    }
+  };
+
   return (
     <View className={`p-4 mb-8 ${containerStyle}`}>
       <Text className={`text-2xl font-extrabold ml-4 mb-4 ${textStyle}`}>{t('settings.title')}</Text>
       {/* Profile Section */}
-      <View className="mb-6 p-4 rounded-lg flex flex-row justify-center">
-        <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.profile')}</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.editProfile')}</Text>
-        </View>
-        <TouchableOpacity className="flex items-end">
-          <Text
-            className={`${textStyle} mt-2`}
-            onPress={() => router.push('/dashboard/trainee/profile')}
-          >
-            {t('settings.change')}
-          </Text>
+      <View className={`rounded-lg`}>
+        <TouchableOpacity
+          className="p-4 flex-row items-center justify-between"
+          onPress={() => setIsProfileExpanded(!isProfileExpanded)}
+        >
+          <View className="flex-row items-center gap-2">
+            <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.profile')}</Text>
+          </View>
+          <Image
+            source={isProfileExpanded ? down_arrow : forward_pref_icon}
+            style={{
+              height: 24,
+              width: 24,
+              tintColor: colorScheme === 'dark' ? '#ffffff' : '#000000',
+            }}
+          />
         </TouchableOpacity>
+        {isProfileExpanded && (
+          <View className="p-4 flex flex-row justify-between">
+            <Text className={`text-lg mt-2 w-56 ${textStyle}`}>{t('settings.editProfile')}</Text>
+            <TouchableOpacity>
+              <Text
+                className={`mt-2 font-Inter-Bold ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}
+                onPress={() => router.push('/dashboard/trainee/profile')}
+              >
+                {t('settings.change')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       {/* Theme Picker */}
@@ -82,11 +198,11 @@ const settings = () => {
           </Text>
         </View>
         <Switch
-          value={emailNotifications}
-          onValueChange={() => setEmailNotifications((prev) => !prev)}
-          thumbColor={emailNotifications ? '#6200ee' : '#f4f3f4'}
-          trackColor={{ false: '#767577', true: '#81b0ff' }}
-        />
+            value={emailEnabled}
+            onValueChange={handleEmailNotificationChange}
+            thumbColor={emailEnabled ? '#6200ee' : '#f4f3f4'}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+          />
       </View>
 
       {/* Push Notifications */}
@@ -98,30 +214,31 @@ const settings = () => {
           </Text>
         </View>
         <Switch
-          value={pushNotifications}
-          onValueChange={() => setPushNotifications((prev) => !prev)}
-          thumbColor={pushNotifications ? '#6200ee' : '#f4f3f4'}
-          trackColor={{ false: '#767577', true: '#81b0ff' }}
-        />
+            value={pushEnabled}
+            onValueChange={handlePushNotificationChange}
+            thumbColor={pushEnabled ? '#6200ee' : '#f4f3f4'}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+          />
       </View>
 
       {/* Privacy and Security */}
-      <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-center`}>
+      <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-between`}>
         <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.privacy')}</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.privacy')}</Text>
+          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.Two-factor')}</Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>
+          {t('settings.Two-factor-Preference')}
+          </Text>
         </View>
-        <Text className={`mt-2 ${textStyle}`}>{t('settings.change')}</Text>
+        <Switch
+            value={isTwoFactorEnabled}
+            onValueChange={isTwoFactorEnabled ? handleDisableTwoFactor : handleEnableTwoFactor}
+            thumbColor={isTwoFactorEnabled ? '#6200ee' : '#f4f3f4'}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+          />
       </View>
 
       {/* Login Activity */}
-      <View className={`p-4 mb-7 border-t ${borderColor} rounded-lg flex flex-row justify-center`}>
-        <View className="flex-1 mr-4">
-          <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.login')}</Text>
-          <Text className={`text-lg ${textStyle}`}>{t('settings.loginHistory')}</Text>
-        </View>
-        <Text className={`mt-2 ${textStyle}`}>{t('settings.view')}</Text>
-      </View>
+  
     </View>
   );
 };
@@ -140,4 +257,8 @@ const styles = StyleSheet.create({
   }),
 });
 
+
 export default settings;
+
+
+

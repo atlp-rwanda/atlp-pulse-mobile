@@ -220,7 +220,8 @@
   "emailFeeds": "E-mails de retour, rappels, actualités",
   "pushNotify": "Notifications poussées",
   "pushUpdates": "Mises à jour des notes, rappels de session, commentaires de performance",
-  "privacy": "Confidentialité et Sécurité",
+  "Two-factor": "Two-factor authentication",
+  "Two-factor-Preference":"Bénéficiez d'une sécurité supplémentaire en recevant un code sur votre email",
   "login": "Activité de connexion",
   "loginHistory": "Historique de vos sessions de connexion",
   "view": "Voir"
@@ -261,6 +262,27 @@
   "avatarUpdated": "Photo de profil mise à jour avec succès",
   "avatarError": "Erreur lors de la mise à jour de la photo de profil",
   "imagePickerError": "Erreur lors de la sélection de l'image"
+},
+"preferences":{
+  "enableTwo-way":"authentification à deux facteurs activée",
+  "failEnableTwoway":"Erreur lors de l'activation de l'authentification à deux facteurs",
+  "desableTwo-way":"Authentification à deux facteurs désactivée",
+  "failDesableTwoway":"Erreur lors de la désactivation de l'authentification à deux facteurs",
+  "updateEmailNotification":"Notifications par e-mail mises à jour avec succès",
+  "failUpdatingeEmail":"Erreur lors de la mise à jour des notifications par e-mail",
+  "updatePushNotification":"Notifications push mises à jour avec succès",
+  "failUpdatingPush":"Erreur lors de la mise à jour des notifications push"
+},
+"two-factor":{
+  "verficationtitle1":"Vérification requise",
+  "verficationtitle2":"Entrez le code de vérification",
+  "Verifying":"Vérification",
+  "Verify-Code":"Vérifier le code",
+  "Resend-code-in":"Renvoyer le code dans",
+  "Sending":"Envoi",
+  "Resend-Code":"Renvoyer le code",
+  "Failed-to-resend-code":"Échec du renvoi du code",
+  "Code-resent-successfully":"Code renvoyé avec succès"
 }
 },
 "notifications": {

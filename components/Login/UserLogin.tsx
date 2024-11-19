@@ -45,7 +45,7 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
     initialValues: {email: '', password: '' } as FormValues,
     onSubmit: async (values: FormValues) => {
       setLoading(true);
-      await onSubmit(values);
+      onSubmit(values);
       setLoading(false);
     },
     validationSchema: UserLoginSchema,
