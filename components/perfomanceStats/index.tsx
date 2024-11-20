@@ -90,6 +90,18 @@ const PerformanceScores = () => {
   let fetchedData = data?.fetchRatingsTrainee || [];
 
   if (fetchedData.length === 0) {
+    const placeholderGraph = {
+    labels: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
+    datasets: [
+      {
+        data: [0, 0, 0, 0],
+        color: () => 'rgba(200, 200, 200, 0.5)', 
+        strokeWidth: 1,
+      },
+    ],
+  legend: ['No Data Available'],
+};
+
     return (
       <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]}>
         <Text style={[styles.header, { color: textColor }]}>
@@ -118,6 +130,20 @@ const PerformanceScores = () => {
             </Text>
           </View>
         </View>
+        <Text style={[styles.chartHeader, { color: textColor }]}>{t('performance.stats')}</Text>
+      <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50 }}>
+        <LineChart
+          data={placeholderGraph}
+          width={dimensions.width - 40}
+          height={220}
+          chartConfig={chartConfig}
+          bezier
+          fromZero
+          yAxisInterval={1}
+          segments={4}
+          style={{ height: '100%', width: '100%' }}
+        />
+      </View>
       </ScrollView>
     );
   }
@@ -228,7 +254,7 @@ const PerformanceScores = () => {
           chartConfig={chartConfig}
           bezier
           fromZero
-          yAxisInterval={0.6}
+          yAxisInterval={1}
           segments={4}
           style={{ height: '100%', width: '100%' }}
         />
