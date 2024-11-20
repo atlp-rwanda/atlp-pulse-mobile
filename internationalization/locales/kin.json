@@ -204,7 +204,8 @@
     "uploadLink" : "Shyiraho CV uhereye kumurongo wo hanze",
     "chooseFile" : "Hitamo Dosiye",
     "upload" : "Shyiraho",
-    "edit": "Hindura"
+    "edit": "Hindura",
+    "photo": "IFoto"
 },
 "settings": {
   "title" : "Igenamiterere",
@@ -255,7 +256,11 @@
   "logoutErr": "Ikosa mu gusohoka",
   "navigationErr": "Byanze kugera aho ushaka",
   "updatePassSuccess": "Ijambo ry'ibanga ryongewe neza",
-  "updatePassFail": "Yooo, habaye ikibazo"
+  "updatePassFail": "Yooo, habaye ikibazo",
+  "permissionDenied": "Ibitabwirwa by'amakuru biri kuva kuva",
+  "avatarUpdated": "Foto ya umwirondoro yashyizweho neza",
+  "avatarError": "Ikosa mu kuvugurura foto ya umwirondoro",
+  "imagePickerError": "Ikosa mu kuvugurura foto ya umwirondoro"
 }
 },
 "notifications": {

@@ -2,19 +2,20 @@ import { Text, View } from '@/components/Themed';
 import { useEffect, useState } from 'react';
 import { Image, Pressable, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-
+import * as ImagePicker from 'expo-image-picker';
 import { editBG } from '@/assets/Icons/dashboard/Icons';
 import ProfileAvatar from '@/components/ProfileAvatar';
 import AboutTrainee from '@/components/trainee/About';
 import ProfileAccountTab from '@/components/trainee/Account';
 import TraineeOrg from '@/components/trainee/Organisation';
 import { GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
 import { useTranslation } from 'react-i18next';
+import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
 
 type TabKey = 'About' | 'Organisation' | 'Account';
 
@@ -49,7 +50,7 @@ export default function Profile() {
     })();
   }, []);
 
-  const { data, error } = useQuery(GET_PROFILE, {
+  const { data, error, refetch } = useQuery(GET_PROFILE, {
     context: {
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -77,11 +78,19 @@ export default function Profile() {
         if (orgToken) {
           setOrgToken(orgToken);
         } else {
-          toast.show(t('toasts.dashboard.tokenNotFound'), { type: 'danger', placement: 'top', duration: 3000 });
+          toast.show(t('toasts.dashboard.tokenNotFound'), {
+            type: 'danger',
+            placement: 'top',
+            duration: 3000,
+          });
         }
       } catch (error) {
-        toast.show(t('toasts.dashboard.failedToken'), { type: 'danger', placement: 'top', duration: 3000 });
-      } 
+        toast.show(t('toasts.dashboard.failedToken'), {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
+      }
     };
     fetchOrgToken();
   }, []);
@@ -98,17 +107,85 @@ export default function Profile() {
     },
   });
 
-useEffect(() => {
-  if (err) {
-    toast.show(t('toasts.dashboard.profileErr') , { type: 'danger', placement: 'top', duration: 3000 });
-  }
-}, [err]);
+  useEffect(() => {
+    if (err) {
+      toast.show(t('toasts.dashboard.profileErr'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
+    }
+  }, [err]);
 
   useEffect(() => {
     if (traineedata) {
       setTraineeProfile(traineedata.getProfile);
     }
   }, [traineedata]);
+
+  const [updateAvatar] = useMutation(UPDATE_AVATAR, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+    onCompleted: (data) => {
+      if (data.updateAvatar) {
+        toast.show(t('toasts.dashboard.avatarUpdated'), {
+          type: 'success',
+          placement: 'top',
+          duration: 3000,
+        });
+        refetch();
+      }
+    },
+    onError: (error) => {
+      toast.show(error.message || t('toasts.dashboard.avatarError'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
+    },
+  });
+
+  const handleImagePicker = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (!permissionResult.granted) {
+        toast.show(t('toasts.dashboard.permissionDenied'), {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+
+        await updateAvatar({
+          variables: {
+            avatar: base64Image,
+          },
+        });
+      }
+    } catch (error) {
+      toast.show(t('toasts.dashboard.imagePickerError'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <View>
@@ -123,13 +200,15 @@ useEffect(() => {
 
         <View className=" absolute bottom-[-30px] left-6">
           <View className="relative">
-            <ProfileAvatar name={profile?.name} src={profile.avatar} size="lg" />
+            <ProfileAvatar name={profile?.name} src={profile?.avatar} size="lg" />
             <TouchableOpacity
-              onPress={() => router.push('/dashboard/trainee/profile/edit')}
-              className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row  items-center w-32 h-13"
+              onPress={handleImagePicker}
+              className="absolute items-center justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
             >
-              <Ionicons name="pencil" size={18} color="white" />
-              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">{t('editProfile.edit')}</Text>
+              <Ionicons name="camera" size={18} color="white" />
+              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">
+                {t('editProfile.photo')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

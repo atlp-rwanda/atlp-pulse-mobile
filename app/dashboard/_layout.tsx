@@ -70,10 +70,21 @@ export default function DashboardLayout() {
   const colorScheme = useColorScheme();
   const [authToken, setAuthToken] = useState<string | null>(null);
 
-  const { data: profileData } = useQuery(GET_PROFILE, {
-    context: { headers: { Authorization: `Bearer ${authToken}` } },
+  const { data } = useQuery(GET_PROFILE, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    },
     skip: !authToken,
   });
+
+  useEffect(() => {
+    if (data) {
+      setProfile(data.getProfile);
+    }
+  }, [data]);
+
   useEffect(() => {
     (async () => {
       const cachedToken = await AsyncStorage.getItem('authToken');

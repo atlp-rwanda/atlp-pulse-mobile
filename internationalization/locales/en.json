@@ -204,7 +204,8 @@
     "uploadLink" : "Upload resume from external link",
     "chooseFile" : "Choose File" ,
     "upload" : "Upload",
-    "edit": "Edit"
+    "edit": "Edit",
+    "photo": "Photo"
 },
 "settings":{
   "title" : "Settings",
@@ -254,7 +255,11 @@
   "logoutErr" : "Error logging out",
   "navigationErr" : "Failed to navigate",
   "updatePassSuccess": "Password updated successfully",
-  "updatePassFail": "Oops, something went wrong"
+  "updatePassFail": "Oops, something went wrong",
+  "permissionDenied": "Permission to access photos was denied",
+  "avatarUpdated": "Profile picture updated successfully",
+  "avatarError": "Failed to update profile picture",
+  "imagePickerError": "Error selecting image"
 }
 },
 "notifications":{

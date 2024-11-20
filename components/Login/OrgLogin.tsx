@@ -72,7 +72,9 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
             </View>
 
             {formik.touched.organization && formik.errors.organization && (
-              <Text className="mt-1 text-error-500 first-letter:uppercase">{formik.errors.organization}</Text>
+              <Text className="mt-1 text-error-500 first-letter:uppercase">
+                {formik.errors.organization}
+              </Text>
             )}
 
             <View className="flex flex-col gap-4 mt-4">
@@ -93,7 +95,6 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
             </View>
           </View>
         </View>
-
         <View className="items-center ">
           <SvgXml xml={colorScheme === 'dark' ? DarkBottomIcon : LightBottomIcon} />
         </View>

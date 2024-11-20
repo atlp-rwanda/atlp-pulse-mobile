@@ -28,18 +28,25 @@ export default function ProfileAvatar({ name, size = 'md', src }: AvatarProps) {
     return <Image source={{ uri: src }} className={`rounded-full ${sizeClass[size]}`} />;
   }
 
+  const getInitials = (name?: string) => {
+    if (!name) return 'UN';
+    return name
+      .trim()
+      .toUpperCase()
+      .split(' ')
+      .filter((word) => word.length > 0)
+      .slice(0, 2)
+      .map((word) => word[0])
+      .join('');
+  };
+
   return (
     <View
       className={`p-0 rounded-full items-center justify-center bg-[#cbecd7] ${sizeClass[size]}`}
     >
-      <Text style={{ lineHeight: 0 }} className={`font-Inter-Regular ${textSizeClass[size]}`}>
-        {name
-          ?.toUpperCase()
-          .split(' ')
-          .filter((_, i) => i < 2)
-          .map((w) => w[0])
-          .join('') || 'UN'}
-      </Text>
+      <View className={`rounded-full items-center justify-center bg-[#cbecd7] ${sizeClass[size]}`}>
+        <Text className={`font-Inter-Regular ${textSizeClass[size]}`}>{getInitials(name)}</Text>
+      </View>
     </View>
   );
 }

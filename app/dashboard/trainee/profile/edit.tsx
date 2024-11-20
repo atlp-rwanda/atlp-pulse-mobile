@@ -11,17 +11,19 @@ import { router } from 'expo-router';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useToast } from 'react-native-toast-notifications';
 import { CoverImage } from '.';
 import { useTranslation } from 'react-i18next';
+import * as ImagePicker from 'expo-image-picker';
+import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
 
 type FormValues = {
   firstName: string;
@@ -60,7 +62,11 @@ const EditProfile = () => {
         if (token) {
           setUserToken(token);
         } else {
-          toast.show(t('toasts.dashboard.tokenNotFound'), { type: 'danger', placement: 'top', duration: 3000 });
+          toast.show(t('toasts.dashboard.tokenNotFound'), {
+            type: 'danger',
+            placement: 'top',
+            duration: 3000,
+          });
         }
       } catch (error) {
         toast.show(t('toasts.dashboard.failedToken'), {
@@ -73,7 +79,7 @@ const EditProfile = () => {
     fetchToken();
   }, []);
 
-  const { data, loading, error } = useQuery(GET_PROFILE, {
+  const { data, loading, error, refetch } = useQuery(GET_PROFILE, {
     context: {
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -83,7 +89,11 @@ const EditProfile = () => {
   });
   useEffect(() => {
     if (error) {
-      toast.show(t('toasts.dashboard.profileErr'), { type: 'danger', placement: 'top', duration: 3000 });
+      toast.show(t('toasts.dashboard.profileErr'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     }
   }, [error]);
 
@@ -173,6 +183,70 @@ const EditProfile = () => {
     );
   }
 
+  const [updateAvatar] = useMutation(UPDATE_AVATAR, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    },
+    onCompleted: (data) => {
+      if (data.updateAvatar) {
+        toast.show(t('toasts.dashboard.avatarUpdated'), {
+          type: 'success',
+          placement: 'top',
+          duration: 3000,
+        });
+        refetch();
+      }
+    },
+    onError: (error) => {
+      toast.show(error.message || t('toasts.dashboard.avatarError'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
+    },
+  });
+
+  const handleImagePicker = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (!permissionResult.granted) {
+        toast.show(t('toasts.dashboard.permissionDenied'), {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+
+        await updateAvatar({
+          variables: {
+            avatar: base64Image,
+          },
+        });
+      }
+    } catch (error) {
+      toast.show(t('toasts.dashboard.imagePickerError'), {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
+    }
+  };
+
   return (
     <View>
       <View className="relative h-48 mb-12">
@@ -180,9 +254,14 @@ const EditProfile = () => {
         <View className=" absolute bottom-[-30px] left-6">
           <View className="relative">
             <ProfileAvatar name={profile?.name} src={profile.avatar} size="lg" />
-            <TouchableOpacity className="absolute left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13">
-              <Ionicons name="pencil" size={18} color="white" />
-              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">{t('editProfile.edit')}</Text>
+            <TouchableOpacity
+              onPress={handleImagePicker}
+              className="absolute items-center justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
+            >
+              <Ionicons name="camera" size={18} color="white" />
+              <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">
+                {t('editProfile.photo')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -210,7 +289,7 @@ const EditProfile = () => {
         </TouchableOpacity>
       </View>
 
-      <View className={`mb-12 px-4 py-6 rounded-lg ${bgColor} shadow-lg`}>
+      <View className={`mb-12 px-4 py-6 rounded-lg ${bgColor} shadow-lg relative z-0`}>
         <View className="flex-row">
           <TouchableOpacity
             onPress={() => router.push('/dashboard/trainee/profile')}
@@ -223,7 +302,7 @@ const EditProfile = () => {
 
         {tab === 0 && (
           <>
-            <View className="mb-4">
+            <View className="relative mb-4">
               <View className="mb-4">
                 <Text className={`${textColor} p-2`}>{t('userRegister.firstName')}</Text>
                 <View
@@ -334,13 +413,12 @@ const EditProfile = () => {
                 </View>
               </View>
 
-              <View className="mb-4 z-30">
+              <View className="mb-4">
                 <Text className={`${textColor} p-2`}>{t('editProfile.country')}</Text>
 
                 <View
                   className={`flex-row items-center px-3 ${bgColor} rounded-lg shadow border-2 border-[#D2D2D2]`}
                 >
-                  <Ionicons name="female" size={20} color="gray" />
                   <View className="flex-1">
                     <DropDownPicker
                       open={countrySelectOpen}
@@ -349,9 +427,32 @@ const EditProfile = () => {
                       setOpen={setCountrySelectOpen}
                       setValue={setCountry}
                       theme={colorScheme === 'dark' ? 'DARK' : 'LIGHT'}
-                      placeholder="Select Gender"
+                      placeholder="Select country"
                       multiple={false}
                       style={{ borderColor: 'transparent', backgroundColor: 'transparent' }}
+                      dropDownContainerStyle={{
+                        maxHeight: 200,
+                        position: 'relative',
+                        top: 0,
+                      }}
+                      listMode="SCROLLVIEW"
+                      scrollViewProps={{
+                        nestedScrollEnabled: true,
+                        persistentScrollbar: true,
+                      }}
+                      modalProps={{
+                        animationType: 'fade',
+                      }}
+                      containerStyle={{
+                        width: '100%',
+                      }}
+                      modalContentContainerStyle={{
+                        height: '80%',
+                      }}
+                      searchable={true}
+                      searchPlaceholder="Search for a country..."
+                      zIndex={3000}
+                      zIndexInverse={1000}
                     />
                   </View>
                 </View>
@@ -384,7 +485,9 @@ const EditProfile = () => {
               {Loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text className="text-white text-center text-lg">{t('editProfile.updateProfile')}</Text>
+                <Text className="text-white text-center text-lg">
+                  {t('editProfile.updateProfile')}
+                </Text>
               )}
             </TouchableOpacity>
           </>
