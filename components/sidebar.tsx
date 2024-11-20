@@ -8,6 +8,7 @@ import {
   darkLogoIcon,
   darkLogout,
   darkPerformance,
+  darkTickets,
   lightAttendance,
   lightCalender,
   lightDashboard,
@@ -16,6 +17,7 @@ import {
   lightLogoIcon,
   lightLogout,
   lightPerformance,
+  lightTickets,
 } from '@/assets/Icons/dashboard/Icons';
 import { Text, View } from '@/components/Themed';
 import { useApolloClient } from '@apollo/client';
@@ -46,6 +48,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       iconLight: lightDashboard,
       iconDark: darkDashboard,
       path: '/dashboard',
+    },
+    {
+      name: t('navbar.tickets'),
+      iconLight: lightTickets,
+      iconDark: darkTickets,
+      path: '/dashboard/trainee/tickets',
     },
     {
       name: t('navbar.attendance'),
