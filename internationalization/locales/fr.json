@@ -318,6 +318,9 @@
   "wed": "Mercredi",
   "thu": "Jeudi",
   "fri": "Vendredi"
+  },
+  "documentation": {
+    "pageTitle": "Documentation de l'application"
   }
 
 
