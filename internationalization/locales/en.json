@@ -319,40 +319,6 @@
   "fri": "Fri"
 },
 "documentation": {
-  "pageTitle": "App Documentation",
-  "gettingStarted": {
-    "title": "Getting started",
-    "intro": "Devpulse is a semi-open platform i.e. using it, requires a certain level of approval from the owners/managers. If you browse the homepage, you might wonder why there is no signup button, this is because to sign up you need an invitation.",
-    "terminologyTitle": "Terminology to be familiar with:",
-    "terms": {
-      "organizations": {
-        "bullet": "• Organizations:",
-        "description": "Each Devpulse user belongs to an organization. The default organization is Andela. The admin of a given organisation has the highest privilege."
-      },
-      "programs": {
-        "bullet": "• Programs:",
-        "description": "Each organization should have a program that it is running."
-      },
-      "managers": {
-        "bullet": "• Managers:",
-        "description": "Each program should have managers with different access levels (coordinators, technical team leads, managers)."
-      },
-      "trainees": {
-        "bullet": "• Trainees:",
-        "description": "An ordinary user of the app will fall under the role of a trainee. As a trainee, you belong to a team, which belongs to a cohort, which belongs to a program."
-      }
-    },
-    "signupTitle": "Signing up as a user:",
-    "signupDescription": "To sign up, your org admin must send you an invite. The invitation email will contain the details of how to sign up.",
-    "signinTitle": "Signing in as a user:",
-    "signinDescription": "To sign in, go to the signin page, provide the correct name of your organization, on the next screen enter username and password."
-  },
-  "login": {
-    "title": "How to Login to an Organisation",
-    "intro": "To sign in to our app, users need to choose an organization they belong to. This selection is essential for access control, data security, and providing a personalized user experience.",
-    "welcome": "Welcome to our App! To access an organization's account, follow these simple steps:",
-    "stepsTitle": "Steps on how to:",
-    "footer": "Please make sure you have the correct organization name and valid credentials to access the organization's account successfully. If you encounter any issues during the login process, feel free to contact our support team for assistance."
-  }
+  "pageTitle": "App Documentation"
 }
 }

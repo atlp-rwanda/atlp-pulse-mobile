@@ -319,41 +319,7 @@
   "fri": "Kuwa 5"
 },
   "documentation": {
-    "pageTitle": "Inyandiko z'Application",
-    "gettingStarted": {
-      "title": "Gutangira",
-      "intro": "Devpulse ni platform ifunguye igice, bivuze ko kuyikoresha bisaba urwego runaka rw'uburenganzira bw'abayifite/abayobozi. Niba urimo kureba homepage, ushobora kwibaza impamvu nta buto yo kwiyandikisha, ibi ni ukubera ko kugira ngo wiyandikishe ukeneye ubutumire.",
-      "terminologyTitle": "Amagambo ukwiye kumenya:",
-      "terms": {
-        "organizations": {
-          "bullet": "• Imiryango:",
-          "description": "Buri mukoresha wa Devpulse abarizwa mu muryango. Umuryango w'ibanze ni Andela. Umuyobozi w'umuryango runaka afite uburenganzira bwo hejuru."
-        },
-        "programs": {
-          "bullet": "• Porogaramu:",
-          "description": "Buri muryango ugomba kuba ufite porogaramu ikora."
-        },
-        "managers": {
-          "bullet": "• Abayobozi:",
-          "description": "Buri porogaramu igomba kugira abayobozi bafite inzego zitandukanye zo kuyigeraho (abahuzabikorwa, abayobozi b'itsinda ry'ikoranabuhanga, abayobozi)."
-        },
-        "trainees": {
-          "bullet": "• Abanyeshuri:",
-          "description": "Umukoresha usanzwe w'application azaba mu nshingano z'umunyeshuri. Nk'umunyeshuri, uri mu itsinda, riri mu itsinda rinini, riri muri porogaramu."
-        }
-      },
-      "signupTitle": "Kwiyandikisha nk'umukoresha:",
-      "signupDescription": "Kugira ngo wiyandikishe, umuyobozi w'umuryango wawe agomba kukoherereza ubutumire. Imeri y'ubutumire izaba irimo ibisobanuro by'uko wiyandikisha.",
-      "signinTitle": "Kwinjira nk'umukoresha:",
-      "signinDescription": "Kugira ngo winjire, jya ku rupapuro rwo kwinjira, tanga izina nyaryo ry'umuryango wawe, ku rupapuro rukurikira wandike izina ry'umukoresha n'ijambo ry'ibanga."
-    },
-    "login": {
-      "title": "Uko Winjira mu Muryango",
-      "intro": "Kugira ngo winjire muri application yacu, abakoresha bagomba guhitamo umuryango barimo. Uku guhitamo ni ngombwa ku buyobozi bw'uburenganzira, umutekano w'amakuru, no gutanga uburyo bwihariye bw'umukoresha.",
-      "welcome": "Murakaza neza kuri application yacu! Kugira ngo ugere kuri konti y'umuryango, kurikiza aya ntambwe yoroshye:",
-      "stepsTitle": "Intambwe zo gukurikiza:",
-      "footer": "Nyamuneka menya neza ko ufite izina nyaryo ry'umuryango n'ibyangombwa bikwiye kugira ngo ugere kuri konti y'umuryango neza. Niba uhura n'ibibazo mu gihe cyo kwinjira, ntutinye guhamagara ikipe yacu y'ubufasha kugira ngo bagufashe."
-    }
+    "pageTitle": "Inyandiko z'Application"
   }
 
 }

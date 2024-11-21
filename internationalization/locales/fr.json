@@ -320,41 +320,7 @@
   "fri": "Vendredi"
   },
   "documentation": {
-    "pageTitle": "Documentation de l'Application",
-    "gettingStarted": {
-      "title": "Pour commencer",
-      "intro": "Devpulse est une plateforme semi-ouverte, c'est-à-dire que son utilisation nécessite un certain niveau d'approbation des propriétaires/gestionnaires. Si vous parcourez la page d'accueil, vous vous demandez peut-être pourquoi il n'y a pas de bouton d'inscription, c'est parce que pour s'inscrire, vous avez besoin d'une invitation.",
-      "terminologyTitle": "Terminologie à connaître :",
-      "terms": {
-        "organizations": {
-          "bullet": "• Organisations :",
-          "description": "Chaque utilisateur de Devpulse appartient à une organisation. L'organisation par défaut est Andela. L'administrateur d'une organisation donnée a le plus haut privilège."
-        },
-        "programs": {
-          "bullet": "• Programmes :",
-          "description": "Chaque organisation doit avoir un programme qu'elle exécute."
-        },
-        "managers": {
-          "bullet": "• Gestionnaires :",
-          "description": "Chaque programme doit avoir des gestionnaires avec différents niveaux d'accès (coordinateurs, chefs d'équipe techniques, gestionnaires)."
-        },
-        "trainees": {
-          "bullet": "• Stagiaires :",
-          "description": "Un utilisateur ordinaire de l'application aura le rôle de stagiaire. En tant que stagiaire, vous appartenez à une équipe, qui appartient à une cohorte, qui appartient à un programme."
-        }
-      },
-      "signupTitle": "S'inscrire en tant qu'utilisateur :",
-      "signupDescription": "Pour vous inscrire, l'administrateur de votre organisation doit vous envoyer une invitation. L'e-mail d'invitation contiendra les détails sur la façon de s'inscrire.",
-      "signinTitle": "Se connecter en tant qu'utilisateur :",
-      "signinDescription": "Pour vous connecter, allez sur la page de connexion, fournissez le nom correct de votre organisation, sur l'écran suivant, entrez votre nom d'utilisateur et votre mot de passe."
-    },
-    "login": {
-      "title": "Comment se connecter à une Organisation",
-      "intro": "Pour se connecter à notre application, les utilisateurs doivent choisir une organisation à laquelle ils appartiennent. Cette sélection est essentielle pour le contrôle d'accès, la sécurité des données et la fourniture d'une expérience utilisateur personnalisée.",
-      "welcome": "Bienvenue dans notre application ! Pour accéder au compte d'une organisation, suivez ces étapes simples :",
-      "stepsTitle": "Étapes à suivre :",
-      "footer": "Assurez-vous d'avoir le nom correct de l'organisation et des identifiants valides pour accéder au compte de l'organisation avec succès. Si vous rencontrez des problèmes pendant le processus de connexion, n'hésitez pas à contacter notre équipe de support pour obtenir de l'aide."
-    }
+    "pageTitle": "Documentation de l'Application"
   }
 
 
