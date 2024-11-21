@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: t('navbar.docs'),
       iconLight: lightDocument,
       iconDark: darkDocument,
-      path: '/dashboard/trainee',
+      path: '/dashboard/trainee/documentation',
     },
     {
       name: t('navbar.help'),

@@ -317,6 +317,9 @@
   "wed": "Wed",
   "thu": "Thu",
   "fri": "Fri"
+},
+"documentation": {
+  "pageTitle": "App Documentation"
 }
 
 }
