@@ -9,8 +9,6 @@ import{ View,
   useColorScheme,
   ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import Checkbox from 'expo-checkbox';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { useToast } from 'react-native-toast-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,7 +27,7 @@ import { NotificationContext } from '@/hooks/useNotification';
 import { Swipeable } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import { enUS, fr, es, de } from 'date-fns/locale';
-
+import { useRouter } from 'expo-router';
 const rw = {
   code: 'rw',
   formatDistance: (token: string, count: number, options: any) => {
@@ -67,6 +65,8 @@ interface Notification {
   isRead: boolean;
   read: boolean;
   createdAt: string;
+  type: string;
+  referenceId?: string;
   receiver: string;
   sender: {
     id: string;
@@ -80,6 +80,7 @@ interface Notification {
 }
 
 const Notifications = () => {
+  const router = useRouter();
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const colorScheme = useColorScheme();
@@ -91,11 +92,9 @@ const Notifications = () => {
   const [readAllNotification] = useMutation(markAllAsRead);
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
-  const [selectedNotifications, setSelectedNotifications] = useState<string[]>([]);
-  const [selectAll, setSelectAll] = useState(false);
   const [userToken, setUserToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
-  const { markRead , markAllRead, Delete, deleteAll } = useContext(NotificationContext);
+  const { markRead , markAllRead, Delete } = useContext(NotificationContext);
   const [activeTab,setActiveTab] = useState('All')
   const getDateLocale = () => {
     switch (i18n.language) {
@@ -199,7 +198,6 @@ const Notifications = () => {
   
   useSubscription(NotificationSubscription, {
     onData: (data) => {
-      /* istanbul ignore next */
       const newNotification = data.data.data.newRating;
       setNotifications((prevNotifications) => {
         const updatedNotifications = [newNotification, ...prevNotifications];
@@ -245,59 +243,59 @@ const Notifications = () => {
     setUnreadCount(count);
   };
 
-  const handleSelectAll = (isChecked: boolean) => {
-    setSelectAll(isChecked);
-    setSelectedNotifications(isChecked ? notifications.map((n) => n.id) : []);
-  };
-
-  const handleSelectNotification = (id: string) => {
-    setSelectedNotifications((prev) => {
-      if (prev.includes(id)) {
-        const newSelected = prev.filter((notificationId) => notificationId !== id);
-        setSelectAll(false);
-        return newSelected;
-      } else {
-        const newSelected = [...prev, id];
-        if (newSelected.length === notifications.length) {
-          setSelectAll(true);
-        }
-        return newSelected;
-      }
-    });
-  };
-
-
-  const handleMarkAsRead = async (id: string) => {
+  const handleNotificationPress = async (notification: Notification) => {
     try {
-      const token = await AsyncStorage.getItem('authToken');
-      if (!token) {
-        throw new Error('Authentication token is missing');
-      }
-
-      await readNotification({
-        variables: { markAsReadId: id },
-        context: {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if (!notification.read) {
+        await readNotification({
+          variables: { markAsReadId: notification.id },
+          context: {
+            headers: {
+              Authorization: `Bearer ${await AsyncStorage.getItem('authToken')}`,
+            },
           },
-        },
-      });
-
-      setNotifications((prevNotifications) =>
-        prevNotifications.map((notification) =>
-          notification.id === id ? { ...notification, read: true } : notification
-        )
-      );
-      markRead(id);
-      updateUnreadCount(
-        notifications.map((notification) =>
-          notification.id === id ? { ...notification, read: true } : notification
-        )
-      );
+        });
+        markRead(notification.id);
+      }
+  
+      if (
+        notification.message.includes('New ticket assigned to you. Ticket ID:')
+      ) {
+        router.push(`/dashboard/trainee/tickets`);
+        return;
+      }
+  
+      switch (notification.type?.toLowerCase()) {
+        case 'ticket':
+          router.push('/dashboard/trainee/tickets');
+          break;
+        case 'attendance':
+          router.push('/dashboard/trainee/Attendance');
+          break;
+        case 'performance':
+        case 'rating':
+          router.push('/dashboard/perfomance');
+          break;
+        case 'calendar':
+          router.push('/dashboard/calendar');
+          break;
+        case 'docs':
+          router.push('/dashboard/trainee/documentation');
+          break;
+        case 'help':
+          router.push('/dashboard/trainee');
+          break;
+        default:
+          router.push('/dashboard');
+      }
     } catch (error) {
-      toast.show(t('notifications.errorMarkingAsRead'), { type: 'danger' });
+      toast.show(t('notifications.errorNavigating'), { 
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      });
     }
   };
+
   
   const handleDelete = async (id: string) => {
     try {
@@ -336,32 +334,52 @@ const Notifications = () => {
       onSwipeableOpen={() => handleDelete(item.id)}
     >
       <TouchableOpacity
-        onPress={() => !item.read && handleMarkAsRead(item.id)}
-        className="flex-row items-start p-4 border-b border-gray-200"
+        onPress={() => handleNotificationPress(item)}
+        className={`flex-row items-start p-4 border-b border-gray-200 ${
+          !item.read 
+            ? `border-l-4 border-l-primary ${bgColor}`
+            : `${bgColor}`
+        }`}
       >
-        {item.sender.profile.avatar && (
-          <Image
-            source={{ uri: item.sender.profile.avatar }}
-            className="w-10 h-10 rounded-full mr-3"
-          />
-        )}
-        <View className="flex-1">
-          <View>
-            <Text className={`font-bold ${textColor}`}>{item.sender.profile.name}</Text>
-            <Text className={`font-bold ${textColor}`}>
-              <Text className={`font-normal ${textColor}`}>{item.message}</Text>
+        <View className={`justify-center items-center p-2 rounded-md w-10 h-10 ${
+          !item.read 
+            ? `${bgColor}`
+            : `${bgColor}`
+        }`}>
+          {item.sender.profile.avatar && (
+            <Image
+              source={{ uri: item.sender.profile.avatar }}
+              className="w-8 h-8 rounded-full"
+            />
+          )}
+        </View>
+        
+        <View className="flex-1 ml-3">
+          <Text className={`${textColor}`}>
+            {item.message.split(/"([^"]+)"/g).map((part, i) => {
+              if (i % 2 === 0) {
+                return part;
+              }
+              return <Text key={i} className="font-bold">{part}</Text>;
+            })}
+          </Text>
+          <View className="flex-row items-center mt-1 space-x-1">
+            <Text className="text-xs text-gray-500 italic">
+              {item.sender.profile.name || item.sender.email}
+            </Text>
+            <Text className="text-xs text-gray-500">-</Text>
+            <Text className="text-xs text-gray-500 italic">
+              {formatDistanceToNowStrict(new Date(Number(item.createdAt)), {
+                addSuffix: true,
+                locale: getDateLocale(),
+              })}
             </Text>
           </View>
         </View>
-        <View className="flex-row items-center gap-2">
-          <Text className={`text-xs ${textColor}`}>
-            {formatDistanceToNowStrict(new Date(Number(item.createdAt)), {
-              addSuffix: true,
-              locale: getDateLocale(),
-            })}
-          </Text>
-          {!item.read && <View className="w-4 h-4 bg-red-500 rounded-full" />}
-        </View>
+        
+        {!item.read && (
+          <View className="w-3 h-3 rounded-full bg-primary ml-2" />
+        )}
       </TouchableOpacity>
     </Swipeable>
   );
@@ -399,7 +417,7 @@ const Notifications = () => {
     activeTab === 'All' ? notifications : notifications.filter((notification) => !notification.read);
 
   return (
-    <SafeAreaView className={`flex-1 ${bgColor}`}>
+    <SafeAreaView className={`flex ${bgColor}`}>
           <View>
         <Text className={`text-lg font-semibold ${textColor}`}>{t('notifications.notifications')}</Text>
         </View>
