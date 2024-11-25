@@ -7,11 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "devpulse",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.atlp.pulseapp",
@@ -44,6 +39,18 @@
       "expo-image-picker",
       {
         "photosPermission": "The app needs access to your photos to let you upload a profile picture."
+      }
+    ],
+    [
+      "expo-splash-screen",
+      {
+        "backgroundColor": "#E0E7FF",
+        "image": "./assets/images/icon.png",
+        "dark": {
+          "image": "./assets/images/icon.png",
+          "backgroundColor": "#020917"
+        },
+        "imageWidth": 128
       }
     ]
   ],
