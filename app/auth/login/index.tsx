@@ -1,5 +1,6 @@
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
+import TwoFactorScreen from '../two-factor';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
 import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -86,6 +87,7 @@ export default function SignInOrganization() {
     try {
       const orgToken = await AsyncStorage.getItem('orgToken');
       userInput.orgToken = orgToken;
+      await AsyncStorage.setItem('user_email', userInput.email);
 
       await LoginUser({
         variables: {
@@ -97,7 +99,7 @@ export default function SignInOrganization() {
             return;
           }
 
-          if (data.loginUser) {
+          if (data.loginUser && !data.loginUser.otpRequired) {
             const token = data.loginUser.token;
 
             if (data.loginUser.user.role === 'trainee') {
@@ -118,7 +120,14 @@ export default function SignInOrganization() {
               return;
             }
 
-          } else {
+          }
+          else if(data.loginUser.otpRequired)
+            {
+              await AsyncStorage.setItem('userpassword', userInput.password);
+              router.push('/auth/two-factor')
+              return
+            }
+          else {
             await AsyncStorage.setItem('authToken', data.loginUser.token);
             router.push('/dashboard');
           }

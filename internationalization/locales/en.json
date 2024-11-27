@@ -220,7 +220,8 @@
   "emailFeeds": "Feedback emails, reminder emails, news emails",
   "pushNotify": "Push Notifications",
   "pushUpdates": "Grade updates, session reminders, performance comments",
-  "privacy": "Privacy and Security",
+  "Two-factor": "Two-factor authentication",
+  "Two-factor-Preference":"Get extra security by receiving a code on your email",
   "login": "Login Activity" ,
   "loginHistory": "History of Your login session",
   "view": "View"
@@ -260,7 +261,29 @@
   "avatarUpdated": "Profile picture updated successfully",
   "avatarError": "Failed to update profile picture",
   "imagePickerError": "Error selecting image"
+},
+"preferences":{
+  "enableTwo-way":"Two-factor authentication Enabled",
+  "failEnableTwoway":"Error enabling two-factor authentication",
+  "desableTwo-way":"Two-factor authentication Disabled",
+  "failDesableTwoway":"Error Desabling two-factor authentication",
+  "updateEmailNotification":"Email notifications updated successfull",
+  "failUpdatingeEmail":"Error updating Email Notifications",
+  "updatePushNotification":"Push Notifications updated successfull",
+  "failUpdatingPush":"Error enabling Push Notifications"
+},
+"two-factor":{
+  "verficationtitle1":"Verification Required",
+  "verficationtitle2":"Enter the verification code",
+  "Verifying":"Verifying",
+  "Verify-Code":"Verify Code",
+  "Resend-code-in":"Resend code in",
+  "Sending":"Sending",
+  "Resend-Code":"Resend Code",
+  "Failed-to-resend-code":"Failed to resend code",
+  "Code-resent-successfully":"Code resent successfully"
 }
+
 },
 "notifications":{
   "deleteSuccess": "Notification deleted successfully",

@@ -25,7 +25,7 @@ export default function OrgLogin({ onSubmit }: OrgLoginProps) {
     initialValues: {} as FormValues,
     onSubmit: async (values) => {
       setLoading(true);
-      await onSubmit(values);
+      onSubmit(values);
       setLoading(false);
     },
     validationSchema: OrgLoginSchema,

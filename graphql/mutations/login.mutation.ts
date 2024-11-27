@@ -12,6 +12,8 @@ export const LOGIN_MUTATION = gql`
   mutation Mutation($loginInput: LoginInput) {
     loginUser(loginInput: $loginInput) {
       token
+      otpRequired
+     
       user {
         id
         role

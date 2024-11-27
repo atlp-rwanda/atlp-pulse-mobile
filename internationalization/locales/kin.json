@@ -220,7 +220,8 @@
   "emailFeeds": "Imeyili z'ibitekerezo, kwibutsa, amakuru",
   "pushNotify": "Gutanga amatangazo",
   "pushUpdates": "Amakuru ku manota, kwibutsa amasomo, ibisobanuro ku myitwarire",
-  "privacy": "Ubuzima bwite n'Umutekano",
+  "Two-factor": "Two-factor authentication",
+  "Two-factor-Preference":"Shaka umutekano wongeyeho wakiriye kode kuri imeri yawe",
   "login": "Ibikorwa byo kwinjira",
   "loginHistory": "Amateka y'ibihe wakoresheje winjira",
   "view": "Reba"
@@ -261,6 +262,27 @@
   "avatarUpdated": "Foto ya umwirondoro yashyizweho neza",
   "avatarError": "Ikosa mu kuvugurura foto ya umwirondoro",
   "imagePickerError": "Ikosa mu kuvugurura foto ya umwirondoro"
+},
+"preferences":{
+  "enableTwo-way":"Kwemeza ibintu bibiri",
+  "failEnableTwoway":"Ikosa rishobora kwemeza ibintu bibiri",
+  "desableTwo-way":"Kwemeza ibintu bibiri byahagaritswe",
+  "failDesableTwoway":"Ikosa Gusiba ibintu bibiri byemewe",
+  "updateEmailNotification":"Imenyesha rya imeri ryagezweho neza",
+  "failUpdatingeEmail":"Ikosa ryo kuvugurura imenyesha rya imeri",
+  "updatePushNotification":"Gusunika Kumenyesha bigezweho",
+  "failUpdatingPush":"Ikosa ryo kuvugurura Amatangazo"
+},
+"two-factor":{
+  "verficationtitle1":"Kugenzura Birasabwa",
+  "verficationtitle2":"Injira kode yo kugenzura",
+  "Verifying":"Kugenzura",
+  "Verify-Code":"Kugenzura Kode",
+  "Resend-code-in":"Ongera wohereza kode muri",
+  "Sending":"Kohereza",
+  "Resend-Code":"Ongera wohereza kode",
+  "Failed-to-resend-code":"Yunanirwa kongera koherezwa kode",
+  "Code-resent-successfully":"Kode yongeye koherezwa neza"
 }
 },
 "notifications": {
