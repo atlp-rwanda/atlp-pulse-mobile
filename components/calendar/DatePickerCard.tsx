@@ -41,7 +41,11 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
       const startDate = dayjs(event.start);
       const endDate = dayjs(event.end);
 
-      for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date = date.add(1, 'day')) {
+      for (
+        let date = startDate;
+        date.isBefore(endDate) || date.isSame(endDate, 'day');
+        date = date.add(1, 'day')
+      ) {
         const dateString = date.format('YYYY-MM-DD');
         if (!markedDates[dateString]) {
           markedDates[dateString] = {
@@ -60,30 +64,30 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
       selectedTextColor: '#FFFFFF',
     };
 
-  if (selectedDate) {
-    markedDates[selectedDate] = {
-      selected: true,
-      selectedColor: colorScheme === 'light' ? '#FFFFFF' : '#8667F2',
-      selectedTextColor: colorScheme === 'light' ? '#585757' : '#FFFFFF',
-      dotColor: '#FFFFFF',
-      customStyles: {
-        container: {
-          borderWidth: 2.3,
-          borderColor: '#8667F2',
-          borderRadius: 16,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 0.5,
+    if (selectedDate) {
+      markedDates[selectedDate] = {
+        selected: true,
+        selectedColor: colorScheme === 'light' ? '#FFFFFF' : '#8667F2',
+        selectedTextColor: colorScheme === 'light' ? '#585757' : '#FFFFFF',
+        dotColor: '#FFFFFF',
+        customStyles: {
+          container: {
+            borderWidth: 2.3,
+            borderColor: '#8667F2',
+            borderRadius: 16,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 0.5,
+          },
         },
-      },
-    };
-  }
+      };
+    }
     return markedDates;
   };
 
   return (
     <TouchableWithoutFeedback onPress={handleBlur}>
-      <View className='pb-3 mb-10 border-b border-[#616161]'>
+      <View className="pb-3 mb-10 border-b border-[#616161]">
         <Calendar
           key={currentDate}
           current={currentDate}
@@ -92,10 +96,10 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({ onDateChange, events })
             calendarBackground: colorScheme === 'light' ? '#FFFFFF' : '#020917',
             textSectionTitleColor: colorScheme === 'light' ? '#C5C5C5' : '#585757',
             dayTextColor: colorScheme === 'light' ? '#585757' : '#C5C5C5',
-            todayTextColor: "#8667F24D",
-            selectedDayBackgroundColor: "#020917",
-            selectedDayTextColor: "#fff",
-            textDisabledColor: "#D6C7A1",
+            todayTextColor: '#8667F24D',
+            selectedDayBackgroundColor: '#020917',
+            selectedDayTextColor: '#fff',
+            textDisabledColor: '#D6C7A1',
           }}
           markingType="custom"
           markedDates={getMarkedDates()}

@@ -30,7 +30,7 @@ export default function AppOnboardingLayout() {
           const currentTime = Math.floor(Date.now() / 1000);
 
           if (expiryTime > currentTime) {
-            return router.push('/dashboard');
+            return router.replace('/dashboard');
           }
 
           await AsyncStorage.removeItem('authToken');

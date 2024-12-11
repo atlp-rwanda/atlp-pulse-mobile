@@ -3,14 +3,14 @@ import { Text, View } from './Themed';
 
 type AvatarProps = {
   name?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   src?: string;
 };
 
 export default function ProfileAvatar({ name, size = 'md', src }: AvatarProps) {
   const sizeClass = {
     xs: 'w-11 h-11',
-    sm: 'w-14 h-14',
+    sm: 'w-12 h-12',
     md: 'w-20 h-20',
     lg: 'w-28 h-28',
     xl: 'w-36 h-36',
@@ -18,10 +18,10 @@ export default function ProfileAvatar({ name, size = 'md', src }: AvatarProps) {
 
   const textSizeClass = {
     xs: 'text-xl font-Inter-Medium',
-    sm: 'text-3xl font-Inter-Medium',
-    md: 'text-4xl font-Inter-Medium',
-    lg: 'text-6xl font-Inter-Regular',
-    xl: 'text-7xl font-Inter-Regular',
+    sm: 'text-2xl font-Inter-Medium',
+    md: 'text-3xl font-Inter-Medium',
+    lg: 'text-4xl font-Inter-Regular',
+    xl: 'text-5xl font-Inter-Regular',
   };
 
   if (src) {

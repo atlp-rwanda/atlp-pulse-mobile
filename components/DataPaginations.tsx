@@ -33,7 +33,7 @@ export default function DataPagination({
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedPageSize, setSelectedPageSize] = useState(pageSize);
   const colorScheme = useColorScheme();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const pageSizes = [3, 5, 10, 25, 50, 100];
 
@@ -44,7 +44,6 @@ export default function DataPagination({
   };
 
   const effectivePageCount = columnLength === 0 ? 1 : pageOptions.length;
-
 
   return (
     <View className="w-fit items-center mt-2">
@@ -68,10 +67,10 @@ export default function DataPagination({
               </TouchableOpacity>
             </View>
 
-            <View className='p-2 w-26'>
-            <Text className="text-gray-900 dark:text-white">
-            {t('tickets.page')} {columnLength === 0 ? 1 : pageIndex + 1} of {effectivePageCount}
-            </Text> 
+            <View className="p-2 w-26">
+              <Text className="text-gray-900 dark:text-white">
+                {t('tickets.page')} {columnLength === 0 ? 1 : pageIndex + 1} of {effectivePageCount}
+              </Text>
             </View>
 
             <View className="relative">
@@ -79,11 +78,22 @@ export default function DataPagination({
                 onPress={() => setDropdownOpen(!isDropdownOpen)}
                 className="px-3 py-2 border rounded-lg flex-row border border-[#9e85f5] dark:border-[#fff] bg-white dark:bg-[#9e85f5]"
               >
-                <Text className="text-black dark:text-white">{t('tickets.show')} {selectedPageSize}</Text>
-                <Icon name={isDropdownOpen ? "arrow-drop-up" : "arrow-drop-down"} size={24} color={colorScheme === 'dark' ? 'white' : 'black'}/>
+                <Text className="text-black dark:text-white">
+                  {t('tickets.show')} {selectedPageSize}
+                </Text>
+                <Icon
+                  name={isDropdownOpen ? 'arrow-drop-up' : 'arrow-drop-down'}
+                  size={24}
+                  color={colorScheme === 'dark' ? 'white' : 'black'}
+                />
               </TouchableOpacity>
               {isDropdownOpen && (
-                <Modal transparent={true} animationType="fade" visible={isDropdownOpen} onRequestClose={() => setDropdownOpen(false)}>
+                <Modal
+                  transparent={true}
+                  animationType="fade"
+                  visible={isDropdownOpen}
+                  onRequestClose={() => setDropdownOpen(false)}
+                >
                   <TouchableOpacity
                     className="flex-1 justify-end items-end mb-8"
                     onPress={() => setDropdownOpen(false)}

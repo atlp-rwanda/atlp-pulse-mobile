@@ -20,6 +20,7 @@ import {
   lightTickets,
 } from '@/assets/Icons/dashboard/Icons';
 import { Text, View } from '@/components/Themed';
+import { useNotification } from '@/providers/notifications';
 import { useApolloClient } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usePathname, useRouter } from 'expo-router';
@@ -35,12 +36,13 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const toast = useToast();
+  const client = useApolloClient();
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const colorScheme = useColorScheme();
   const { t } = useTranslation();
-  const client = useApolloClient();
+  const notification = useNotification();
 
   const UpperItems = [
     {
@@ -65,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       name: t('navbar.performance'),
       iconLight: lightPerformance,
       iconDark: darkPerformance,
-      path: '/dashboard/perfomance',
+      path: '/dashboard/trainee/performance',
     },
     {
       name: t('navbar.calendar'),
@@ -110,7 +112,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       await AsyncStorage.removeItem('orgName');
       await AsyncStorage.removeItem('userProfile');
       await AsyncStorage.removeItem('auth');
-      router.push('/auth/login?logout=1');
+      notification?.actions.reset();
+      client.clearStore();
+
+      router.canDismiss() && router.dismissAll();
+      router.replace('/auth/login');
     } catch (error) {
       toast.show(t('toasts.dashboard.logoutErr'), {
         type: 'danger',

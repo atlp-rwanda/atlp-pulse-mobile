@@ -5,7 +5,14 @@ import {
   lightNotifyIcon,
   menu,
 } from '@/assets/Icons/dashboard/Icons';
+import ProfileAvatar from '@/components/ProfileAvatar';
+import ProfileSidebar from '@/components/ProfileSidebar';
 import Sidebar from '@/components/sidebar';
+import { GET_PROFILE } from '@/graphql/queries/user';
+import UserProvider from '@/hooks/useAuth';
+import { NotificationContext, NotificationProvider } from '@/hooks/useNotification';
+import { useNotification } from '@/providers/notifications';
+import { useQuery } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Slot, useRouter } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
@@ -13,22 +20,17 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
   TouchableOpacity,
   View,
   useColorScheme,
-  Text,
 } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
-import UserProvider from '@/hooks/useAuth';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { NotificationProvider, NotificationContext } from '@/hooks/useNotification';
-import ProfileAvatar from '@/components/ProfileAvatar';
-import { GET_PROFILE } from '@/graphql/queries/user';
-import { useQuery } from '@apollo/client';
-import ProfileSidebar from '@/components/ProfileSidebar';
 
 export type ProfileType = {
+  id: string;
   firstName: string;
   lastName: string;
   name: string;
@@ -41,11 +43,14 @@ export type ProfileType = {
   biography?: string;
   githubUsername?: string;
   resume?: string;
-  user: {
+  user?: {
+    id: string;
     organizations: string[];
     email: string;
     role: string;
+    pushNotificationTokens: string[];
     team: {
+      id: string;
       name: string;
       cohort: {
         name: string;
@@ -64,6 +69,7 @@ export type ProfileType = {
 export default function DashboardLayout() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const notification = useNotification();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isProfileSidebarOpen, setIsProfileSidebarOpen] = useState<boolean>(false);
   const [profile, setProfile] = useState<ProfileType | null>(null);
@@ -82,6 +88,7 @@ export default function DashboardLayout() {
   useEffect(() => {
     if (data) {
       setProfile(data.getProfile);
+      notification.actions.setProfile(data.getProfile);
     }
   }, [data]);
 
@@ -97,7 +104,7 @@ export default function DashboardLayout() {
   }, []);
 
   if (!authToken) {
-    return null; 
+    return null;
   }
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);

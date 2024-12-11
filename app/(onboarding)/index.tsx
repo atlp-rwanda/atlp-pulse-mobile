@@ -53,38 +53,41 @@ export default function AppOnboarding() {
 
   return (
     <ScrollView
-      className="flex-1"
+      bounces={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
-      bounces={false}
+      contentContainerClassName="flex-1"
     >
       {/* Pager View for Onboarding Screens */}
-      <PagerView
-        initialPage={page}
-        style={{ minHeight: 580 }}
-        onPageSelected={(p) => setPage(p.nativeEvent.position)}
-        ref={pagerViewRef}
-      >
-        {pages.map((page, index) => (
-          <View key={index} className={`flex-1 px-8 py-12 ${bgColor}`}>
-            <Image
-              source={page.image}
-              contentFit="contain"
-              className="items-end justify-center mb-6"
-              style={{ width: '100%', flex: 1 }}
-            />
-            <Text
-              style={{ fontSize: 24 }}
-              className={`font-Inter-SemiBold text-center leading-9 ${textColor}`}
-            >
-              {page.content}
-            </Text>
-          </View>
-        ))}
-      </PagerView>
+      <View className="flex-1 flex-row justify-center items-center">
+        <PagerView
+          className="bg-red-500 justify-center items-center"
+          initialPage={page}
+          style={{ height: '100%', width: '100%' }}
+          onPageSelected={(p) => setPage(p.nativeEvent.position)}
+          ref={pagerViewRef}
+        >
+          {pages.map((page, index) => (
+            <View key={index} className={`flex-1 px-8 py-12 ${bgColor}`}>
+              <Image
+                source={page.image}
+                contentFit="contain"
+                className="items-end justify-center mb-6"
+                style={{ width: '100%', flex: 1 }}
+              />
+              <Text
+                style={{ fontSize: 24 }}
+                className={`font-Inter-SemiBold text-center leading-9 ${textColor}`}
+              >
+                {page.content}
+              </Text>
+            </View>
+          ))}
+        </PagerView>
+      </View>
 
       {/* Pagination Dots */}
-      <View className={`flex-1 flex-row justify-center items-center gap-3 ${bgColor}`}>
+      <View className={`flex-row w-full justify-center items-center gap-3 ${bgColor}`}>
         <View className={`rounded-full w-4 h-4 ${getDotColor(0)}`}></View>
         <View className={`rounded-full w-4 h-4 ${getDotColor(1)}`}></View>
         <View className={`rounded-full w-4 h-4 ${getDotColor(2)}`}></View>
@@ -96,12 +99,12 @@ export default function AppOnboarding() {
       </View>
 
       {/* Get Started Button */}
-      <View className={`flex-1 flex-row justify-center items-center ${bgColor}`}>
-        <TouchableOpacity>
-          <Text
-            className="text-lg font-Inter-Medium dark:text-white"
-            onPress={() => router.push('/auth/login')}
-          >
+      <View className={`flex-row justify-center items-center my-8`}>
+        <TouchableOpacity
+          onPress={() => router.push('/auth/login')}
+          className="bg-action-500 py-4 px-16 rounded-lg"
+        >
+          <Text className="text-lg font-Inter-Medium dark:text-white">
             {t('onboarding.getStarted')}
           </Text>
         </TouchableOpacity>

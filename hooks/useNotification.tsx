@@ -1,15 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { useSubscription, useLazyQuery, useMutation } from '@apollo/client';
+import { PUSH_NOTIFICATION_SUB, TICKETS_NOTS_SUB } from '@/graphql/mutations/notificationMutation';
+import { getAllNotification } from '@/graphql/queries/Notifications.queries';
+import { useLazyQuery, useSubscription } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAllNotification} from '@/graphql/queries/Notifications.queries'; 
-import {NotificationSubscription, TICKETS_NOTS_SUB, PUSH_NOTIFICATION_SUB } from '@/graphql/mutations/notificationMutation';
-import { markAsRead, markAllAsRead as markAllAsReadMutation } from '@/graphql/mutations/notificationMutation';
-import { useToast } from 'react-native-toast-notifications';
-import { ReactNode } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { set } from 'date-fns';
-import { se } from 'date-fns/locale';
-import { t } from 'i18next';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { useToast } from 'react-native-toast-notifications';
 
 interface Notification {
   id: string;
@@ -49,9 +44,7 @@ export const NotificationContext = createContext<NotificationContextType>({
   markAllRead: async () => {},
   Delete: async () => {},
   deleteAll: async () => {},
-
 });
-
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -104,8 +97,12 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
           toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
         }
       } catch (error) {
-        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
-      } 
+        toast.show('Failed to retrieve token.', {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
+      }
     };
     fetchToken();
   }, []);
@@ -114,13 +111,16 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
     if (userToken) {
       try {
         const decoded = jwtDecode<DecodedToken>(userToken as string);
-          setUserId(decoded.userId);
+        setUserId(decoded.userId);
       } catch (error) {
-        toast.show(`Failed to decode token.${error}`, { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(`Failed to decode token.${error}`, {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
       }
     }
   }, [userToken]);
-  
 
   useSubscription(PUSH_NOTIFICATION_SUB, {
     onData: (data) => {
@@ -169,20 +169,20 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
     setUnreadCount(count);
   };
   const handleMarkAsRead = async () => {
-   setUnreadCount(unreadCount - 1);
+    setUnreadCount(unreadCount - 1);
   };
 
   const handleMarkAllAsRead = async () => {
-          setUnreadCount(0);   
+    setUnreadCount(0);
   };
-  
+
   const handleDelete = async () => {
     setUnreadCount(unreadCount - 1);
-   };
- 
-   const handleDeleteAll = async () => {
-           setUnreadCount(0);   
-   };
+  };
+
+  const handleDeleteAll = async () => {
+    setUnreadCount(0);
+  };
 
   return (
     <NotificationContext.Provider
@@ -193,7 +193,6 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
         markAllRead: handleMarkAllAsRead,
         Delete: handleDelete,
         deleteAll: handleDeleteAll,
-
       }}
     >
       {children}
