@@ -42,10 +42,10 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
   };
 
   const formik = useFormik({
-    initialValues: {email: '', password: '' } as FormValues,
+    initialValues: {} as FormValues,
     onSubmit: async (values: FormValues) => {
       setLoading(true);
-      onSubmit(values);
+      await onSubmit(values);
       setLoading(false);
     },
     validationSchema: UserLoginSchema,
@@ -94,25 +94,25 @@ export default function UserLogin({ onSubmit }: userLoginProps) {
               )}
             </View>
             <View>
-            <Text className={`pl-2 pt-4 ${textColor}`}>{t('userLogin.password')}</Text>
-            <View
-              className={`mt-2 relative flex items-center flex-row gap-3 border-2 border-[#D2D2D2] rounded-[10px] px-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
-            >
-              <Ionicons
+              <Text className={`pl-2 pt-4 ${textColor}`}>{t('userLogin.password')}</Text>
+              <View
+                className={`mt-2 relative flex items-center flex-row gap-3 border-2 border-[#D2D2D2] rounded-[10px] px-3 ${colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light-50'}`}
+              >
+                <Ionicons
                   name="lock-closed"
                   className="py-4"
                   size={20}
                   color={colorScheme === 'dark' ? '#e5e7eb' : '#1f2937'}
                 />
-              <TextInput
-                className={`font-Inter-Regular flex-1 text-start ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
-                placeholder={t('userLogin.password')}
-                placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
-                secureTextEntry={secureTextEntry}
-                onChangeText={formik.handleChange('password')}
-                onBlur={formik.handleBlur('password')}
-                value={formik.values.password}
-              />
+                <TextInput
+                  className={`font-Inter-Regular flex-1 text-start ${colorScheme === 'dark' ? 'text-primary-light' : 'text-secondary-dark-400'}`}
+                  placeholder={t('userLogin.password')}
+                  placeholderTextColor={colorScheme === 'dark' ? '#FFFFFF' : '#9e9e9e'}
+                  secureTextEntry={secureTextEntry}
+                  onChangeText={formik.handleChange('password')}
+                  onBlur={formik.handleBlur('password')}
+                  value={formik.values.password}
+                />
 
                 <TouchableOpacity
                   className=""

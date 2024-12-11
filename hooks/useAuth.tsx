@@ -9,18 +9,18 @@ const getInitialState = async () => {
       return {
         ...parsedUser,
         id: parsedUser.userId || parsedUser.id, // Ensure id is always set
-        notifications: parsedUser.notifications || []
+        notifications: parsedUser.notifications || [],
       };
     }
   } catch (error) {
     console.error('Failed to load user from AsyncStorage:', error);
   }
-  return { 
-    id: '', 
-    name: '', 
-    role: 'user', 
-    auth: false, 
-    notifications: [] 
+  return {
+    id: '',
+    name: '',
+    role: 'user',
+    auth: false,
+    notifications: [],
   };
 };
 
@@ -126,7 +126,6 @@ const UserProvider: React.FC<Props> = ({ children }) => {
     }
     return context;
   };
-  
 
   const value = useMemo(
     () => ({

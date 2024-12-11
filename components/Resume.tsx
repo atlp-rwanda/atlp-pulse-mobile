@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  useColorScheme,
-  TextInput,
-  ActivityIndicator,
-} from 'react-native';
-import * as DocumentPicker from 'expo-document-picker';
-import { DocumentPickerResult } from 'expo-document-picker';
 import { UPLOAD_RESUME } from '@/graphql/mutations/Resume.mutations';
-import { useToast } from 'react-native-toast-notifications';
+import { GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import * as DocumentPicker from 'expo-document-picker';
+import { DocumentPickerResult } from 'expo-document-picker';
 import { jwtDecode } from 'jwt-decode';
-import { GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 
 const Resume = () => {
   const colorScheme = useColorScheme();

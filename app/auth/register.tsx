@@ -12,12 +12,7 @@ import { useFormik } from 'formik';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ActivityIndicator,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-} from 'react-native';
+import { ActivityIndicator, TextInput, TouchableOpacity, useColorScheme } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SvgXml } from 'react-native-svg';
 import { useToast } from 'react-native-toast-notifications';
@@ -316,7 +311,7 @@ export default function RegisterForm() {
           <TouchableOpacity
             onPress={() => {
               if (!TCAccepted) {
-                toast.show(t('toasts.auth.acceptTerms'), {type:"Warning"});
+                toast.show(t('toasts.auth.acceptTerms'), { type: 'Warning' });
                 return;
               }
               formik.handleSubmit();

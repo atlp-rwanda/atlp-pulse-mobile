@@ -1,33 +1,33 @@
-import { useState, useEffect, useContext } from 'react';
-import { useSubscription } from '@apollo/client';
-import{ View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  ActivityIndicator,
-  useColorScheme,
-  ScrollView,
-} from 'react-native';
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
-import { useToast } from 'react-native-toast-notifications';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAllNotification } from '@/graphql/queries/Notifications.queries';
-import { formatDistanceToNowStrict } from 'date-fns';
 import {
   deleteNotification,
-  markAsRead,
   markAllAsRead,
-NotificationSubscription,
-TICKETS_NOTS_SUB,
-PUSH_NOTIFICATION_SUB,
+  markAsRead,
+  NotificationSubscription,
+  PUSH_NOTIFICATION_SUB,
+  TICKETS_NOTS_SUB,
 } from '@/graphql/mutations/notificationMutation';
-import { jwtDecode } from 'jwt-decode';
+import { getAllNotification } from '@/graphql/queries/Notifications.queries';
 import { NotificationContext } from '@/hooks/useNotification';
-import { Swipeable } from 'react-native-gesture-handler';
-import { useTranslation } from 'react-i18next';
-import { enUS, fr, es, de } from 'date-fns/locale';
+import { useLazyQuery, useMutation, useSubscription } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { de, enUS, es, fr } from 'date-fns/locale';
 import { useRouter } from 'expo-router';
+import { jwtDecode } from 'jwt-decode';
+import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  ActivityIndicator,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
+import { useToast } from 'react-native-toast-notifications';
 const rw = {
   code: 'rw',
   formatDistance: (token: string, count: number, options: any) => {
@@ -57,7 +57,6 @@ const rw = {
     firstWeekContainsDate: 4,
   },
 };
-
 
 interface Notification {
   id: string;
@@ -111,7 +110,6 @@ const Notifications = () => {
     }
   };
 
-
   const [fetchNotifications] = useLazyQuery(getAllNotification, {
     context: {
       headers: {
@@ -148,7 +146,7 @@ const Notifications = () => {
       }
     },
   });
-  
+
   useSubscription(PUSH_NOTIFICATION_SUB, {
     onData: (data) => {
       const newNotification = data.data.data.pushNotification;
@@ -163,7 +161,6 @@ const Notifications = () => {
     },
   });
 
-
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -174,8 +171,12 @@ const Notifications = () => {
           toast.show('Token Not found.', { type: 'danger', placement: 'top', duration: 3000 });
         }
       } catch (error) {
-        toast.show('Failed to retrieve token.', { type: 'danger', placement: 'top', duration: 3000 });
-      } 
+        toast.show('Failed to retrieve token.', {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
+      }
     };
     fetchToken();
   }, []);
@@ -189,13 +190,17 @@ const Notifications = () => {
     if (userToken) {
       try {
         const decoded = jwtDecode<DecodedToken>(userToken as string);
-          setUserId(decoded.userId);
+        setUserId(decoded.userId);
       } catch (error) {
-        toast.show(`Failed to decode token.${error}`, { type: 'danger', placement: 'top', duration: 3000 });
+        toast.show(`Failed to decode token.${error}`, {
+          type: 'danger',
+          placement: 'top',
+          duration: 3000,
+        });
       }
     }
   }, [userToken]);
-  
+
   useSubscription(NotificationSubscription, {
     onData: (data) => {
       const newNotification = data.data.data.newRating;
@@ -301,7 +306,6 @@ const Notifications = () => {
     try {
       const token = await AsyncStorage.getItem('authToken');
       if (!token) throw new Error('Authentication token is missing');
-     
 
       await delNotification({
         variables: { deleteNotificationsId: id },
@@ -311,7 +315,7 @@ const Notifications = () => {
       });
 
       setNotifications((prev) => prev.filter((notification) => notification.id !== id));
-       const notificationToDelete = notifications.find((notification) => notification.id === id);
+      const notificationToDelete = notifications.find((notification) => notification.id === id);
       if (notificationToDelete && !notificationToDelete.read) {
         setUnreadCount((prevCount) => prevCount - 1);
         Delete(id);
@@ -414,7 +418,9 @@ const Notifications = () => {
     );
   }
   const filteredNotifications =
-    activeTab === 'All' ? notifications : notifications.filter((notification) => !notification.read);
+    activeTab === 'All'
+      ? notifications
+      : notifications.filter((notification) => !notification.read);
 
   return (
     <SafeAreaView className={`flex ${bgColor}`}>
@@ -424,12 +430,17 @@ const Notifications = () => {
       <View className="flex-row items-center justify-between p-4 border-b border-gray-200">
         <View className="flex-row gap-4 space-x-4">
           <TouchableOpacity onPress={() => setActiveTab('All')}>
-            <Text className={`text-lg  ${activeTab === 'All' ? 'text-action-400 font-semibold' : textColor}`}>{t('notifications.all')}</Text>
+            <Text
+              className={`text-lg  ${activeTab === 'All' ? 'text-action-400 font-semibold' : textColor}`}
+            >
+              {t('notifications.all')}
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity
-            onPress={() =>  setActiveTab('Unread')}>
-            <Text className={`text-lg  ${activeTab === 'Unread' ? 'text-action-400 font-semibold' : textColor}`}>
+
+          <TouchableOpacity onPress={() => setActiveTab('Unread')}>
+            <Text
+              className={`text-lg  ${activeTab === 'Unread' ? 'text-action-400 font-semibold' : textColor}`}
+            >
               {t('notifications.unread')} ({unreadCount})
             </Text>
           </TouchableOpacity>
@@ -446,7 +457,9 @@ const Notifications = () => {
             <Text className="text-gray-500">{t('notifications.noNotifications')}</Text>
           </View>
         ) : (
-          filteredNotifications.map((item) => <View key={item.id}>{renderNotification({ item })}</View>)
+          filteredNotifications.map((item) => (
+            <View key={item.id}>{renderNotification({ item })}</View>
+          ))
         )}
       </ScrollView>
     </SafeAreaView>

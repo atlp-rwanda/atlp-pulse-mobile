@@ -98,7 +98,9 @@ export default function ResetPassword() {
                   keyboardType="email-address"
                 />
               </View>
-              {formik.touched.email && formik.errors.email && <Text className="mb-4 text-error-500">{t('forgotPassword.errorEmail')}</Text>}
+              {formik.touched.email && formik.errors.email && (
+                <Text className="mb-4 text-error-500">{t('forgotPassword.errorEmail')}</Text>
+              )}
               <TouchableOpacity
                 testID="submit-button"
                 onPress={() => formik.handleSubmit()}

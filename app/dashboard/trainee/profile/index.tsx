@@ -1,21 +1,21 @@
-import { Text, View } from '@/components/Themed';
-import { useEffect, useState } from 'react';
-import { Image, Pressable, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
-import { SvgXml } from 'react-native-svg';
-import * as ImagePicker from 'expo-image-picker';
 import { editBG } from '@/assets/Icons/dashboard/Icons';
 import ProfileAvatar from '@/components/ProfileAvatar';
+import { Text, View } from '@/components/Themed';
 import AboutTrainee from '@/components/trainee/About';
 import ProfileAccountTab from '@/components/trainee/Account';
 import TraineeOrg from '@/components/trainee/Organisation';
-import { GET_PROFILE, GET_TRAINEE_PROFILE } from '@/graphql/queries/user';
+import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
+import { GET_PROFILE } from '@/graphql/queries/user';
 import { useMutation, useQuery } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router, useLocalSearchParams, useRouter } from 'expo-router';
-import { useToast } from 'react-native-toast-notifications';
+import * as ImagePicker from 'expo-image-picker';
+import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
+import { Image, Pressable, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
+import { SvgXml } from 'react-native-svg';
+import { useToast } from 'react-native-toast-notifications';
 
 type TabKey = 'About' | 'Organisation' | 'Account';
 
@@ -36,7 +36,6 @@ export default function Profile() {
     setSelectedType(type as TabKey);
   };
   const [orgToken, setOrgToken] = useState<string | null>(null);
-  const [traineeProfile, setTraineeProfile] = useState<any>({});
   const accountPasswordUpdated = () => {
     setSelectedType('About');
   };
@@ -68,6 +67,9 @@ export default function Profile() {
   useEffect(() => {
     if (data) {
       setProfile(data.getProfile);
+      (async function () {
+        await AsyncStorage.setItem('userProfile', JSON.stringify(data.getProfile));
+      })();
     }
   }, [data]);
 
@@ -94,34 +96,6 @@ export default function Profile() {
     };
     fetchOrgToken();
   }, []);
-
-  const { data: traineedata, error: err } = useQuery(GET_TRAINEE_PROFILE, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    },
-    skip: !userToken,
-    variables: {
-      orgToken: orgToken,
-    },
-  });
-
-  useEffect(() => {
-    if (err) {
-      toast.show(t('toasts.dashboard.profileErr'), {
-        type: 'danger',
-        placement: 'top',
-        duration: 3000,
-      });
-    }
-  }, [err]);
-
-  useEffect(() => {
-    if (traineedata) {
-      setTraineeProfile(traineedata.getProfile);
-    }
-  }, [traineedata]);
 
   const [updateAvatar] = useMutation(UPDATE_AVATAR, {
     context: {
@@ -203,7 +177,7 @@ export default function Profile() {
             <ProfileAvatar name={profile?.name} src={profile?.avatar} size="lg" />
             <TouchableOpacity
               onPress={handleImagePicker}
-              className="absolute items-center justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
+              className="absolute justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
             >
               <Ionicons name="camera" size={18} color="white" />
               <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">
@@ -241,12 +215,7 @@ export default function Profile() {
         className="mt-4 w-[100%] flex-grow"
       >
         {selectedType === 'About' && (
-          <AboutTrainee
-            profile={profile}
-            Resume={traineeProfile}
-            bgColor={bgColor}
-            textColor={textColor}
-          />
+          <AboutTrainee profile={profile} bgColor={bgColor} textColor={textColor} />
         )}
 
         {selectedType === 'Organisation' && (

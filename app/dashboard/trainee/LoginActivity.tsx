@@ -1,12 +1,11 @@
 import { GET_LOGIN_ACTIVITIES } from '@/graphql/queries/loginActivity';
 import { useQuery } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { t } from 'i18next';
-import { useState, useEffect, Key } from 'react';
+import { Key, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import SkeletonLoader from './LoginActivitySkeleton';
-import { useTranslation } from 'react-i18next';
 
 interface Profile {
   __typename: string;
@@ -37,9 +36,7 @@ export default function LoginActivity() {
   const { t } = useTranslation();
 
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
-  const bgColor = colorScheme === 'dark' ? 'bg-gray-500' : 'bg-gray-500';
-  const inputbg = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-primary-light';
-  // Fetch user token from AsyncStorage
+
   useEffect(() => {
     const fetchToken = async () => {
       const token = await AsyncStorage.getItem('authToken');
@@ -51,6 +48,7 @@ export default function LoginActivity() {
     };
     fetchToken();
   }, []);
+
   const { loading, data, error } = useQuery(GET_LOGIN_ACTIVITIES, {
     context: {
       headers: {
@@ -64,9 +62,17 @@ export default function LoginActivity() {
     if (error) {
       setLoginActivities([]);
     }
-  }, [error]);
 
-  let fetchedData = data?.getProfile.activity || [];
+    if (data) {
+      let activities = data.getProfile.activity || [];
+      if (Array.isArray(activities)) {
+        setLoginActivities([...activities].reverse());
+      } else {
+        setLoginActivities([]);
+      }
+    }
+  }, [error, data]);
+
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -76,12 +82,13 @@ export default function LoginActivity() {
       setPage((prevPage) => prevPage - 1);
     }
   };
+
   const pageSize = 12;
-  const totalActivities = fetchedData.length;
+  const totalActivities = loginActivities.length;
   const totalPages = Math.ceil(totalActivities / pageSize);
   const startIndex = (page - 1) * pageSize;
   const endIndex = Math.min(startIndex + pageSize, totalActivities);
-  const displayActivities = fetchedData.slice(startIndex, endIndex);
+  const displayActivities = loginActivities.slice(startIndex, endIndex);
 
   return (
     <View>
@@ -95,22 +102,22 @@ export default function LoginActivity() {
           <View className="pt-5 rounded-tl-sm rounded-tr-sm">
             <View className="flex flex-row bg-[#5856D6] h-12 rounded-tl-md rounded-tr-md">
               <Text className="w-52 border-r border-r-[#808080] p-2 text-white text-center font-bold">
-              {t('loginActivity.Date')}
+                {t('loginActivity.Date')}
               </Text>
               <Text className="w-32 p-2 border-r border-r-[#808080] text-white  text-center font-bold">
-              {t('loginActivity.CountryName')}
+                {t('loginActivity.CountryName')}
               </Text>
               <Text className="w-24 border-r border-r-[#808080] p-2 text-white text-center font-bold">
-              {t('loginActivity.City')}
+                {t('loginActivity.City')}
               </Text>
               <Text className="w-24 border-r border-r-[#808080] p-2 text-white text-center font-bold">
-              {t('loginActivity.State')}
+                {t('loginActivity.State')}
               </Text>
               <Text className="w-36 border-r border-r-[#808080] p-2 text-white text-center font-bold">
-              {t('loginActivity.IPv4')}
+                {t('loginActivity.IPv4')}
               </Text>
               <Text className="w-28  p-2 text-white text-center font-bold">
-              {t('loginActivity.Attempt')}
+                {t('loginActivity.Attempt')}
               </Text>
             </View>
             {displayActivities.length === 0 ? (
@@ -148,8 +155,7 @@ export default function LoginActivity() {
                   <Text
                     className={`${textColor} w-28 border-r border-r-[#808080] p-2  text-center`}
                   >
-                   {item.failed === 0 ? t('loginActivity.Failed') : t('loginActivity.Success')}
-
+                    {item.failed === 0 ? t('loginActivity.Failed') : t('loginActivity.Success')}
                   </Text>
                 </View>
               ))
@@ -160,16 +166,14 @@ export default function LoginActivity() {
 
       <View className="flex flex-row justify-center gap-5 items-center pt-2">
         <Text className={`${textColor}`}>
-        {t('loginActivity.Page{page}of{totalPages}', { page, totalPages })}
-
+          {t('loginActivity.Page{page}of{totalPages}', { page, totalPages })}
         </Text>
         {page > 1 && (
           <TouchableOpacity
             onPress={() => handleGoBack()}
             style={[{ padding: 8, borderRadius: 8, backgroundColor: '#6B7280' }]}
           >
-            <Text style={{  color: '#FFFFFF' }}>{t('loginActivity.Previous')}
-            </Text>
+            <Text style={{ color: '#FFFFFF' }}>{t('loginActivity.Previous')}</Text>
           </TouchableOpacity>
         )}
         {page < totalPages && (
@@ -178,8 +182,7 @@ export default function LoginActivity() {
             style={{ padding: 8, backgroundColor: '#3B82F6', borderRadius: 8 }}
           >
             <Text style={{ marginLeft: 2, color: textColor, backgroundColor: '#3B82F6' }}>
-            {t('loginActivity.Next')}
-
+              {t('loginActivity.Next')}
             </Text>
           </TouchableOpacity>
         )}

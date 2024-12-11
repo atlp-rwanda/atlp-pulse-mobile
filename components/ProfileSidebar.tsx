@@ -18,7 +18,7 @@ const ProfileSidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const colorScheme = useColorScheme();
   const { t } = useTranslation();
   const theme = useColorScheme();
- 
+
   const iconColor = colorScheme === 'dark' ? 'white' : 'black';
   const [isHovered, setIsHovered] = useState(false);
 
@@ -46,21 +46,22 @@ const ProfileSidebar: React.FC<SidebarProps> = ({ onClose }) => {
         <TouchableOpacity
           className=" py-4 ml-4 flex flex-row gap-3"
           onPress={() => handleNavigate('/dashboard/trainee/profile')}
-        ><AntDesign name="user" size={20} color={iconColor} />
+        >
+          <AntDesign name="user" size={20} color={iconColor} />
           <Text
             className={`font-bold text-xl ml-4
                 ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}
                  `}
           >
-           {t('settings.profile')}
+            {t('settings.profile')}
           </Text>
         </TouchableOpacity>
-        
 
         <TouchableOpacity
           className="py-4 ml-4 flex flex-row gap-3"
           onPress={() => handleNavigate('/dashboard/trainee/preference')}
-        ><AntDesign name="setting" size={20} color={iconColor} />
+        >
+          <AntDesign name="setting" size={20} color={iconColor} />
           <Text
             className={`font-bold text-xl ml-4
                 ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}
@@ -75,7 +76,8 @@ const ProfileSidebar: React.FC<SidebarProps> = ({ onClose }) => {
           onPress={() => handleNavigate('/dashboard/trainee/LoginActivity')}
           onPressIn={() => setIsHovered(true)}
           onPressOut={() => setIsHovered(false)}
-        ><AntDesign name="login" size={20} color={iconColor} />
+        >
+          <AntDesign name="login" size={20} color={iconColor} />
           <Text
             className={`font-bold text-xl ml-4
                 ${theme === 'light' ? 'text-[#333]' : 'text-[#f5f5f5]'}

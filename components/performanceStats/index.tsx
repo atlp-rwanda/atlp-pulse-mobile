@@ -3,20 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TRAINEE_RATING } from '@/graphql/queries/rating';
 import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import {
-  ScrollView,
-  Text,
-  useColorScheme,
-  useWindowDimensions,
-  View
-} from 'react-native';
+import { ScrollView, Text, useColorScheme, useWindowDimensions, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useToast } from 'react-native-toast-notifications';
 import CircularIndicator from './circleIndicator';
 import styles from './styles';
 
 const PerformanceScores = () => {
-  const toast = useToast()
+  const toast = useToast();
   const { t } = useTranslation();
   const colors = {
     quality: 'rgba(160, 132, 244, 1)',
@@ -91,16 +85,16 @@ const PerformanceScores = () => {
 
   if (fetchedData.length === 0) {
     const placeholderGraph = {
-    labels: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
-    datasets: [
-      {
-        data: [0, 0, 0, 0],
-        color: () => 'rgba(200, 200, 200, 0.5)', 
-        strokeWidth: 1,
-      },
-    ],
-  legend: ['No Data Available'],
-};
+      labels: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
+      datasets: [
+        {
+          data: [0, 0, 0, 0],
+          color: () => 'rgba(200, 200, 200, 0.5)',
+          strokeWidth: 1,
+        },
+      ],
+      legend: ['No Data Available'],
+    };
 
     return (
       <ScrollView contentContainerStyle={[styles.container, { backgroundColor }]}>
@@ -131,19 +125,19 @@ const PerformanceScores = () => {
           </View>
         </View>
         <Text style={[styles.chartHeader, { color: textColor }]}>{t('performance.stats')}</Text>
-      <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50 }}>
-        <LineChart
-          data={placeholderGraph}
-          width={dimensions.width - 40}
-          height={220}
-          chartConfig={chartConfig}
-          bezier
-          fromZero
-          yAxisInterval={1}
-          segments={4}
-          style={{ height: '100%', width: '100%' }}
-        />
-      </View>
+        <View style={{ height: 200, paddingVertical: 16, marginLeft: -40, marginBottom: 50 }}>
+          <LineChart
+            data={placeholderGraph}
+            width={dimensions.width - 40}
+            height={220}
+            chartConfig={chartConfig}
+            bezier
+            fromZero
+            yAxisInterval={1}
+            segments={4}
+            style={{ height: '100%', width: '100%' }}
+          />
+        </View>
       </ScrollView>
     );
   }

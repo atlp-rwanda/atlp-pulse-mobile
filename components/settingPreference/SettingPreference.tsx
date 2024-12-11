@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { View, Switch, Text, useColorScheme, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { router } from 'expo-router';
-import LanguagePicker from '../LanguagePicker';
-import { Dropdown } from 'react-native-element-dropdown';
-import { useTranslation } from 'react-i18next';
-import { useMutation, useQuery } from '@apollo/client';
-import { EnableTwoFactorAuth,DisableTwoFactorAuth } from '@/graphql/mutations/two-factor.mutation';
-import {updatePushNotifications,updateEmailNotifications} from '@/graphql/mutations/notificationMutation';
-import { useToast } from 'react-native-toast-notifications';
 import {
-  forward_pref_icon,
-  down_arrow
-}  from '@/assets/Preference_icons/preference_icons'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+  down_arrow,
+  forward_pref_icon
+} from '@/assets/Preference_icons/preference_icons';
+import { updateEmailNotifications, updatePushNotifications } from '@/graphql/mutations/notificationMutation';
+import { DisableTwoFactorAuth, EnableTwoFactorAuth } from '@/graphql/mutations/two-factor.mutation';
 import { GET_PROFILE } from '@/graphql/queries/user';
+import { useMutation, useQuery } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Image, StyleSheet, Switch, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { useToast } from 'react-native-toast-notifications';
+import LanguagePicker from '../LanguagePicker';
 
 const settings = () => {
   const toast = useToast();
@@ -27,6 +27,7 @@ const settings = () => {
   const [updatePushNotificationsMutation] = useMutation(updatePushNotifications);
   const [userToken, setUserToken] = useState<string | null>(null);
   const [selectedTheme, setSelectedTheme] = useState('system');
+  const [themeSelectOpen, setThemeSelectOpen] = useState(false);
   const { t } = useTranslation();
 
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
@@ -123,7 +124,9 @@ const settings = () => {
 
   return (
     <View className={`p-4 mb-8 ${containerStyle}`}>
-      <Text className={`text-2xl font-extrabold ml-4 mb-4 ${textStyle}`}>{t('settings.title')}</Text>
+      <Text className={`text-2xl font-extrabold ml-4 mb-4 ${textStyle}`}>
+        {t('settings.title')}
+      </Text>
       {/* Profile Section */}
       <View className={`rounded-lg`}>
         <TouchableOpacity
@@ -164,16 +167,15 @@ const settings = () => {
           <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.themePreferences')}</Text>
         </View>
         <View className="flex-row items-center gap-5">
-          <Dropdown
-            labelField="label"
-            valueField="value"
-            data={themeData}
+          <DropDownPicker
+            items={themeData}
             value={selectedTheme}
-            onChange={(item) => {}}
+            open={themeSelectOpen}
+            setOpen={setThemeSelectOpen}
             placeholder="Select Theme"
-            selectedTextStyle={{ color: colorScheme === 'dark' ? '#fff' : '#000' }}
-            //@ts-ignore
-            style={styles.picker(colorScheme)}
+            theme={colorScheme === 'dark' ? 'DARK' : 'LIGHT'}
+            setValue={setSelectedTheme}
+            style={{ borderColor: 'transparent' }}
           />
         </View>
       </View>
@@ -182,7 +184,9 @@ const settings = () => {
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg  justify-between`}>
         <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.language')}</Text>
         <View className="flex-row justify-between  w-full mr-4">
-          <Text className={`${textStyle} mt-2 text-lg flex-1`}>{t('settings.languagePreference')}</Text>
+          <Text className={`${textStyle} mt-2 text-lg flex-1`}>
+            {t('settings.languagePreference')}
+          </Text>
           <View className={`border  ${borderColor}  flex-1 rounded-md `}>
             <LanguagePicker showFlag={false} />
           </View>
@@ -193,9 +197,7 @@ const settings = () => {
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-between`}>
         <View className="flex-1 mr-4">
           <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.emailNotify')}</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>
-          {t('settings.emailFeeds')}
-          </Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.emailFeeds')}</Text>
         </View>
         <Switch
             value={emailEnabled}
@@ -209,9 +211,7 @@ const settings = () => {
       <View className={`mb-6 p-4 border-t ${borderColor} rounded-lg flex-row justify-between`}>
         <View className="flex-1 mr-4">
           <Text className={`text-xl font-bold ${textStyle}`}>{t('settings.pushNotify')}</Text>
-          <Text className={`text-lg mt-2 ${textStyle}`}>
-          {t('settings.pushUpdates')}
-          </Text>
+          <Text className={`text-lg mt-2 ${textStyle}`}>{t('settings.pushUpdates')}</Text>
         </View>
         <Switch
             value={pushEnabled}

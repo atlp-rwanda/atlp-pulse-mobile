@@ -42,4 +42,3 @@ export const GET_TRAINEE_ATTENDANCE = gql`
     }
   }
 `;
-

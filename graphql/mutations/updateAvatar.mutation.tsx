@@ -7,4 +7,3 @@ export const UPDATE_AVATAR = gql`
     }
   }
 `;
-

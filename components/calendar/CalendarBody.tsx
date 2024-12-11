@@ -58,30 +58,28 @@ const CalendarBody = () => {
   const eventsForSelectedDate = events.filter((event: Event) => {
     const start = dayjs(event.start);
     const end = dayjs(event.end);
-    return dayjs(selectedDate).isSameOrAfter(start, 'day') && dayjs(selectedDate).isSameOrBefore(end, 'day');
+    return (
+      dayjs(selectedDate).isSameOrAfter(start, 'day') &&
+      dayjs(selectedDate).isSameOrBefore(end, 'day')
+    );
   });
 
   return (
-    <View className='justify-center items-center mb-10'>
-      <View className='w-full flex-row justify-between items-center mb-8'>
-        <Text className={`text-xl font-Inter-Bold px-1 rounded ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>
+    <View className="justify-center items-center mb-10">
+      <View className="w-full flex-row justify-between items-center mb-8">
+        <Text
+          className={`text-xl font-Inter-Bold px-1 rounded ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}
+        >
           Calendar
         </Text>
       </View>
       <View>
-        <DatePickerCard
-          onDateChange={handleDateChange}
-          events={events}
-        />
+        <DatePickerCard onDateChange={handleDateChange} events={events} />
       </View>
 
-      <View className='w-full'>
+      <View className="w-full">
         {eventsForSelectedDate.map((event: Event) => (
-          <EventCard
-            key={event.id}
-            eventstarttime={event.timeToStart}
-            eventName={event.title}
-          />
+          <EventCard key={event.id} eventstarttime={event.timeToStart} eventName={event.title} />
         ))}
       </View>
     </View>

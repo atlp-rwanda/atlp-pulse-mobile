@@ -4,9 +4,10 @@
     "slug": "devpulse",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "devpulse",
+    "scheme": "pulseapp",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "icon": "./assets/images/icon.png",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.atlp.pulseapp",
@@ -15,11 +16,12 @@
       }
     },
     "android": {
+      "package": "com.atlp.pulseapp",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.atlp.pulseapp",
       "intentFilters": [
         {
           "action": "VIEW",
@@ -35,25 +37,40 @@
         }
       ]
     },
-    "plugins": ["expo-router", "expo-font", "expo-localization",  [
-      "expo-image-picker",
-      {
-        "photosPermission": "The app needs access to your photos to let you upload a profile picture."
-      }
-    ],
-    [
-      "expo-splash-screen",
-      {
-        "backgroundColor": "#E0E7FF",
-        "image": "./assets/images/icon.png",
-        "dark": {
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#E0E7FF",
+          "mode": "production"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#E0E7FF",
           "image": "./assets/images/icon.png",
-          "backgroundColor": "#020917"
-        },
-        "imageWidth": 128
-      }
-    ]
-  ],
+          "dark": {
+            "image": "./assets/images/icon.png",
+            "backgroundColor": "#020917"
+          },
+          "imageWidth": 128
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your photos to let you upload a profile picture."
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     },

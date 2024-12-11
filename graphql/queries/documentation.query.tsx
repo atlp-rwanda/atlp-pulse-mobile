@@ -1,16 +1,16 @@
 import { gql } from '@apollo/client';
 
 export const GET_DOCUMENTATIONS = gql`
-query GetDocumentations {
+  query GetDocumentations {
     getDocumentations {
-        id
+      id
+      title
+      for
+      description
+      subDocuments {
         title
-        for
         description
-        subDocuments {
-            title
-            description
-        }
+      }
     }
-}
+  }
 `;

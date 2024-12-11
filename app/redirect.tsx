@@ -1,9 +1,9 @@
 import { Text, View } from '@/components/Themed';
 import { Href, Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Linking } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
-import { useTranslation } from 'react-i18next';
 
 type RedirectParams = {
   path: string;
@@ -19,7 +19,7 @@ export default function Redirect() {
   useEffect(() => {
     (async () => {
       if (!path) {
-        router.replace('/');
+        router.replace('/(onboarding)');
         return;
       }
 
@@ -43,7 +43,7 @@ export default function Redirect() {
   return (
     <View className="items-center justify-center flex-1">
       <Text className="text-xl dark:text-white">{t('redirecting')}...</Text>
-      <Link href="/" className="mt-12">
+      <Link href="/(onboarding)" className="mt-12">
         <View className="px-4 py-3 rounded-full bg-action-500">
           <Text className="text-lg text-white">{t('go_to_home_screen')}</Text>
         </View>

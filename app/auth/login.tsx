@@ -1,52 +1,21 @@
 import OrgLogin from '@/components/Login/OrgLogin';
 import UserLogin from '@/components/Login/UserLogin';
-import TwoFactorScreen from '../two-factor';
 import { LOGIN_MUTATION, ORG_LOGIN_MUTATION } from '@/graphql/mutations/login.mutation';
-import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Href, useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect,useState } from 'react';
-import { useToast } from 'react-native-toast-notifications';
-import {ToastAndroid } from 'react-native';
+import { RelativePathString, useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-class ErrorHandler {
-  static handleNetworkError() {
-    ToastAndroid.show('There was a problem contacting the server', ToastAndroid.LONG);
-  }
-
-  static handleInvalidCredentials() {
-    ToastAndroid.show('Error Invalid credentials',ToastAndroid.LONG);
-  }
-
-  static handleCustomError(message: string | undefined) {
-    ToastAndroid.show('Error:' + message,ToastAndroid.LONG);
-  }
-
-  static handleGeneralError() {
-    ToastAndroid.show('Error An unexpected error occurred.',ToastAndroid.LONG);
-  }
-}
+import { useToast } from 'react-native-toast-notifications';
 
 export default function SignInOrganization() {
   const toast = useToast();
   const router = useRouter();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [orgLoginSuccess, setOrgLoginSuccess] = useState(false);
   const [orgLoginMutation] = useMutation(ORG_LOGIN_MUTATION);
   const [LoginUser] = useMutation(LOGIN_MUTATION);
-  const params = useLocalSearchParams<{ redirect?: string; logout: string }>();
-  const client = useApolloClient();
-
-  useEffect(() => {
-    if (params.logout == '1') {
-      while (router.canGoBack()) {
-        router.back();
-      }
-      client.clearStore();
-      router.replace('/auth/login');
-    }
-  }, []);
+  const params = useLocalSearchParams<{ redirect?: string }>();
 
   const onOrgSubmit = async (values: any) => {
     try {
@@ -69,13 +38,13 @@ export default function SignInOrganization() {
           setOrgLoginSuccess(true);
         },
         onError(err: any) {
-          toast.show(err.message,{
+          toast.show(err.message, {
             type: 'fail',
-            placement : 'top',
-            duration : 5000,
-            animationType : 'slide-in',
+            placement: 'top',
+            duration: 5000,
+            animationType: 'slide-in',
             style: { backgroundColor: 'red' },
-          })
+          });
         },
       });
     } catch (err: any) {
@@ -105,13 +74,10 @@ export default function SignInOrganization() {
             if (data.loginUser.user.role === 'trainee') {
               await AsyncStorage.setItem('authToken', token);
 
-              while (router.canGoBack()) {
-                router.back();
-              }
-              
+              router.canDismiss() && router.dismissAll();
               params.redirect
-                ? router.push(`${params.redirect}` as Href<string | object>)
-                : router.push('/dashboard');
+                ? router.replace(`${params.redirect}` as RelativePathString)
+                : router.replace('/dashboard');
               return;
             } else {
               toast.show(t('toasts.auth.loginErr'), {
@@ -129,7 +95,7 @@ export default function SignInOrganization() {
             }
           else {
             await AsyncStorage.setItem('authToken', data.loginUser.token);
-            router.push('/dashboard');
+            router.replace('/dashboard');
           }
         },
         onError: (err) => {
@@ -143,7 +109,7 @@ export default function SignInOrganization() {
         },
       });
     } catch (error: any) {
-      toast.show(t('toasts.auth.generalError') , { type: 'danger' });
+      toast.show(t('toasts.auth.generalError'), { type: 'danger' });
     }
   };
 

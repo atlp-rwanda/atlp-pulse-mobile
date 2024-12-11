@@ -21,7 +21,7 @@ type FormValues = {
 
 const SetNewPassword = () => {
   const { token } = useLocalSearchParams();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const originalToken = Array.isArray(token) ? token.join('.') : token?.replace(/\*/g, '.');
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);

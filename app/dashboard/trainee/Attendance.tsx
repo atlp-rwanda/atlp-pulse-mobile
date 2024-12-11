@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { GET_TRAINEE_ATTENDANCE } from '@/graphql/queries/Attendance';
+import { useQuery } from '@apollo/client';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useQuery } from '@apollo/client';
-import { GET_TRAINEE_ATTENDANCE } from '@/graphql/queries/Attendance';
-import { useColorScheme } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
 import { jwtDecode } from 'jwt-decode';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Image, ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 
 interface DayStatus {
   date: string;
@@ -49,9 +47,8 @@ export default function TraineeAttendance() {
   const [traineeId, setTraineeId] = useState<string | null>(null);
   const [selectedWeekAverage, setSelectedWeekAverage] = useState<string | null>(null);
 
-
   const toast = useToast();
-  const {t} = useTranslation ();
+  const { t } = useTranslation();
 
   const colorScheme = useColorScheme();
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
@@ -114,9 +111,7 @@ export default function TraineeAttendance() {
   const phaseName = selectedPhaseData?.phase.name;
   const phaseAverage = selectedPhaseData?.phaseAverage;
   const allPhasesAverageData = data?.getTraineeAttendance.allPhasesAverage;
-  
 
- 
   useEffect(() => {
     const selectedWeekNumber = selectedWeek ? parseInt(selectedWeek, 10) : null;
 
@@ -182,9 +177,15 @@ export default function TraineeAttendance() {
 
         <View className="border mt-5">
           <View className={`flex-row justify-around h-10 ${thbg}`}>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.day')}</Text>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.date')}</Text>
-            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>{t('attendance.score')}</Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>
+              {t('attendance.day')}
+            </Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>
+              {t('attendance.date')}
+            </Text>
+            <Text className={`pt-2 flex-1 h-10 text-center font-bold ${textColor}`}>
+              {t('attendance.score')}
+            </Text>
           </View>
 
           {selectedWeekData ? (
@@ -203,9 +204,9 @@ export default function TraineeAttendance() {
                     {score == 2 ? (
                       <AntDesign name="checkcircle" size={21} color="green" />
                     ) : score == 1 ? (
-                      <View className='flex-1 items-center'>
-                          <Image source={require('../../../assets/images/attend.png')} />
-                        </View>
+                      <View className="flex-1 items-center">
+                        <Image source={require('../../../assets/images/attend.png')} />
+                      </View>
                     ) : score == 0 ? (
                       <AntDesign name="closecircle" size={21} color="red" />
                     ) : (
@@ -223,14 +224,22 @@ export default function TraineeAttendance() {
         </View>
         <View className="flex flex-col gap-y-8 xmd:flex-row justify-between xmd:items-end list-inside py-5 pl-0 pr-1 md:px-10 md:py-5 text-[.8rem] xmd:text-[.83rem] md:text-sm">
           <View>
-            <Text className={`uppercase font-semibold mb-3 ${textColor}`}>{t('attendance.attendanceAverages')}</Text>
+            <Text className={`uppercase font-semibold mb-3 ${textColor}`}>
+              {t('attendance.attendanceAverages')}
+            </Text>
             <View className="flex flex-col gap-y-2 list-disc font-medium pl-3">
-            <Text className={`${textColor} font-bold`}>{t('attendance.week')} {selectedWeekAverage !== undefined ? selectedWeekAverage : 0.0}</Text>
+              <Text className={`${textColor} font-bold`}>
+                {t('attendance.week')}{' '}
+                {selectedWeekAverage !== undefined ? selectedWeekAverage : 0.0}
+              </Text>
 
               <Text className={`${textColor} font-bold`}>
-                {phaseName !== undefined ? phaseName : t('attendance.phaseName')}: {phaseAverage !== undefined ? phaseAverage : 0.0}
+                {phaseName !== undefined ? phaseName : t('attendance.phaseName')}:{' '}
+                {phaseAverage !== undefined ? phaseAverage : 0.0}
               </Text>
-              <Text className={`${textColor} font-bold`}>{t('attendance.allPhasesAverage')} {allPhasesAverageData}</Text>
+              <Text className={`${textColor} font-bold`}>
+                {t('attendance.allPhasesAverage')} {allPhasesAverageData}
+              </Text>
             </View>
           </View>
         </View>

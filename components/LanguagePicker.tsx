@@ -57,48 +57,46 @@ export default function LanguagePicker({ showFlag = true }) {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
-        <TouchableOpacity
-          className="items-center justify-center flex-1 "
-          activeOpacity={1}
-          onPress={() => setModalVisible(false)}
-        >
-          <View className="w-4/5 p-6 bg-white rounded-lg dark:bg-gray-800">
-            <TouchableOpacity
-              className="p-4 rounded-lg bg-white dark:bg-gray-800"
-              activeOpacity={1}
-              onPress={(e) => e.stopPropagation()}
-            >
-              <Text className="mb-4 text-xl font-semibold text-center text-gray-900 dark:text-white">
-                {t('selectLanguage')}
-              </Text>
+          <TouchableOpacity
+            className="items-center justify-center flex-1 "
+            activeOpacity={1}
+            onPress={() => setModalVisible(false)}
+          >
+            <View className="w-4/5 p-6 bg-white rounded-lg dark:bg-gray-800">
+              <TouchableOpacity
+                className="p-4 rounded-lg bg-white dark:bg-gray-800"
+                activeOpacity={1}
+                onPress={(e) => e.stopPropagation()}
+              >
+                <Text className="mb-4 text-xl font-semibold text-center text-gray-900 dark:text-white">
+                  {t('selectLanguage')}
+                </Text>
 
-              <View >
-                {LANGUAGES.map((lang) => (
-                  <TouchableOpacity
-                    key={lang.code}
-                    className={`flex-row items-center p-3 rounded mb-2 ${
-                      i18n.language === lang.code ? 'bg-blue-100 dark:bg-blue-900' : ''
-                    }`}
-                    onPress={() => handleLanguageChange(lang.code)}
-                  >
-                    <CountryFlag isoCode={lang.flagCode} size={24} />
-                    <Text
-                      className={`text-lg ml-3 text-gray-900 dark:text-white ${
-                        i18n.language === lang.code
-                          ? 'font-semibold text-blue-600 dark:text-blue-400'
-                          : ''
+                <View>
+                  {LANGUAGES.map((lang) => (
+                    <TouchableOpacity
+                      key={lang.code}
+                      className={`flex-row items-center p-3 rounded mb-2 ${
+                        i18n.language === lang.code ? 'bg-blue-100 dark:bg-blue-900' : ''
                       }`}
+                      onPress={() => handleLanguageChange(lang.code)}
                     >
-                      {t(lang.labelKey)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-
-              
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
+                      <CountryFlag isoCode={lang.flagCode} size={24} />
+                      <Text
+                        className={`text-lg ml-3 text-gray-900 dark:text-white ${
+                          i18n.language === lang.code
+                            ? 'font-semibold text-blue-600 dark:text-blue-400'
+                            : ''
+                        }`}
+                      >
+                        {t(lang.labelKey)}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>

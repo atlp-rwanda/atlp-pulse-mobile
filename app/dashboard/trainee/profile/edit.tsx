@@ -1,15 +1,18 @@
-import Resume from '@/components/Resume';
 import ProfileAvatar from '@/components/ProfileAvatar';
+import Resume from '@/components/Resume';
 import { COUNTRIES } from '@/constants/countries';
+import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
 import { UPDATE_PROFILE } from '@/graphql/mutations/UpdateProfile.mutation';
 import { GET_PROFILE } from '@/graphql/queries/user';
 import { EditProfileSchema } from '@/validations/editProfile.schema';
 import { useMutation, useQuery } from '@apollo/client';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   Text,
@@ -21,9 +24,6 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useToast } from 'react-native-toast-notifications';
 import { CoverImage } from '.';
-import { useTranslation } from 'react-i18next';
-import * as ImagePicker from 'expo-image-picker';
-import { UPDATE_AVATAR } from '@/graphql/mutations/updateAvatar.mutation';
 
 type FormValues = {
   firstName: string;
@@ -100,6 +100,9 @@ const EditProfile = () => {
   useEffect(() => {
     if (data) {
       setProfile(data.getProfile);
+      (async function () {
+        await AsyncStorage.setItem('userProfile', JSON.stringify(data.getProfile));
+      })();
     }
   }, [data]);
 
@@ -256,7 +259,7 @@ const EditProfile = () => {
             <ProfileAvatar name={profile?.name} src={profile.avatar} size="lg" />
             <TouchableOpacity
               onPress={handleImagePicker}
-              className="absolute items-center justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
+              className="absolute justify-center left-24 bottom-8 pl-3 pr-4 py-2.5 bg-action-500 rounded-lg flex flex-row items-center w-32 h-13"
             >
               <Ionicons name="camera" size={18} color="white" />
               <Text className="text-white text-xl ml-1.5 font-Inter-SemiBold">

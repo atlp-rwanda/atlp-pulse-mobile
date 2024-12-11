@@ -23,7 +23,9 @@ const DocumentationComponent = () => {
   const textColor = colorScheme === 'dark' ? 'text-gray-100' : 'text-gray-800';
   const bgColor = colorScheme === 'dark' ? 'bg-primary-dark' : 'bg-secondary-light';
 
-  const { data, loading, error } = useQuery<{ getDocumentations: Documentation[] }>(GET_DOCUMENTATIONS);
+  const { data, loading, error } = useQuery<{ getDocumentations: Documentation[] }>(
+    GET_DOCUMENTATIONS
+  );
 
   if (loading) {
     return (
@@ -46,12 +48,8 @@ const DocumentationComponent = () => {
   const renderSubDocuments = (subDocs: SubDocument[]) => {
     return subDocs.map((subDoc, index) => (
       <View key={index} className="ml-4 mb-4">
-        <Text className={`mb-2 font-semibold text-lg ${textColor}`}>
-          {subDoc.title}
-        </Text>
-        <Text className={`mb-2 text-lg ${textColor}`}>
-          {subDoc.description}
-        </Text>
+        <Text className={`mb-2 font-semibold text-lg ${textColor}`}>{subDoc.title}</Text>
+        <Text className={`mb-2 text-lg ${textColor}`}>{subDoc.description}</Text>
       </View>
     ));
   };
@@ -61,22 +59,16 @@ const DocumentationComponent = () => {
       <Text className={`text-2xl font-bold text-center mb-6 ${textColor}`}>
         {t('documentation.pageTitle')}
       </Text>
-      
+
       {documentations.map((doc, index) => (
         <View key={doc.id || index} className="mb-8 border-b border-gray-300 pb-4">
-          <Text className={`text-xl font-semibold mb-4 text-action-500`}>
-            {doc.title}
-          </Text>
-          
+          <Text className={`text-xl font-semibold mb-4 text-action-500`}>{doc.title}</Text>
+
           <View className="ml-4">
-            <Text className={`mb-4 text-lg ${textColor}`}>
-              {doc.description}
-            </Text>
+            <Text className={`mb-4 text-lg ${textColor}`}>{doc.description}</Text>
 
             {doc.subDocuments && doc.subDocuments.length > 0 && (
-              <View className="mt-4">
-                {renderSubDocuments(doc.subDocuments)}
-              </View>
+              <View className="mt-4">{renderSubDocuments(doc.subDocuments)}</View>
             )}
           </View>
         </View>
@@ -119,13 +111,11 @@ const DocumentationComponent = () => {
               {t('documentation.login.title')}
             </Text>
             <View className="ml-4">
-              <Text className={`mb-4 text-lg ${textColor}`}>
-                {t('documentation.login.intro')}
-              </Text>
+              <Text className={`mb-4 text-lg ${textColor}`}>{t('documentation.login.intro')}</Text>
               <Text className={`mb-4 ${textColor} text-lg`}>
                 {t('documentation.login.welcome')}
               </Text>
-              
+
               <Text className={`mb-2 font-semibold text-lg ${textColor}`}>
                 {t('documentation.login.stepsTitle')}
               </Text>
