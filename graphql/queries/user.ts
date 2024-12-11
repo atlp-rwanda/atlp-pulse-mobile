@@ -23,7 +23,9 @@ export const GET_PROFILE = gql`
         emailNotifications
         twoFactorAuth
         role
+        pushNotificationTokens
         team {
+          id
           name
           cohort {
             name
@@ -68,5 +70,17 @@ export const GET_TRAINEE_PROFILE = gql`
       lastName
       resume
     }
+  }
+`;
+
+export const ADD_PUSH_NOTIFICATION_TOKEN = gql`
+  mutation AddPushNotificationToken($pushToken: String!) {
+    addPushNotificationToken(pushToken: $pushToken)
+  }
+`;
+
+export const REMOVE_PUSH_NOTIFICATION_TOKEN = gql`
+  mutation RemovePushNotificationToken($pushToken: String!) {
+    removePushNotificationToken(pushToken: $pushToken)
   }
 `;

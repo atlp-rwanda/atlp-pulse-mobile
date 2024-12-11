@@ -71,7 +71,9 @@ export default function ProfileAccountTab({ passwordUpdated }: ProfileAccountTab
 
   return (
     <View className={`${bgColor} mx-4 p-6 rounded-lg w-full`}>
-      <Text className={`${textColor} font-Inter-SemiBold text-xl mb-5 uppercase`}>{t('account.resetPassword')}</Text>
+      <Text className={`${textColor} font-Inter-SemiBold text-xl mb-5 uppercase`}>
+        {t('account.resetPassword')}
+      </Text>
       <View className="mb-4">
         <Text className="text-gray-800 dark:text-gray-200 font-Inter-Medium mb-1">
           {t('account.currentPassword')}:
